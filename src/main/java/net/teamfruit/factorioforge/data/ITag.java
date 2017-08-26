@@ -24,7 +24,7 @@ public interface ITag {
 	 * A short description for the tag.
 	 * @return String
 	 */
-	String Description();
+	String getDescription();
 
 	/**
 	 * @return String

@@ -12,7 +12,7 @@ public interface IPagination {
 	 * 	Utility links to mod portal api requests, preserving all filters and search queries.
 	 * @return IPaginationLinks
 	 */
-	IPaginationLinks getLinks();
+	IPaginationLink getLinks();
 
 	/**
 	 * The current page number.

@@ -2,7 +2,7 @@ package net.teamfruit.factorioforge.data;
 
 import java.util.Optional;
 
-public interface IPaginationLinks {
+public interface IPaginationLink {
 
 	/**
 	 * URL to the first page of the results, or null if you're already on the first page.

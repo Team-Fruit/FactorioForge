@@ -6,7 +6,7 @@ public interface IPagination {
 	 * Total number of mods that match your specified filters.
 	 * @return int
 	 */
-	int getConut();
+	int getCount();
 
 	/**
 	 * 	Utility links to mod portal api requests, preserving all filters and search queries.
@@ -18,7 +18,7 @@ public interface IPagination {
 	 * The current page number.
 	 * @return int
 	 */
-	int getPageNumber();
+	int getPage();
 
 	/**
 	 * The total number of pages returned.

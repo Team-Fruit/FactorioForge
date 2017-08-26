@@ -2,6 +2,8 @@ package net.teamfruit.factorioforge.data;
 
 import java.util.List;
 
+import net.teamfruit.factorioforge.data.impl.Tag;
+
 public interface IResult {
 
 	boolean isFullResult();
@@ -27,7 +29,7 @@ public interface IResult {
 	 * 	Number of downloads.
 	 * @return int
 	 */
-	int getDownloads();
+	int getDownloadsCount();
 
 	/**
 	 * A list of major Factorio version strings (e.g. "0.13") starting with 0.13 that the mod is compatible with, in addition to the version(s) found in "latest_release" / "releases".
@@ -88,7 +90,7 @@ public interface IResult {
 	 * @return Always 0
 	 */
 	@Deprecated
-	int getRatingCount();
+	int getRatingsCount();
 
 	/**
 	 * A shorter mod description.
@@ -100,7 +102,7 @@ public interface IResult {
 	 * A list of tag objects that categorize the mod.
 	 * @return List<ITag>
 	 */
-	List<ITag> getTags();
+	List<Tag> getTags();
 
 	/**
 	 * The mod's human-readable name.

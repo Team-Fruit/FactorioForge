@@ -3,15 +3,17 @@ jdk: oraclejdk8
 branches:
   except:
     - /^build@.*/
-install: "mvn clean install"
+install:
+  - mvn clean install
 cache:
   directories:
     - .autoconf
     - $HOME/.m2
 notifications:
   email: false
+  webhooks: ${WEBHOOK_DISCORD}
 before_deploy:
-  - "mvn package"
+  - mvn package
   - git config --global user.email "builds@travis-ci.com"
   - git config --global user.name "Travis CI"
   - export GIT_TAG=build@${TRAVIS_BRANCH}#${TRAVIS_BUILD_NUMBER}

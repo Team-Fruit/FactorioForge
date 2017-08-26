@@ -2,8 +2,8 @@ package net.teamfruit.factorioforge.factorioapi.data;
 
 import java.util.List;
 
-import net.teamfruit.factorioforge.data.impl.MediaFile;
-import net.teamfruit.factorioforge.data.impl.Release;
+import net.teamfruit.factorioforge.factorioapi.data.impl.MediaFile;
+import net.teamfruit.factorioforge.factorioapi.data.impl.Release;
 
 public interface IFullResult extends IResult {
 

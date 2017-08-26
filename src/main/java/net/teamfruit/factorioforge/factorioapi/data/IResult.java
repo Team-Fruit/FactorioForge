@@ -2,9 +2,9 @@ package net.teamfruit.factorioforge.factorioapi.data;
 
 import java.util.List;
 
-import net.teamfruit.factorioforge.data.impl.Tag;
+import net.teamfruit.factorioforge.factorioapi.data.impl.Tag;
 
-public interface IResult {
+public interface IResult extends IError {
 
 	boolean isFullResult();
 

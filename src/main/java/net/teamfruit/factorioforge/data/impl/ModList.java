@@ -2,7 +2,7 @@ package net.teamfruit.factorioforge.data.impl;
 
 import java.util.List;
 
-import net.teamfruit.factorioforge.data.IModList;
+import net.teamfruit.factorioforge.factorioapi.data.IModList;
 
 public class ModList implements IModList {
 

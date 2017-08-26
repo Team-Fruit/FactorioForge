@@ -1,6 +1,6 @@
 package net.teamfruit.factorioforge.data.impl;
 
-import net.teamfruit.factorioforge.data.IMediaURL;
+import net.teamfruit.factorioforge.factorioapi.data.IMediaURL;
 
 public class MediaURL implements IMediaURL {
 

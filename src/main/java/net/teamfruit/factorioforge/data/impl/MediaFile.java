@@ -1,6 +1,6 @@
 package net.teamfruit.factorioforge.data.impl;
 
-import net.teamfruit.factorioforge.data.IMediaFile;
+import net.teamfruit.factorioforge.factorioapi.data.IMediaFile;
 
 public class MediaFile implements IMediaFile {
 

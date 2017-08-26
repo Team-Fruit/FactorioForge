@@ -26,7 +26,7 @@ public class FactorioForgeTest {
 
 	@Test
 	public void test() {
-		// fail("まだ実装されていません");
+		// fail("通知テスト");
 	}
 
 }

@@ -1,9 +1,0 @@
-package net.teamfruit.factorioforge.ui
-
-import javafx.scene.layout.VBox
-
-dynamic component FactorioForgeUI {
-	VBox {
-		//TODO Add Nodes
-	}
-}

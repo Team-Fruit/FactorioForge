@@ -10,8 +10,8 @@ cache:
     - .autoconf
     - $HOME/.m2
 notifications:
-  email: true
-  webhooks: ${WEBHOOK_DISCORD}
+  - email: true
+  - webhooks: ${WEBHOOK_DISCORD}
 before_deploy:
   - mvn package
   - git config --global user.email "builds@travis-ci.com"

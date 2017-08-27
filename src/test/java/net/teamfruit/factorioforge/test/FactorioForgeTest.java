@@ -1,7 +1,5 @@
 package net.teamfruit.factorioforge.test;
 
-import static org.junit.Assert.*;
-
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -28,7 +26,7 @@ public class FactorioForgeTest {
 
 	@Test
 	public void test() {
-		fail("通知テスト");
+		// fail("通知テスト");
 	}
 
 }

@@ -2,9 +2,9 @@ package net.teamfruit.factorioforge.factorioapi;
 
 import net.teamfruit.factorioforge.factorioapi.data.IResponse;
 
-public interface APICallback<T> {
+public interface APICallback<E extends IResponse> {
 
-	void onSuccess(T res);
+	void onSuccess(E res);
 
 	void onErrorResponse(IResponse res);
 

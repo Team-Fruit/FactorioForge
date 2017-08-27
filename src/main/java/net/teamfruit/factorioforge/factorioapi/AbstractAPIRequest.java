@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import net.teamfruit.factorioforge.factorioapi.data.IResponse;
 import net.teamfruit.factorioforge.factorioapi.data.impl.Response;
 
-public abstract class AbstractAPIRequest implements APIRequest {
+public abstract class AbstractAPIRequest<E extends IResponse> implements APIRequest<E> {
 
 	protected final String endPoint;
 
@@ -30,17 +30,17 @@ public abstract class AbstractAPIRequest implements APIRequest {
 	}
 
 	@Override
-	public IResponse getAPIResponse() throws IOException {
+	public E getAPIResponse() throws IOException {
 		final URL url = new URL(getURL());
 		final HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 		connection.setConnectTimeout(1000*50);
 		try (BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8))) {
-			final IResponse res = parseAPIResponse(br.lines().collect(Collectors.joining()));
+			final E res = parseAPIResponse(br.lines().collect(Collectors.joining()));
 			if (res instanceof Response)
 				((Response) res).setEndPoint(getEndPoint());
 			return res;
 		}
 	}
 
-	abstract protected IResponse parseAPIResponse(String raw);
+	abstract protected E parseAPIResponse(String raw);
 }

@@ -3,7 +3,7 @@ package net.teamfruit.factorioforge.factorioapi;
 import net.teamfruit.factorioforge.factorioapi.data.IModList;
 import net.teamfruit.factorioforge.factorioapi.data.impl.ModList;
 
-public class ModListAPI extends AbstractAPIRequest {
+public class ModListAPI extends AbstractAPIRequest<IModList> {
 
 	protected int page;
 

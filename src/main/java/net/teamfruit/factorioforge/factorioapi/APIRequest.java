@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import net.teamfruit.factorioforge.factorioapi.data.IResponse;
 
-public interface APIRequest {
+public interface APIRequest<E extends IResponse> {
 
 	String URL = "https://mods.factorio.com/api/";
 
@@ -12,6 +12,6 @@ public interface APIRequest {
 
 	String getURL();
 
-	IResponse getAPIResponse() throws IOException;
+	E getAPIResponse() throws IOException;
 
 }

@@ -3,7 +3,7 @@ package net.teamfruit.factorioforge.factorioapi;
 import net.teamfruit.factorioforge.factorioapi.data.IResult;
 import net.teamfruit.factorioforge.factorioapi.data.impl.Result;
 
-public class ModSearchAPI extends AbstractAPIRequest {
+public class ModSearchAPI extends AbstractAPIRequest<IResult> {
 
 	protected String modName;
 

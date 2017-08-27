@@ -3,15 +3,21 @@ package net.teamfruit.factorioforge.factorioapi;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.stream.Collectors;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.HttpClientBuilder;
 
 import net.teamfruit.factorioforge.factorioapi.data.IResponse;
 import net.teamfruit.factorioforge.factorioapi.data.impl.Response;
 
 public abstract class AbstractAPIRequest<E extends IResponse> implements APIRequest<E> {
+
+	public static HttpClient client = HttpClientBuilder.create().setDefaultRequestConfig(RequestConfig.custom().setConnectTimeout(10*1000).setSocketTimeout(10*1000).build()).build();
 
 	protected final String endPoint;
 
@@ -31,14 +37,13 @@ public abstract class AbstractAPIRequest<E extends IResponse> implements APIRequ
 
 	@Override
 	public E getAPIResponse() throws IOException {
-		final URL url = new URL(getURL());
-		final HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-		connection.setConnectTimeout(1000*50);
-		try (BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8))) {
-			final E res = parseAPIResponse(br.lines().collect(Collectors.joining()));
-			if (res instanceof Response)
-				((Response) res).setEndPoint(getEndPoint());
-			return res;
+		final HttpGet get = new HttpGet(getURL());
+		final HttpResponse res = client.execute(get);
+		try (BufferedReader br = new BufferedReader(new InputStreamReader(res.getEntity().getContent(), StandardCharsets.UTF_8))) {
+			final E apiresponse = parseAPIResponse(br.lines().collect(Collectors.joining()));
+			if (apiresponse instanceof Response)
+				((Response) apiresponse).setEndPoint(getEndPoint());
+			return apiresponse;
 		}
 	}
 

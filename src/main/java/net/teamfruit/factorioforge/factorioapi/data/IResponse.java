@@ -1,6 +1,8 @@
 package net.teamfruit.factorioforge.factorioapi.data;
 
-public interface IError {
+public interface IResponse {
+
+	String getEndPoint();
 
 	boolean isError();
 

@@ -25,4 +25,7 @@ public interface IPaginationLink {
 	 * @return String
 	 */
 	String getLast();
+
+	boolean hasNext();
+
 }

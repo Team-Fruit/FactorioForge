@@ -1,6 +1,6 @@
-package net.teamfruit.factorioforge.data.impl;
+package net.teamfruit.factorioforge.factorioapi.data.impl;
 
-import net.teamfruit.factorioforge.data.ITag;
+import net.teamfruit.factorioforge.factorioapi.data.ITag;
 
 public class Tag implements ITag {
 

@@ -1,11 +1,11 @@
-package net.teamfruit.factorioforge.data.impl;
+package net.teamfruit.factorioforge.factorioapi.data.impl;
 
 import java.util.List;
 
-import net.teamfruit.factorioforge.data.IFullResult;
-import net.teamfruit.factorioforge.data.IShortResult;
+import net.teamfruit.factorioforge.factorioapi.data.IFullResult;
+import net.teamfruit.factorioforge.factorioapi.data.IShortResult;
 
-public class Result implements IShortResult, IFullResult {
+public class Result extends Error implements IShortResult, IFullResult {
 
 	private String created_at;
 	private String current_user_rating;

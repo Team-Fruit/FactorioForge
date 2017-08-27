@@ -1,10 +1,10 @@
-package net.teamfruit.factorioforge.data.impl;
+package net.teamfruit.factorioforge.factorioapi.data.impl;
 
 import java.util.List;
 
-import net.teamfruit.factorioforge.data.IModList;
+import net.teamfruit.factorioforge.factorioapi.data.IModList;
 
-public class ModList implements IModList {
+public class ModList extends Error implements IModList {
 
 	private Pagination pagination;
 	private List<Result> results;

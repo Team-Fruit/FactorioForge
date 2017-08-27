@@ -3,15 +3,19 @@ jdk: oraclejdk8
 branches:
   except:
     - /^build@.*/
-install: "mvn clean install"
+install:
+  - mvn clean install
 cache:
   directories:
     - .autoconf
     - $HOME/.m2
 notifications:
   email: false
+  webhooks:
+    urls:
+      secure: "J7NcBcBaqcQUyqdLNBh+Ll8hjbmx28rERCS4e5OwOh3zvUhi7+BoF4MfuehwEXyNM2L+ahmaa5UEErE3eVWo4W/50psnif2oAHvjEbR3bF2F99CXkrPJgur83R9RhiCQidnStRH2dEHZ4cObHKDDIDMY1R36zKDVlZiv7sQn61WyeBxcEue+pFqEufFIKNcF7ZbNL6IYAZnGCYJpP+qxpKO9qvB9cwYVVqaFMV6tTlnTypI0vw7egHifs58CdMsiXhetZtIibpuxEUoIAsyenaXONKsPjWUkopvKgYdb7VYRHt05TGOkMGrJm3pERCD3x0KzJqSozccijN0E2iV+KSE2v1n28CWiYx3Zps8C3THOLLVqL8PzRZ1zytuZroApdBD2yteZ4jhC1zA2QQCvu6tjj0E7AI8t91rfwVyZ33+t+XNfyGscCDF4gW/yNyYzTeTdd2C1ZXfvut1XJ8mk+ZssbN/12kjQk/CftV/6kvy2fmIP+dW1vY2zxZPoDR2iZBPsbRirKacQkf5aHm17ip3dvx7GjJLKmKh5PDjGjoSvCThZLJ61NKjJctsup2CUkN/LY8B6PW7wUtI45OVt4wrBfPqrHG/5HpoEWi5gEXYmkb2tFZ4gCCLIL+HMp5Rs6VNgO4HzXPiujFy3rk3VEww5A7KTgkOlMN4pXxFuVeE="
 before_deploy:
-  - "mvn package"
+  - mvn package
   - git config --global user.email "builds@travis-ci.com"
   - git config --global user.name "Travis CI"
   - export GIT_TAG=build@${TRAVIS_BRANCH}#${TRAVIS_BUILD_NUMBER}

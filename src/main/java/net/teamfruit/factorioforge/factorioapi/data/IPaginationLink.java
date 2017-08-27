@@ -1,4 +1,4 @@
-package net.teamfruit.factorioforge.data;
+package net.teamfruit.factorioforge.factorioapi.data;
 
 public interface IPaginationLink {
 

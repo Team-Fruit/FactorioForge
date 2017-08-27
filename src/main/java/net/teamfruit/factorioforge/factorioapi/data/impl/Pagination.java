@@ -1,6 +1,6 @@
-package net.teamfruit.factorioforge.data.impl;
+package net.teamfruit.factorioforge.factorioapi.data.impl;
 
-import net.teamfruit.factorioforge.data.IPagination;
+import net.teamfruit.factorioforge.factorioapi.data.IPagination;
 
 public class Pagination implements IPagination {
 

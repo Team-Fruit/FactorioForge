@@ -11,8 +11,7 @@ public class Release implements IRelease {
 	private int file_size;
 	private String game_version;
 	private int id;
-	//TODO
-	private String info_json;
+	private Info info_json;
 	private String released_at;
 	private String version;
 
@@ -52,7 +51,7 @@ public class Release implements IRelease {
 	}
 
 	@Override
-	public String getInfoJson() {
+	public Info getInfoJson() {
 		return this.info_json;
 	}
 

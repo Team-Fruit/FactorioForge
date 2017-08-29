@@ -5,11 +5,11 @@ import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 
-public class UIView extends AnchorPane {
-	protected final UIViewController controller;
+public class UIModCell extends AnchorPane {
+	protected final UIModCellController controller;
 
-	public UIView() throws IOException {
-		final FXMLLoader loader = new FXMLLoader(getClass().getResource("UIView.fxml"));
+	public UIModCell() throws IOException {
+		final FXMLLoader loader = new FXMLLoader(getClass().getResource("UIModCell.fxml"));
 		loader.setRoot(this);
 		// The following line is supposed to help Scene Builder, although it doesn't seem to be needed for me.
 		loader.setClassLoader(getClass().getClassLoader());

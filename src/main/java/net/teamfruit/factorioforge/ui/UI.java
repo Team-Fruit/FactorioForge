@@ -2,6 +2,7 @@ package net.teamfruit.factorioforge.ui;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class UI extends Application {
@@ -15,7 +16,8 @@ public class UI extends Application {
 	 */
 	@Override
 	public void start(final Stage stage) throws Exception {
-		final UIView root = new UIView();
+		final AnchorPane root = UIFactory.loadUI("UIView");
+
 		final Scene scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();

@@ -9,15 +9,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 
 public class UIFactory {
-	public static AnchorPane loadUI(final String name, final Class<?> env) throws IOException {
+	public static FXMLLoader loadUI(final String name, final Class<?> env) throws IOException {
 		final FXMLLoader loader = new FXMLLoader(env.getResource(StringUtils.removeEnd(name, ".fxml")+".fxml"));
 		loader.setRoot(new AnchorPane());
 		// The following line is supposed to help Scene Builder, although it doesn't seem to be needed for me.
 		loader.setClassLoader(env.getClassLoader());
-		return loader.load();
+		loader.load();
+		return loader;
 	}
 
-	public static AnchorPane loadUI(final String name) throws IOException {
+	public static FXMLLoader loadUI(final String name) throws IOException {
 		return loadUI(name, ReflectionUtil.getCallerClass(UIFactory.class));
 	}
 }

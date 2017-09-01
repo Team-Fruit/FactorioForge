@@ -16,7 +16,7 @@ public class UI extends Application {
 	 */
 	@Override
 	public void start(final Stage stage) throws Exception {
-		final AnchorPane root = UIFactory.loadUI("UIView");
+		final AnchorPane root = UIFactory.loadUI("UIView").getRoot();
 
 		final Scene scene = new Scene(root);
 		stage.setScene(scene);

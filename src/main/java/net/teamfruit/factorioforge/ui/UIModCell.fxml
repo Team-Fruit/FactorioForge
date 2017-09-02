@@ -6,23 +6,31 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-
-<fx:root prefHeight="30.0" prefWidth="854.0" stylesheets="@styles.css" type="AnchorPane" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="net.teamfruit.factorioforge.ui.UIModCell">
+<fx:root prefHeight="30.0" prefWidth="854.0" stylesheets="@styles.css" type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.teamfruit.factorioforge.ui.UIModCell">
    <children>
       <BorderPane fx:id="slidePane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
             <AnchorPane prefHeight="200.0" prefWidth="854.0">
                <children>
-                  <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <BorderPane layoutX="15.0" prefHeight="30.0" prefWidth="779.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <left>
-                        <Label text="Label" BorderPane.alignment="CENTER" />
+                        <Label text="MOD1" BorderPane.alignment="CENTER">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets></Label>
                      </left>
                   </BorderPane>
                </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
             </AnchorPane>
          </center>
          <left>
-            <Button fx:id="slideButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSlideButtonClicked" prefHeight="30.0" prefWidth="30.0" text="&gt;" BorderPane.alignment="CENTER" />
+            <Button fx:id="slideButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSlideButtonClicked" prefHeight="30.0" prefWidth="30.0" text="&gt;" BorderPane.alignment="CENTER">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets></Button>
          </left>
       </BorderPane>
    </children>

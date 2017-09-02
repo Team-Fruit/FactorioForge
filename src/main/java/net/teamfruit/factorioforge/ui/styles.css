@@ -1,5 +1,37 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
-#buttonId {
-	-fx-font-size: 25px;
+.details {
+	-fx-background-color: #36393e;
+}
 
+.details > .titlewrap {
+	-fx-background-color: #2f3136;
+}
+
+.details .scroll-pane, .details > .scroll-pane > .viewport {
+	-fx-background-color: transparent;
+}
+
+.details .title, .details .subtitle, .details .content {
+	-fx-text-fill: #fff;
+	-fx-fill: #fff;
+}
+
+.details .title {
+	-fx-font-size: 19px;
+	-fx-font-family: Tahoma;
+	-fx-font-weight: Bold;
+}
+
+.details .subtitle {
+	-fx-font-size: 17px;
+	-fx-font-family: Dialog;
+}
+
+.details .content {
+	-fx-font-size: 13px;
+	-fx-font-family: Dialog;
+}
+
+.details .contentcontainer > * {
+	-fx-padding: 3px;
 }

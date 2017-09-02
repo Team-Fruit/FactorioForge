@@ -5,13 +5,23 @@
 -->
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
 
 <fx:root prefHeight="480.0" prefWidth="854.0" stylesheets="@styles.css" type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.teamfruit.factorioforge.ui.UIView">
    <children>
@@ -28,12 +38,26 @@
                      </BorderPane.margin>
                   </ImageView>
                </left>
+               <right>
+                  <HBox alignment="CENTER" BorderPane.alignment="CENTER">
+                     <BorderPane.margin>
+                        <Insets right="10.0" />
+                     </BorderPane.margin>
+                     <children>
+                        <TextField HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                  </HBox>
+               </right>
             </BorderPane>
          </top>
          <center>
             <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <center>
-                  <ListView fx:id="listView" onMousePressed="#click" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                  <ListView fx:id="listView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                      <contextMenu>
                         <ContextMenu fx:id="menu">
                           <items>
@@ -46,6 +70,224 @@
                      </contextMenu>
                   </ListView>
                </center>
+               <right>
+                  <VBox prefHeight="438.0" prefWidth="200.0" styleClass="details" BorderPane.alignment="CENTER">
+                     <children>
+                        <TextFlow styleClass="titlewrap" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="EvoGUI - Evolution Factor Indicator and moreあ">
+                                 <font>
+                                    <Font name="Tahoma Bold" size="15.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                           </padding>
+                        </TextFlow>
+                        <ScrollPane fx:id="textScroll" fitToWidth="true" prefHeight="438.0" prefWidth="223.0">
+                           <content>
+                              <VBox styleClass="contentcontainer">
+                                 <children>
+                                    <VBox>
+                                       <children>
+                                          <BorderPane>
+                                             <left>
+                                                <Label styleClass="subtitle" text="説明" BorderPane.alignment="CENTER">
+                                                   <BorderPane.margin>
+                                                      <Insets />
+                                                   </BorderPane.margin>
+                                                </Label>
+                                             </left>
+                                          </BorderPane>
+                                          <TextFlow prefHeight="9.0" prefWidth="221.0">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="content" text="Places some indications on your UI for various little statistics that are nice to have." />
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets left="10.0" />
+                                             </VBox.margin>
+                                          </TextFlow>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </VBox>
+                                    <VBox>
+                                       <children>
+                                          <BorderPane>
+                                             <left>
+                                                <Label styleClass="subtitle" text="ステータス" BorderPane.alignment="CENTER">
+                                                   <BorderPane.margin>
+                                                      <Insets />
+                                                   </BorderPane.margin>
+                                                </Label>
+                                             </left>
+                                          </BorderPane>
+                                          <TextFlow prefHeight="9.0" prefWidth="221.0">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="content" text="無効" />
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets left="10.0" />
+                                             </VBox.margin>
+                                          </TextFlow>
+                                       </children>
+                                    </VBox>
+                                    <VBox>
+                                       <children>
+                                          <BorderPane>
+                                             <left>
+                                                <Label styleClass="subtitle" text="ヌベジョン" BorderPane.alignment="CENTER">
+                                                   <BorderPane.margin>
+                                                      <Insets />
+                                                   </BorderPane.margin>
+                                                </Label>
+                                             </left>
+                                          </BorderPane>
+                                          <TextFlow prefHeight="9.0" prefWidth="221.0">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="content" text="0.4.207" />
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets left="10.0" />
+                                             </VBox.margin>
+                                          </TextFlow>
+                                       </children>
+                                    </VBox>
+                                    <VBox>
+                                       <children>
+                                          <BorderPane>
+                                             <left>
+                                                <Label styleClass="subtitle" text="作者" BorderPane.alignment="CENTER">
+                                                   <BorderPane.margin>
+                                                      <Insets />
+                                                   </BorderPane.margin>
+                                                </Label>
+                                             </left>
+                                          </BorderPane>
+                                          <TextFlow prefHeight="9.0" prefWidth="221.0">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="content" text="Octav &quot;narc&quot; Sandulescu" />
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets left="10.0" />
+                                             </VBox.margin>
+                                          </TextFlow>
+                                       </children>
+                                    </VBox>
+                                    <VBox>
+                                       <children>
+                                          <BorderPane>
+                                             <left>
+                                                <Label styleClass="subtitle" text="問い合わせ" BorderPane.alignment="CENTER">
+                                                   <BorderPane.margin>
+                                                      <Insets />
+                                                   </BorderPane.margin>
+                                                </Label>
+                                             </left>
+                                          </BorderPane>
+                                          <TextFlow prefHeight="9.0" prefWidth="221.0">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="content" text="factorio-mods@narc.ro" />
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets left="10.0" />
+                                             </VBox.margin>
+                                          </TextFlow>
+                                       </children>
+                                    </VBox>
+                                    <VBox>
+                                       <children>
+                                          <BorderPane>
+                                             <left>
+                                                <Label styleClass="subtitle" text="ホームページ" BorderPane.alignment="CENTER">
+                                                   <BorderPane.margin>
+                                                      <Insets />
+                                                   </BorderPane.margin>
+                                                </Label>
+                                             </left>
+                                          </BorderPane>
+                                          <TextFlow prefHeight="9.0" prefWidth="221.0">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="content" text="https://github.com/narc0tiq/evoGUI/" />
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets left="10.0" />
+                                             </VBox.margin>
+                                          </TextFlow>
+                                       </children>
+                                    </VBox>
+                                    <VBox>
+                                       <children>
+                                          <BorderPane>
+                                             <left>
+                                                <Label styleClass="subtitle" text="Factorioバージョン" BorderPane.alignment="CENTER">
+                                                   <BorderPane.margin>
+                                                      <Insets />
+                                                   </BorderPane.margin>
+                                                </Label>
+                                             </left>
+                                          </BorderPane>
+                                          <TextFlow prefHeight="9.0" prefWidth="221.0">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="content" text="0.15" />
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets left="10.0" />
+                                             </VBox.margin>
+                                          </TextFlow>
+                                       </children>
+                                    </VBox>
+                                    <VBox>
+                                       <children>
+                                          <BorderPane>
+                                             <left>
+                                                <Label styleClass="subtitle" text="依存" BorderPane.alignment="CENTER">
+                                                   <BorderPane.margin>
+                                                      <Insets />
+                                                   </BorderPane.margin>
+                                                </Label>
+                                             </left>
+                                          </BorderPane>
+                                          <TextFlow prefHeight="9.0" prefWidth="221.0">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="content" text="base &gt;= 0.15.0" />
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets left="10.0" />
+                                             </VBox.margin>
+                                          </TextFlow>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" right="3.0" />
+                                 </padding>
+                              </VBox>
+                           </content>
+                        </ScrollPane>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Button mnemonicParsing="false" text="🔄" />
+                              <ChoiceBox maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
+                           </children>
+                           <padding>
+                              <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                           </padding>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </right>
+               <left>
+                  <VBox prefHeight="438.0" prefWidth="60.0" BorderPane.alignment="CENTER" />
+               </left>
             </BorderPane>
          </center>
       </BorderPane>

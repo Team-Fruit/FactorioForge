@@ -30,7 +30,7 @@ public class UIModCell {
 			transition.setByX(this.state ? 30 : 0);
 			transition.setToX(this.state ? 0 : 30);
 			transition.setInterpolator(Interpolator.EASE_OUT);
-			transition.playFromStart();
+			transition.play();
 			transition.setOnFinished((ev) -> {
 				this.slideButton.setText(this.state ? ">" : "<");
 				this.state = state;

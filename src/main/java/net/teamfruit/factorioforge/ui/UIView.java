@@ -6,11 +6,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollBar;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 import net.teamfruit.factorioforge.Log;
@@ -36,6 +40,17 @@ public class UIView {
 			public ListCell<Memento> call(final ListView<Memento> arg0) {
 				return new MementoCell();
 			}
+		});
+
+		SmoothScroll.apply(this.textScroll);
+
+		for (final Node node : this.listView.lookupAll("*"))
+			if (node instanceof ScrollBar) {
+				final ScrollBar bar = (ScrollBar) node;
+				SmoothScroll.apply(bar);
+			}
+		this.listView.setOnScroll((final ScrollEvent e) -> {
+			Log.log.info(e);
 		});
 	}
 
@@ -85,4 +100,7 @@ public class UIView {
 
 		}
 	}
+
+	@FXML
+	private ScrollPane textScroll;
 }

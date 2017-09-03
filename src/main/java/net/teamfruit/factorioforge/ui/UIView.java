@@ -53,6 +53,7 @@ public class UIView {
 		this.listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
 		SmoothScroll.apply(this.textScroll);
+		SmoothScroll.apply(this.modpackScroll);
 	}
 
 	@FXML
@@ -68,4 +69,6 @@ public class UIView {
 
 	@FXML
 	private ScrollPane textScroll;
+	@FXML
+	private ScrollPane modpackScroll;
 }

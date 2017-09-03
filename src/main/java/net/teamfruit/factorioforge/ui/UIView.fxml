@@ -322,7 +322,7 @@
                <left>
                   <VBox style="-fx-background-color: #1e2124;" styleClass="scrolltransparent" BorderPane.alignment="CENTER">
                      <children>
-                        <ScrollPane hbarPolicy="NEVER" vbarPolicy="NEVER">
+                        <ScrollPane fx:id="modpackScroll" hbarPolicy="NEVER" vbarPolicy="NEVER">
                            <content>
                               <BorderPane>
                                  <bottom>

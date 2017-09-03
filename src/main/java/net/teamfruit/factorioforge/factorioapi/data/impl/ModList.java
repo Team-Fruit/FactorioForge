@@ -2,9 +2,10 @@ package net.teamfruit.factorioforge.factorioapi.data.impl;
 
 import java.util.List;
 
+import net.teamfruit.factorioforge.factorioapi.ModListAPI;
 import net.teamfruit.factorioforge.factorioapi.data.IModList;
 
-public class ModList extends Error implements IModList {
+public class ModList extends Response implements IModList {
 
 	private Pagination pagination;
 	private List<Result> results;
@@ -19,4 +20,13 @@ public class ModList extends Error implements IModList {
 		return this.results;
 	}
 
+	@Override
+	public boolean hasNext() {
+		return getPagination().hasNext();
+	}
+
+	@Override
+	public ModListAPI next() {
+		return getPagination().next();
+	}
 }

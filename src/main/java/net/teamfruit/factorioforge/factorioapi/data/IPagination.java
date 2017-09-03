@@ -1,5 +1,7 @@
 package net.teamfruit.factorioforge.factorioapi.data;
 
+import net.teamfruit.factorioforge.factorioapi.ModListAPI;
+
 public interface IPagination {
 
 	/**
@@ -31,5 +33,9 @@ public interface IPagination {
 	 * @return int
 	 */
 	int getPageSize();
+
+	boolean hasNext();
+
+	ModListAPI next();
 
 }

@@ -29,4 +29,9 @@ public class PaginationLink implements IPaginationLink {
 		return this.last;
 	}
 
+	@Override
+	public boolean hasNext() {
+		return getNext()!=null;
+	}
+
 }

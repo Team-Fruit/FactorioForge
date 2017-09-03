@@ -43,8 +43,7 @@ public interface IRelease {
 	 * A copy of the mod's info.json file.
 	 * @return String
 	 */
-	//TODO
-	String getInfoJson();
+	IInfo getInfoJson();
 
 	/**
 	 * @return String

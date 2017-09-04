@@ -8,11 +8,12 @@ import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
-public class UIModCell {
+public class UIModCellController {
 	private boolean state;
 
 	@FXML
@@ -21,6 +22,8 @@ public class UIModCell {
 	private Button slideButton;
 	@FXML
 	private Pane slideBack;
+	@FXML
+	private Label label;
 
 	@FXML
 	private void onSlideButtonClicked(final ActionEvent event) {
@@ -53,5 +56,9 @@ public class UIModCell {
 
 	public boolean getState() {
 		return this.state;
+	}
+
+	public void update(final Memento item) {
+		this.label.setText(item.getInfo().getTitle());
 	}
 }

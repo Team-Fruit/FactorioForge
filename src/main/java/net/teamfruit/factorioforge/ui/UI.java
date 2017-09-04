@@ -30,6 +30,7 @@ public class UI extends Application {
 		Application.launch();
 	}
 
+	@Deprecated
 	public static void main(final String[] args) {
 		launchApplication();
 	}

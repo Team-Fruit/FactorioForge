@@ -6,19 +6,21 @@ import net.teamfruit.factorioforge.factorioapi.data.impl.ModList;
 public class ModListAPI extends AbstractAPIRequest<IModList> {
 
 	protected int page;
+	protected int pageSize;
 
 	public ModListAPI() {
-		this(1);
+		this(1, 25);
 	}
 
-	public ModListAPI(final int page) {
+	public ModListAPI(final int page, final int pageSize) {
 		super("mods");
 		this.page = page;
+		this.pageSize = pageSize;
 	}
 
 	@Override
 	public String getURL() {
-		return super.getURL()+"?page="+this.page+"&page_size=25";
+		return super.getURL()+"?page="+this.page+"&page_size="+this.pageSize;
 	}
 
 	@Override

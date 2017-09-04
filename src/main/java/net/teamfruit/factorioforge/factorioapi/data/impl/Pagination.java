@@ -44,7 +44,7 @@ public class Pagination implements IPagination {
 	@Override
 	public ModListAPI next() {
 		if (hasNext())
-			return new ModListAPI(getPage()+1);
+			return new ModListAPI(getPage()+1, 25);
 		return null;
 	}
 }

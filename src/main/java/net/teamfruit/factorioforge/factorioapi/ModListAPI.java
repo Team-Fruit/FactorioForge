@@ -18,7 +18,7 @@ public class ModListAPI extends AbstractAPIRequest<IModList> {
 
 	@Override
 	public String getURL() {
-		return super.getURL()+"?page="+this.page;
+		return super.getURL()+"?page="+this.page+"&page_size=25";
 	}
 
 	@Override

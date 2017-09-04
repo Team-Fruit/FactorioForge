@@ -25,8 +25,6 @@ public class UIView {
 
 	@FXML
 	private void initialize() {
-		//FlatterFX.style();
-
 		for (int i = 0; i<100; i++) {
 			final Memento me = new Memento(String.format("メメント%d", i));
 			Log.log.info("メメント["+me+"]を追加します。");

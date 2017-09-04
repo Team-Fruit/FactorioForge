@@ -100,10 +100,10 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <CheckBox mnemonicParsing="false" text="有効" GridPane.columnIndex="1" />
-                              <CheckBox mnemonicParsing="false" text="無効" GridPane.columnIndex="2" />
-                              <CheckBox mnemonicParsing="false" text="キャッシュ" GridPane.columnIndex="3" />
-                              <CheckBox mnemonicParsing="false" text="MODポータル" GridPane.columnIndex="4" />
+                              <CheckBox fx:id="filterEnable" mnemonicParsing="false" selected="true" text="有効" GridPane.columnIndex="1" />
+                              <CheckBox fx:id="filterDisable" mnemonicParsing="false" selected="true" text="無効" GridPane.columnIndex="2" />
+                              <CheckBox fx:id="filterCached" mnemonicParsing="false" text="キャッシュ" GridPane.columnIndex="3" />
+                              <CheckBox fx:id="filterPublic" mnemonicParsing="false" text="MODポータル" GridPane.columnIndex="4" />
                               <Label text="Filter" />
                            </children>
                            <padding>

@@ -1,19 +1,27 @@
 package net.teamfruit.factorioforge.ui;
 
-public class Memento {
-	private final String text;
+import net.teamfruit.factorioforge.factorioapi.data.IInfo;
 
-	public Memento(final String text) {
-		this.text = text;
+public class Memento {
+	private final String name;
+	private IInfo info;
+
+	public Memento(final String name) {
+		this.name = name;
 	}
 
-	public String getProductionPath() {
-		return this.text;
+	public Memento setInfo(final IInfo info) {
+		this.info = info;
+		return this;
+	}
+
+	public IInfo getInfo() {
+		return this.info;
 	}
 
 	@Override
 	public String toString() {
-		return String.format("Memento [text=%s]", this.text);
+		return String.format("Memento [text=%s]", this.name);
 	}
 
 }

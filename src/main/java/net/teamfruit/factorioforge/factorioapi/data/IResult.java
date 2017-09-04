@@ -4,7 +4,7 @@ import java.util.List;
 
 import net.teamfruit.factorioforge.factorioapi.data.impl.Tag;
 
-public interface IResult extends IError {
+public interface IResult extends IResponse {
 
 	boolean isFullResult();
 

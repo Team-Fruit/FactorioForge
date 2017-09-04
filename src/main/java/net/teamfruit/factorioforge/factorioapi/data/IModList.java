@@ -2,9 +2,10 @@ package net.teamfruit.factorioforge.factorioapi.data;
 
 import java.util.List;
 
+import net.teamfruit.factorioforge.factorioapi.ModListAPI;
 import net.teamfruit.factorioforge.factorioapi.data.impl.Result;
 
-public interface IModList extends IError {
+public interface IModList extends IResponse {
 
 	/**
 	 * Information on ModList page.
@@ -18,4 +19,7 @@ public interface IModList extends IError {
 	 */
 	List<Result> getResults();
 
+	boolean hasNext();
+
+	ModListAPI next();
 }

@@ -1,5 +1,6 @@
 package net.teamfruit.factorioforge.factorioapi.data.impl;
 
+import net.teamfruit.factorioforge.factorioapi.ModListAPI;
 import net.teamfruit.factorioforge.factorioapi.data.IPagination;
 
 public class Pagination implements IPagination {
@@ -35,4 +36,15 @@ public class Pagination implements IPagination {
 		return this.page_size;
 	}
 
+	@Override
+	public boolean hasNext() {
+		return getLinks().hasNext();
+	}
+
+	@Override
+	public ModListAPI next() {
+		if (hasNext())
+			return new ModListAPI(getPage()+1);
+		return null;
+	}
 }

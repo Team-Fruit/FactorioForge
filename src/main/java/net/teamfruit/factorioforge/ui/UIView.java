@@ -36,8 +36,6 @@ public class UIView {
 
 	@FXML
 	private void initialize() {
-		//FlatterFX.style();
-
 		this.listView.setCellFactory(param -> new ModListCell());
 
 		final Task<ObservableList<Memento>> task = new Task<ObservableList<Memento>>() {

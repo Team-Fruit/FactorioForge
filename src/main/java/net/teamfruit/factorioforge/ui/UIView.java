@@ -73,12 +73,12 @@ public class UIView {
 				final ObservableList<Memento> list = FXCollections.observableArrayList();
 				//				updateValue(list);
 				final Map<String, File> mods = ModListConverter.discoverModsDir(new File(FactorioForge.instance.factorioDir, "mods"));
-				ModListConverter.getModList(new File(FactorioForge.instance.factorioDir, "mods\\mod-list.json")).mods.stream().forEach((mod) -> {
+				ModListConverter.getModList(new File(FactorioForge.instance.factorioDir, "mods/mod-list.json")).mods.stream().forEach((mod) -> {
 					final File modFile = mods.get(mod.name);
 					if (modFile!=null)
 						try {
 							final IInfo info = ModListConverter.getModInfo(modFile);
-							list.add(new Memento(mod.name).setInfo(info));
+							list.add(new Memento(mod.name).setInfo(info).setEnabled(mod.enabled));
 						} catch (final IOException e) {
 							throw new UncheckedIOException(e);
 						}

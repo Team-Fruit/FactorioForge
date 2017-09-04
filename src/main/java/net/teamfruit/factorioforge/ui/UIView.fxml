@@ -49,7 +49,7 @@
                         <Insets right="10.0" />
                      </BorderPane.margin>
                      <children>
-                        <Button maxHeight="1.7976931348623157E308" mnemonicParsing="false" text="Update All" />
+                        <Button maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#onUpdateAll" text="Update All" />
                         <TextField maxHeight="1.7976931348623157E308" prefWidth="218.0" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets left="15.0" />

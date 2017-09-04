@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
+import net.teamfruit.factorioforge.Log;
 
 public class UIModCell {
 	private boolean state;
@@ -25,6 +26,11 @@ public class UIModCell {
 	@FXML
 	private void onSlideButtonClicked(final ActionEvent event) {
 		setState(!getState());
+	}
+
+	@FXML
+	private void initialize() {
+		Log.log.info("{}, {}, {}", this.slidePane, this.slideButton, this.slideBack);
 	}
 
 	public void setState(final boolean state) {

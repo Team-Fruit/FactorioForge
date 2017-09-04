@@ -1,6 +1,14 @@
 package net.teamfruit.factorioforge.ui;
 
+import java.awt.Desktop;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+
+import org.apache.commons.lang3.math.NumberUtils;
+import org.jutils.jprocesses.JProcesses;
+import org.jutils.jprocesses.model.ProcessInfo;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -69,4 +77,16 @@ public class UIView {
 	private ScrollPane textScroll;
 	@FXML
 	private ScrollPane modpackScroll;
+
+	@FXML
+	private void onUpdateAll(final ActionEvent e) {
+		final List<ProcessInfo> list = JProcesses.get().fastMode().listProcesses("factorio");
+		for (final ProcessInfo info : list)
+			JProcesses.killProcessGracefully(NumberUtils.toInt(info.getPid()));
+		try {
+			Desktop.getDesktop().browse(new URI("steam://rungameid/427520"));
+		} catch (IOException|URISyntaxException e1) {
+			e1.printStackTrace();
+		}
+	}
 }

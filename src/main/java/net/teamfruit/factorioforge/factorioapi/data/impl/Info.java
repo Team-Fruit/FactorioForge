@@ -79,6 +79,11 @@ public class Info implements IInfo {
 		this.dependenciesS = dependencies;
 	}
 
+	@Override
+	public String toString() {
+		return "Info [authorS="+this.authorS+", contact="+this.contact+", dependenciesS="+this.dependenciesS+", description="+this.description+", factorio_version="+this.factorio_version+", homepage="+this.homepage+", name="+this.name+", title="+this.title+", version="+this.version+"]";
+	}
+
 	public static class DependenciesDeserilizer implements JsonDeserializer<Info> {
 		private final Gson gson = new Gson();
 

@@ -53,6 +53,7 @@ public class ModListAPI extends AbstractAPIRequest<IModList> {
 				Log.log.warn("Failed parsing mod information");
 			}
 		}
+		jr.endObject();
 		return modList;
 	}
 

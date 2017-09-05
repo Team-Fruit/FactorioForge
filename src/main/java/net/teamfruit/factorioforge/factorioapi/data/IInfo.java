@@ -21,4 +21,5 @@ public interface IInfo {
 	String getTitle();
 
 	String getVersion();
+
 }

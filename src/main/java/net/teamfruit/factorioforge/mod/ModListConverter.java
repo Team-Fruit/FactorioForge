@@ -14,25 +14,23 @@ import java.util.zip.ZipFile;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 
+import net.teamfruit.factorioforge.factorioapi.FactorioAPI;
 import net.teamfruit.factorioforge.factorioapi.data.IInfo;
 import net.teamfruit.factorioforge.factorioapi.data.impl.Info;
 
 public class ModListConverter {
 
-	public static Gson gson = new Gson();
-
 	public static ModListBean getModList(final InputStream is) throws IOException {
 		try (final JsonReader r = new JsonReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
-			return gson.fromJson(r, ModListBean.class);
+			return FactorioAPI.gson.fromJson(r, ModListBean.class);
 		}
 	}
 
 	public static ModListBean getModList(final File file) throws IOException {
 		try (JsonReader r = new JsonReader(new FileReader(file))) {
-			return gson.fromJson(r, ModListBean.class);
+			return FactorioAPI.gson.fromJson(r, ModListBean.class);
 		}
 	}
 
@@ -47,7 +45,7 @@ public class ModListConverter {
 					.findAny().orElseThrow(() -> new RuntimeException(mod.getName()+" does not include info.json")).getName());
 			if (entry!=null)
 				try (JsonReader r = new JsonReader(new InputStreamReader(zip.getInputStream(entry), StandardCharsets.UTF_8))) {
-					return gson.fromJson(r, Info.class);
+					return FactorioAPI.gson.fromJson(r, Info.class);
 				}
 			else
 				return null;

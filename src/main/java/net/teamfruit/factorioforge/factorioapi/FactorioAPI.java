@@ -9,10 +9,11 @@ import com.google.gson.GsonBuilder;
 import net.teamfruit.factorioforge.factorioapi.data.IModList;
 import net.teamfruit.factorioforge.factorioapi.data.IResponse;
 import net.teamfruit.factorioforge.factorioapi.data.IResult;
+import net.teamfruit.factorioforge.factorioapi.data.impl.Info;
 
 public class FactorioAPI {
 
-	public static Gson gson = new GsonBuilder().create();
+	public static Gson gson = new GsonBuilder().registerTypeAdapter(Info.class, new Info.DependenciesDeserilizer()).create();
 
 	public static ModListAPI newModListAPI() {
 		return new ModListAPI();

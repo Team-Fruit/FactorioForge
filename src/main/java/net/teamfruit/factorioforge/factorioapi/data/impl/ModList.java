@@ -20,6 +20,14 @@ public class ModList extends Response implements IModList {
 		return this.results;
 	}
 
+	public void setPagination(Pagination pagination) {
+		this.pagination = pagination;
+	}
+
+	public void setResults(List<Result> results) {
+		this.results = results;
+	}
+
 	@Override
 	public boolean hasNext() {
 		return getPagination().hasNext();

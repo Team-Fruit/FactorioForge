@@ -2,9 +2,8 @@ package net.teamfruit.factorioforge.factorioapi.data.impl;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-
-import org.apache.commons.lang3.StringUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonDeserializationContext;
@@ -12,15 +11,12 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import com.google.gson.reflect.TypeToken;
 
-import net.teamfruit.factorioforge.Log;
-import net.teamfruit.factorioforge.factorioapi.FactorioAPI;
 import net.teamfruit.factorioforge.factorioapi.data.IInfo;
 
 public class Info implements IInfo {
 
-	private String authorS;
+	private List<String> authorS;
 	private String contact;
 	private List<String> dependenciesS;
 	private String description;
@@ -31,7 +27,7 @@ public class Info implements IInfo {
 	private String version;
 
 	@Override
-	public String getAuthor() {
+	public List<String> getAuthor() {
 		return this.authorS;
 	}
 
@@ -75,38 +71,40 @@ public class Info implements IInfo {
 		return this.version;
 	}
 
-	public void setDependencies(List<String> dependencies) {
+	public void setAuthor(final List<String> authorS) {
+		this.authorS = authorS;
+	}
+
+	public void setDependencies(final List<String> dependencies) {
 		this.dependenciesS = dependencies;
 	}
 
 	public static class DependenciesDeserilizer implements JsonDeserializer<Info> {
-		private Gson gson = new Gson();
+		private final Gson gson = new Gson();
 
 		@Override
-		public Info deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-			Info info = this.gson.fromJson(json, Info.class);
-			JsonObject jsonObject = json.getAsJsonObject();
-			if (jsonObject.has("dependencies")) {
-				JsonElement elem = jsonObject.get("dependencies");
-				if (elem!=null&&!elem.isJsonNull()) {
-					String valuesString = null;
-					if (elem.isJsonArray())
-						if (elem.getAsJsonArray().size()==1)
-							valuesString = elem.getAsJsonArray().getAsString();
-					if (valuesString!=null)
-						valuesString = elem.getAsString();
-					Log.log.info(valuesString);
-					if (StringUtils.startsWith(valuesString, "[")) {
-						List<String> values = FactorioAPI.gson.fromJson(valuesString, new TypeToken<ArrayList<String>>() {
-						}.getType());
-						info.setDependencies(values);
-					} else {
-						info.setDependencies(new ArrayList<>());
-						info.getDependencies().add(valuesString);
-					}
-				}
-			}
+		public Info deserialize(final JsonElement json, final Type typeOfT, final JsonDeserializationContext context) throws JsonParseException {
+			final Info info = this.gson.fromJson(json, Info.class);
+			final JsonObject jsonObject = json.getAsJsonObject();
+			if (jsonObject.has("dependencies"))
+				info.setDependencies(parse(jsonObject.get("dependencies")));
+			if (jsonObject.has("author"))
+				info.setDependencies(parse(jsonObject.get("author")));
 			return info;
+		}
+
+		private List<String> parse(final JsonElement elem) {
+			final List<String> list = new ArrayList<>();
+			if (elem!=null&&!elem.isJsonNull())
+				if (elem.isJsonArray()) {
+					if (elem.getAsJsonArray().size()==1)
+						list.add(elem.getAsJsonArray().getAsString());
+					else
+						for (final Iterator<JsonElement> it = elem.getAsJsonArray().iterator(); it.hasNext();)
+							list.add(it.next().getAsString());
+				} else
+					list.add(elem.getAsString());
+			return list;
 		}
 	}
 }

@@ -1,5 +1,6 @@
 package net.teamfruit.factorioforge.factorioapi;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import com.google.gson.stream.JsonReader;
@@ -31,34 +32,26 @@ public class ModListAPI extends AbstractAPIRequest<IModList> {
 	}
 
 	@Override
-	protected IModList parseAPIResponse(final JsonReader jr) {
-		ModList modList = new ModList();
+	protected IModList parseAPIResponse(final JsonReader jr) throws IOException {
+		final ModList modList = new ModList();
 		modList.setResults(new ArrayList<>());
-		try {
-			jr.beginObject();
-			while (jr.hasNext()) {
+		jr.beginObject();
+		while (jr.hasNext()) {
+			try {
 				switch (jr.nextName()) {
 					case "pagination":
-						Log.log.info("pagination");
 						modList.setPagination(FactorioAPI.gson.fromJson(jr, Pagination.class));
-						Log.log.info("done");
 						break;
 					case "results":
-						Log.log.info("results");
 						jr.beginArray();
-						while (jr.hasNext()) {
-							Result r = FactorioAPI.gson.fromJson(jr, Result.class);
-							Log.log.info(r.getTitle());
-							modList.getResults().add(r);
-						}
+						while (jr.hasNext())
+							modList.getResults().add(FactorioAPI.gson.fromJson(jr, Result.class));
 						jr.endArray();
-						Log.log.info("done");
 						break;
 				}
+			} catch (final Exception e) {
+				Log.log.warn("Failed parsing mod information");
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			//			throw new UncheckedIOException(e);
 		}
 		return modList;
 	}

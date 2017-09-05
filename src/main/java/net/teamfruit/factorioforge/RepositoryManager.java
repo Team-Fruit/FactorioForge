@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Deque;
 import java.util.List;
 import java.util.Optional;
@@ -36,7 +35,6 @@ public class RepositoryManager {
 			final CompletableFuture<IModList> future = requestModList(1, this.count);
 			future.whenComplete((result2, t2) -> result2.getResults().stream().forEach(r -> this.releases.add(r.getShortResult().getLatestRelease())));
 			future.thenAccept(result2 -> this.thenAccepts.stream().forEach(c -> c.accept(result2)));
-			future.thenAccept(a -> System.out.println("aaa"));
 		});
 	}
 
@@ -69,11 +67,9 @@ public class RepositoryManager {
 	}
 
 	private CompletableFuture<IModList> requestModList(final int page, final int pageSize) {
-		Log.log.info("{} {}", pageSize, new Date());
 		return CompletableFuture.supplyAsync(() -> {
 			try {
 				final IModList modList = FactorioAPI.getModList(page, pageSize);
-				Log.log.info("{} {}", pageSize, new Date());
 				return modList;
 			} catch (final IOException e) {
 				throw new UncheckedIOException(e);

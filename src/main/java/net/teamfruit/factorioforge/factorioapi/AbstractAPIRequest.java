@@ -55,5 +55,5 @@ public abstract class AbstractAPIRequest<E extends IResponse> implements APIRequ
 		}
 	}
 
-	abstract protected E parseAPIResponse(JsonReader jr);
+	abstract protected E parseAPIResponse(JsonReader jr) throws IOException;
 }

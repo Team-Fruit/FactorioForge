@@ -49,7 +49,7 @@ public class UIModDetailController {
 	}
 
 	public void setAuthor(final List<String> text) {
-		setDependencies(StringUtils.join(text, "\n"));
+		setAuthor(StringUtils.join(text, "\n"));
 	}
 
 	public void setContact(final String text) {

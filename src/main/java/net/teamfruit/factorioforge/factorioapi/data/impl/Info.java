@@ -89,7 +89,7 @@ public class Info implements IInfo {
 			if (jsonObject.has("dependencies"))
 				info.setDependencies(parse(jsonObject.get("dependencies")));
 			if (jsonObject.has("author"))
-				info.setDependencies(parse(jsonObject.get("author")));
+				info.setAuthor(parse(jsonObject.get("author")));
 			return info;
 		}
 

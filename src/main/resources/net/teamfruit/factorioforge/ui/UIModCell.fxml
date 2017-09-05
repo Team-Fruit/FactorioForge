@@ -34,7 +34,7 @@
                   <AnchorPane maxHeight="1.7976931348623157E308" prefWidth="52.0" styleClass="modbuttonwrap" VBox.vgrow="ALWAYS">
                      <children>
                         <Pane fx:id="slideBack" maxHeight="1.7976931348623157E308" prefWidth="13.0" styleClass="modbuttonback" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                        <Button fx:id="slideButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSlideButtonClicked" prefWidth="26.0" styleClass="modbutton" text="&gt;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <Button fx:id="slideButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSlideButtonClicked" prefWidth="26.0" styleClass="modbutton" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>

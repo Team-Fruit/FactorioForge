@@ -41,7 +41,6 @@ public class UIModCellController {
 			transition1.setInterpolator(Interpolator.EASE_OUT);
 			transition1.play();
 			transition1.setOnFinished((ev) -> {
-				this.slideButton.setText(this.state ? ">" : "<");
 				this.state = state;
 				this.slideButton.setDisable(false);
 			});

@@ -20,18 +20,29 @@ import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import net.teamfruit.factorioforge.FactorioForge;
 import net.teamfruit.factorioforge.RepositoryManager;
 import net.teamfruit.factorioforge.factorioapi.data.IInfo;
 import net.teamfruit.factorioforge.mod.ModListConverter;
 
 public class UIView {
+	private AnchorPane uidetail;
+	private UIModDetailController uidetailcontroller;
+	@FXML
+	private Text uidetailtitle;
+	@FXML
+	private VBox uidetailwrap;
+
 	// 画面項目
 	@FXML
 	private Label typeLabel;
@@ -40,8 +51,21 @@ public class UIView {
 	private ObservableList<Memento> listRecords = FXCollections.observableArrayList();
 
 	@FXML
-	private void initialize() {
+	private void initialize() throws IOException {
+		final FXMLLoader moddetail = UIFactory.loadUI("UIModDetail");
+		this.uidetail = moddetail.getRoot();
+		this.uidetailcontroller = moddetail.getController();
+
 		this.listView.setCellFactory(param -> new ModListCell());
+		this.listView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> {
+			this.uidetailwrap.getChildren().clear();
+			this.uidetailwrap.getChildren().add(this.uidetail);
+			final IInfo info = newvalue.getInfo();
+
+			this.uidetailtitle.setText(info.getTitle());
+			this.uidetailcontroller.setInfo(info);
+			this.uidetailcontroller.setStatus("Not implemented");
+		});
 
 		final Task<ObservableList<Memento>> task = new Task<ObservableList<Memento>>() {
 			@Override
@@ -49,12 +73,12 @@ public class UIView {
 				final ObservableList<Memento> list = FXCollections.observableArrayList();
 				//				updateValue(list);
 				final Map<String, File> mods = ModListConverter.discoverModsDir(new File(FactorioForge.instance.factorioDir, "mods"));
-				ModListConverter.getModList(new File(FactorioForge.instance.factorioDir, "mods\\mod-list.json")).mods.stream().forEach((mod) -> {
+				ModListConverter.getModList(new File(FactorioForge.instance.factorioDir, "mods/mod-list.json")).mods.stream().forEach((mod) -> {
 					final File modFile = mods.get(mod.name);
 					if (modFile!=null)
 						try {
 							final IInfo info = ModListConverter.getModInfo(modFile);
-							list.add(new Memento(mod.name).setInfo(info));
+							list.add(new Memento(mod.name).setInfo(info).setEnabled(mod.enabled));
 						} catch (final IOException e) {
 							throw new UncheckedIOException(e);
 						}

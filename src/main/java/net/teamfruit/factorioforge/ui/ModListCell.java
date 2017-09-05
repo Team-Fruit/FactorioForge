@@ -20,17 +20,16 @@ public class ModListCell extends ListCell<Memento> {
 			setText(null);
 			this.controller = null;
 		} else {
-			if (this.controller==null||getGraphic()==null) {
+			if (this.controller==null||getGraphic()==null)
 				try {
-					final FXMLLoader loader = UIFactory.getUI("UIModCell");
-					final Node node = loader.load();
+					final FXMLLoader loader = UIFactory.loadUI("UIModCell");
+					final Node node = loader.getRoot();
 					this.controller = loader.getController();
 					setGraphic(node);
 				} catch (final IOException e) {
 					e.printStackTrace();
 					throw new UncheckedIOException(e);
 				}
-			}
 			this.controller.update(item);
 		}
 	}

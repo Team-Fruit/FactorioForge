@@ -103,7 +103,7 @@
                               <CheckBox fx:id="filterEnable" mnemonicParsing="false" selected="true" text="有効" GridPane.columnIndex="1" />
                               <CheckBox fx:id="filterDisable" mnemonicParsing="false" selected="true" text="無効" GridPane.columnIndex="2" />
                               <CheckBox fx:id="filterCached" mnemonicParsing="false" text="キャッシュ" GridPane.columnIndex="3" />
-                              <CheckBox fx:id="filterPublic" mnemonicParsing="false" text="MODポータル" GridPane.columnIndex="4" />
+                              <CheckBox fx:id="filterPublic" disable="true" mnemonicParsing="false" text="MODポータル" GridPane.columnIndex="4" />
                               <Label text="Filter" />
                            </children>
                            <padding>
@@ -118,7 +118,7 @@
                      <children>
                         <TextFlow styleClass="titlewrap" VBox.vgrow="NEVER">
                            <children>
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="EvoGUI - Evolution Factor Indicator and moreあ">
+                              <Text fx:id="uidetailtitle" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="EvoGUI - Evolution Factor Indicator and moreあ">
                                  <font>
                                     <Font name="Tahoma Bold" size="15.0" />
                                  </font>
@@ -133,183 +133,7 @@
                         </TextFlow>
                         <ScrollPane fx:id="textScroll" fitToWidth="true" maxHeight="1.7976931348623157E308" prefHeight="438.0" prefWidth="223.0" VBox.vgrow="ALWAYS">
                            <content>
-                              <VBox styleClass="contentcontainer">
-                                 <children>
-                                    <VBox>
-                                       <children>
-                                          <BorderPane>
-                                             <left>
-                                                <Label styleClass="subtitle" text="説明" BorderPane.alignment="CENTER">
-                                                   <BorderPane.margin>
-                                                      <Insets />
-                                                   </BorderPane.margin>
-                                                </Label>
-                                             </left>
-                                          </BorderPane>
-                                          <TextFlow prefHeight="9.0" prefWidth="221.0">
-                                             <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="modcontent" text="Places some indications on your UI for various little statistics that are nice to have." />
-                                             </children>
-                                             <VBox.margin>
-                                                <Insets left="10.0" />
-                                             </VBox.margin>
-                                          </TextFlow>
-                                       </children>
-                                       <VBox.margin>
-                                          <Insets />
-                                       </VBox.margin>
-                                    </VBox>
-                                    <VBox>
-                                       <children>
-                                          <BorderPane>
-                                             <left>
-                                                <Label styleClass="subtitle" text="ステータス" BorderPane.alignment="CENTER">
-                                                   <BorderPane.margin>
-                                                      <Insets />
-                                                   </BorderPane.margin>
-                                                </Label>
-                                             </left>
-                                          </BorderPane>
-                                          <TextFlow prefHeight="9.0" prefWidth="221.0">
-                                             <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="modcontent" text="無効" />
-                                             </children>
-                                             <VBox.margin>
-                                                <Insets left="10.0" />
-                                             </VBox.margin>
-                                          </TextFlow>
-                                       </children>
-                                    </VBox>
-                                    <VBox>
-                                       <children>
-                                          <BorderPane>
-                                             <left>
-                                                <Label styleClass="subtitle" text="ヌベジョン" BorderPane.alignment="CENTER">
-                                                   <BorderPane.margin>
-                                                      <Insets />
-                                                   </BorderPane.margin>
-                                                </Label>
-                                             </left>
-                                          </BorderPane>
-                                          <TextFlow prefHeight="9.0" prefWidth="221.0">
-                                             <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="modcontent" text="0.4.207" />
-                                             </children>
-                                             <VBox.margin>
-                                                <Insets left="10.0" />
-                                             </VBox.margin>
-                                          </TextFlow>
-                                       </children>
-                                    </VBox>
-                                    <VBox>
-                                       <children>
-                                          <BorderPane>
-                                             <left>
-                                                <Label styleClass="subtitle" text="作者" BorderPane.alignment="CENTER">
-                                                   <BorderPane.margin>
-                                                      <Insets />
-                                                   </BorderPane.margin>
-                                                </Label>
-                                             </left>
-                                          </BorderPane>
-                                          <TextFlow prefHeight="9.0" prefWidth="221.0">
-                                             <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="modcontent" text="Octav &quot;narc&quot; Sandulescu" />
-                                             </children>
-                                             <VBox.margin>
-                                                <Insets left="10.0" />
-                                             </VBox.margin>
-                                          </TextFlow>
-                                       </children>
-                                    </VBox>
-                                    <VBox>
-                                       <children>
-                                          <BorderPane>
-                                             <left>
-                                                <Label styleClass="subtitle" text="問い合わせ" BorderPane.alignment="CENTER">
-                                                   <BorderPane.margin>
-                                                      <Insets />
-                                                   </BorderPane.margin>
-                                                </Label>
-                                             </left>
-                                          </BorderPane>
-                                          <TextFlow prefHeight="9.0" prefWidth="221.0">
-                                             <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="modcontent" text="factorio-mods@narc.ro" />
-                                             </children>
-                                             <VBox.margin>
-                                                <Insets left="10.0" />
-                                             </VBox.margin>
-                                          </TextFlow>
-                                       </children>
-                                    </VBox>
-                                    <VBox>
-                                       <children>
-                                          <BorderPane>
-                                             <left>
-                                                <Label styleClass="subtitle" text="ホームページ" BorderPane.alignment="CENTER">
-                                                   <BorderPane.margin>
-                                                      <Insets />
-                                                   </BorderPane.margin>
-                                                </Label>
-                                             </left>
-                                          </BorderPane>
-                                          <TextFlow prefHeight="9.0" prefWidth="221.0">
-                                             <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="modcontent" text="https://github.com/narc0tiq/evoGUI/" />
-                                             </children>
-                                             <VBox.margin>
-                                                <Insets left="10.0" />
-                                             </VBox.margin>
-                                          </TextFlow>
-                                       </children>
-                                    </VBox>
-                                    <VBox>
-                                       <children>
-                                          <BorderPane>
-                                             <left>
-                                                <Label styleClass="subtitle" text="Factorioバージョン" BorderPane.alignment="CENTER">
-                                                   <BorderPane.margin>
-                                                      <Insets />
-                                                   </BorderPane.margin>
-                                                </Label>
-                                             </left>
-                                          </BorderPane>
-                                          <TextFlow prefHeight="9.0" prefWidth="221.0">
-                                             <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="modcontent" text="0.15" />
-                                             </children>
-                                             <VBox.margin>
-                                                <Insets left="10.0" />
-                                             </VBox.margin>
-                                          </TextFlow>
-                                       </children>
-                                    </VBox>
-                                    <VBox>
-                                       <children>
-                                          <BorderPane>
-                                             <left>
-                                                <Label styleClass="subtitle" text="依存" BorderPane.alignment="CENTER">
-                                                   <BorderPane.margin>
-                                                      <Insets />
-                                                   </BorderPane.margin>
-                                                </Label>
-                                             </left>
-                                          </BorderPane>
-                                          <TextFlow prefHeight="9.0" prefWidth="221.0">
-                                             <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="modcontent" text="base &gt;= 0.15.0" />
-                                             </children>
-                                             <VBox.margin>
-                                                <Insets left="10.0" />
-                                             </VBox.margin>
-                                          </TextFlow>
-                                       </children>
-                                    </VBox>
-                                 </children>
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
+                              <VBox fx:id="uidetailwrap">
                                  <padding>
                                     <Insets left="10.0" right="3.0" />
                                  </padding>

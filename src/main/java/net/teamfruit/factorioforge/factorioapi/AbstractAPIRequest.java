@@ -42,12 +42,7 @@ public abstract class AbstractAPIRequest<E extends IResponse> implements APIRequ
 		final HttpGet get = new HttpGet(getURL());
 		final HttpResponse res = client.execute(get);
 		try (JsonReader jr = new JsonReader(new InputStreamReader(res.getEntity().getContent(), StandardCharsets.UTF_8))) {
-			//TODO
-			Log.log.info(new Date());
-			//			String json = br.lines().collect(Collectors.joining());
-			//			Log.log.info(new Date());
 			final E apiresponse = parseAPIResponse(jr);
-			//			final E apiresponse = parseAPIResponse(br.lines().collect(Collectors.joining()));
 			Log.log.info(new Date());
 			if (apiresponse instanceof Response)
 				((Response) apiresponse).setEndPoint(getEndPoint());

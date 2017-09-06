@@ -3,7 +3,6 @@ package net.teamfruit.factorioforge.factorioapi;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.util.Date;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -13,7 +12,6 @@ import org.apache.http.impl.client.HttpClientBuilder;
 
 import com.google.gson.stream.JsonReader;
 
-import net.teamfruit.factorioforge.Log;
 import net.teamfruit.factorioforge.factorioapi.data.IResponse;
 import net.teamfruit.factorioforge.factorioapi.data.impl.Response;
 
@@ -43,7 +41,6 @@ public abstract class AbstractAPIRequest<E extends IResponse> implements APIRequ
 		final HttpResponse res = client.execute(get);
 		try (JsonReader jr = new JsonReader(new InputStreamReader(res.getEntity().getContent(), StandardCharsets.UTF_8))) {
 			final E apiresponse = parseAPIResponse(jr);
-			Log.log.info(new Date());
 			if (apiresponse instanceof Response)
 				((Response) apiresponse).setEndPoint(getEndPoint());
 			return apiresponse;

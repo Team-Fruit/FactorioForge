@@ -459,11 +459,18 @@
 	-fx-padding: 2.0px;
 	-fx-border-radius: 27.0px;
 	-fx-background-radius: 27.0px;
-	-fx-background-color: #2f3136;
 	-fx-background-size: 100.0%;
 	-fx-background-repeat: no-repeat;
 	-fx-background-position: 50.0%;
 	-fx-font-size: 16.0px;
+}
+
+.modpack, .modpack:focused {
+	-fx-background-color: #2f3136;
+}
+
+.modpack:hover {
+	-fx-background-color: derive(#2f3136, 20.0%);
 }
 
 .addpack {

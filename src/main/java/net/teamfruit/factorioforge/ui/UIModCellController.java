@@ -24,6 +24,8 @@ public class UIModCellController {
 	private Pane slideBack;
 	@FXML
 	private Label label;
+	@FXML
+	private Button updateButton;
 
 	@FXML
 	private void onSlideButtonClicked(final ActionEvent event) {

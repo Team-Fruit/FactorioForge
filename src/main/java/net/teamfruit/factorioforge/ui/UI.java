@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import net.teamfruit.factorioforge.mod.RepositoryManager;
 
 public class UI extends Application {
 	@Override
@@ -21,6 +22,7 @@ public class UI extends Application {
 		final Scene scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
+		stage.setOnCloseRequest(we -> RepositoryManager.instance.executor.shutdown());
 	}
 
 	/**

@@ -2,6 +2,7 @@ package net.teamfruit.factorioforge;
 
 import java.io.File;
 
+import net.teamfruit.factorioforge.mod.RepositoryManager;
 import net.teamfruit.factorioforge.ui.UI;
 
 public class FactorioForge {

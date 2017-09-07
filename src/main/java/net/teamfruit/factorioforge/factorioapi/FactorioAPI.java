@@ -9,17 +9,18 @@ import com.google.gson.GsonBuilder;
 import net.teamfruit.factorioforge.factorioapi.data.IModList;
 import net.teamfruit.factorioforge.factorioapi.data.IResponse;
 import net.teamfruit.factorioforge.factorioapi.data.IResult;
+import net.teamfruit.factorioforge.factorioapi.data.impl.Info;
 
 public class FactorioAPI {
 
-	public static Gson gson = new GsonBuilder().create();
+	public static Gson gson = new GsonBuilder().registerTypeAdapter(Info.class, new Info.DependenciesDeserilizer()).create();
 
 	public static ModListAPI newModListAPI() {
 		return new ModListAPI();
 	}
 
-	public static ModListAPI newModListAPI(final int page) {
-		return new ModListAPI(page);
+	public static ModListAPI newModListAPI(final int page, final int pageSize) {
+		return new ModListAPI(page, pageSize);
 	}
 
 	public static ModSearchAPI newModSearchAPI(final String modName) {
@@ -30,8 +31,8 @@ public class FactorioAPI {
 		return newModListAPI().getAPIResponse();
 	}
 
-	public static IModList getModList(final int page) throws IOException {
-		return newModListAPI(page).getAPIResponse();
+	public static IModList getModList(final int page, final int pageSize) throws IOException {
+		return newModListAPI(page, pageSize).getAPIResponse();
 	}
 
 	public static IResult getMod(final String modName) throws IOException {
@@ -42,8 +43,8 @@ public class FactorioAPI {
 		return () -> getModList();
 	}
 
-	public static Callable<IModList> getModListWithCallable(final int page) {
-		return () -> getModList(page);
+	public static Callable<IModList> getModListWithCallable(final int page, final int pageSize) {
+		return () -> getModList(page, pageSize);
 	}
 
 	public static Callable<IResult> getModWithCallable(final String modName) {
@@ -54,8 +55,8 @@ public class FactorioAPI {
 		new Thread(runnable(newModListAPI(), callback)).start();
 	}
 
-	public static void getModListWithNewThread(final int page, final APICallback<IModList> callback) {
-		new Thread(runnable(newModListAPI(page), callback)).start();
+	public static void getModListWithNewThread(final int page, final int pageSize, final APICallback<IModList> callback) {
+		new Thread(runnable(newModListAPI(page, pageSize), callback)).start();
 	}
 
 	public static void getModWithNewThread(final String modName, final APICallback<IResult> callback) {

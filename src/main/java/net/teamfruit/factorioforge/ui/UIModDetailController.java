@@ -48,6 +48,10 @@ public class UIModDetailController {
 		this.author.setText(text);
 	}
 
+	public void setAuthor(final List<String> text) {
+		setAuthor(StringUtils.join(text, "\n"));
+	}
+
 	public void setContact(final String text) {
 		this.contact.setText(text);
 	}

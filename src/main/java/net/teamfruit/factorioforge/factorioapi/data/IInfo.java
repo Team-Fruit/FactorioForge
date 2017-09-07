@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface IInfo {
 
-	String getAuthor();
+	List<String> getAuthor();
 
 	String getContact();
 
@@ -21,4 +21,5 @@ public interface IInfo {
 	String getTitle();
 
 	String getVersion();
+
 }

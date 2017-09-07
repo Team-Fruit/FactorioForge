@@ -2,6 +2,7 @@ package net.teamfruit.factorioforge.mod;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -15,6 +16,7 @@ import java.util.zip.ZipFile;
 import org.apache.commons.lang3.StringUtils;
 
 import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 
 import net.teamfruit.factorioforge.factorioapi.FactorioAPI;
 import net.teamfruit.factorioforge.factorioapi.data.IInfo;
@@ -31,6 +33,12 @@ public class ModListConverter {
 	public static ModListBean getModList(final File file) throws IOException {
 		try (JsonReader r = new JsonReader(new FileReader(file))) {
 			return FactorioAPI.gson.fromJson(r, ModListBean.class);
+		}
+	}
+
+	public static void setModList(final File file, final ModListBean bean) throws IOException {
+		try (JsonWriter r = new JsonWriter(new FileWriter(file))) {
+			FactorioAPI.gson.toJson(bean, ModListBean.class, r);
 		}
 	}
 

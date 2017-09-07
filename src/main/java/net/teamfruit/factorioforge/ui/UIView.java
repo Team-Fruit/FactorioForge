@@ -34,6 +34,7 @@ import net.teamfruit.factorioforge.FactorioForge;
 import net.teamfruit.factorioforge.RepositoryManager;
 import net.teamfruit.factorioforge.factorioapi.data.IInfo;
 import net.teamfruit.factorioforge.mod.ModListConverter;
+import net.teamfruit.factorioforge.mod.ModListManager;
 
 public class UIView {
 	private AnchorPane uidetail;
@@ -73,7 +74,7 @@ public class UIView {
 				final ObservableList<Memento> list = FXCollections.observableArrayList();
 				//				updateValue(list);
 				final Map<String, File> mods = ModListConverter.discoverModsDir(new File(FactorioForge.instance.factorioDir, "mods"));
-				ModListConverter.getModList(new File(FactorioForge.instance.factorioDir, "mods/mod-list.json")).mods.stream().forEach((mod) -> {
+				ModListManager.INSTANCE.getModList().mods.stream().forEach((mod) -> {
 					final File modFile = mods.get(mod.name);
 					if (modFile!=null)
 						try {

@@ -20,8 +20,8 @@ public class FactorioForge {
 		if (!this.workingDir.exists())
 			this.workingDir.mkdirs();
 
-		RepositoryManager.instance.init();
-		RepositoryManager.instance.thenAccept(Log.log::info);
+		RepositoryManager.INSTANCE.init();
+		RepositoryManager.INSTANCE.thenAccept(Log.log::info);
 
 		UI.launchApplication();
 	}

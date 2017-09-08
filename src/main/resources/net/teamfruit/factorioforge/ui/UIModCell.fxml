@@ -48,7 +48,7 @@
             </VBox>
          </left>
          <right>
-            <Button maxHeight="1.7976931348623157E308" mnemonicParsing="false" styleClass="updatebutton" text="Update" visible="false" BorderPane.alignment="CENTER">
+            <Button fx:id="updateButton" maxHeight="1.7976931348623157E308" mnemonicParsing="false" styleClass="updatebutton" text="Update" visible="false" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </BorderPane.margin>

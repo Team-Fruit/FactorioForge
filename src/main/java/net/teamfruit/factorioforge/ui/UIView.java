@@ -16,9 +16,7 @@ import org.jutils.jprocesses.model.ProcessInfo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
-import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.CheckBox;
@@ -33,8 +31,8 @@ import javafx.scene.text.Text;
 import net.teamfruit.factorioforge.FactorioForge;
 import net.teamfruit.factorioforge.factorioapi.data.IInfo;
 import net.teamfruit.factorioforge.mod.ModListConverter;
-import net.teamfruit.factorioforge.mod.RepositoryManager;
 import net.teamfruit.factorioforge.mod.ModListManager;
+import net.teamfruit.factorioforge.mod.RepositoryManager;
 
 public class UIView {
 	private AnchorPane uidetail;
@@ -49,7 +47,7 @@ public class UIView {
 	private Label typeLabel;
 	@FXML
 	private ListView<Memento> listView;
-	private ObservableList<Memento> listRecords = FXCollections.observableArrayList();
+	private final ObservableList<Memento> listRecords = FXCollections.observableArrayList();
 
 	@FXML
 	private void initialize() throws IOException {
@@ -87,13 +85,8 @@ public class UIView {
 				return list;
 			}
 		};
-		task.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
-			@Override
-			public void handle(final WorkerStateEvent event) {
-				UIView.this.listView.setItems(task.getValue());
-			}
-		});
-		RepositoryManager.instance.executor.submit(task);
+		task.setOnSucceeded(wse -> UIView.this.listView.setItems(task.getValue()));
+		RepositoryManager.INSTANCE.executor.submit(task);
 
 		this.listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 

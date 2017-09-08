@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
@@ -13,13 +15,15 @@ import java.util.function.Consumer;
 import net.teamfruit.factorioforge.factorioapi.FactorioAPI;
 import net.teamfruit.factorioforge.factorioapi.FactorioAPIException;
 import net.teamfruit.factorioforge.factorioapi.data.IModList;
+import net.teamfruit.factorioforge.factorioapi.data.IShortResult;
 
 public class RepositoryManager {
-	public static RepositoryManager instance = new RepositoryManager();
+	public static final RepositoryManager INSTANCE = new RepositoryManager();
 
 	public final ExecutorService executor = Executors.newFixedThreadPool(2, (r) -> new Thread(r, "FactorioForge-communication-thread"));
 	private IModList modList;
 	private final Deque<Consumer<Optional<IModList>>> thenAccepts = new ArrayDeque<>();
+	private final Map<Integer, IShortResult> results = new HashMap<>();
 	private boolean error;
 	private Throwable throwable;
 	private int count;
@@ -40,8 +44,10 @@ public class RepositoryManager {
 						this.throwable = t;
 					else
 						this.throwable = new FactorioAPIException(result2.getErrorMessage());
+				} else {
+					this.modList = result2;
+					result2.getResults().stream().forEach(r -> this.results.put(r.getId(), r));
 				}
-				this.modList = result2;
 			});
 			future.thenAccept(result2 -> this.thenAccepts.stream().forEach(c -> c.accept(Optional.ofNullable(result2))));
 		});
@@ -69,6 +75,10 @@ public class RepositoryManager {
 		if (!isComplete())
 			return -1;
 		return this.pageCount;
+	}
+
+	public Optional<IShortResult> getResultById(final int id) {
+		return Optional.ofNullable(this.results.get(id));
 	}
 
 	public void thenAccept(final Consumer<Optional<IModList>> consumer) {

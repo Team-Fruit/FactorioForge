@@ -61,5 +61,7 @@ public class UIModCellController {
 
 	public void update(final Memento item) {
 		this.label.setText(item.getInfo().getTitle());
+		if (item.isUpdateRequired())
+			this.updateButton.setVisible(true);
 	}
 }

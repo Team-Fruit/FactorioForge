@@ -56,6 +56,7 @@ public class UIView {
 		this.uidetailcontroller = moddetail.getController();
 
 		this.listView.setCellFactory(param -> new ModListCell());
+		RepositoryManager.INSTANCE.thenAccept(o -> this.listView.refresh());
 		this.listView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> {
 			this.uidetailwrap.getChildren().clear();
 			this.uidetailwrap.getChildren().add(this.uidetail);

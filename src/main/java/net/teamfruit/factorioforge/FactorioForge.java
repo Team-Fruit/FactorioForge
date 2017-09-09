@@ -21,7 +21,6 @@ public class FactorioForge {
 			this.workingDir.mkdirs();
 
 		RepositoryManager.INSTANCE.init();
-		RepositoryManager.INSTANCE.thenAccept(Log.log::info);
 
 		UI.launchApplication();
 	}

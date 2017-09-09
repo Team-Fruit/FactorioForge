@@ -1,6 +1,5 @@
 package net.teamfruit.factorioforge.ui;
 
-import net.teamfruit.factorioforge.Log;
 import net.teamfruit.factorioforge.factorioapi.data.IInfo;
 import net.teamfruit.factorioforge.mod.RepositoryManager;
 
@@ -18,7 +17,6 @@ public class Memento {
 
 	public Memento setInfo(final IInfo info) {
 		this.info = info;
-		Log.log.info(info.getName());
 		RepositoryManager.INSTANCE.thenAccept((mods) -> RepositoryManager.INSTANCE.getResultByName(info.getName()).ifPresent(r -> {
 			if (!r.getLatestRelease().getVersion().equals(info.getVersion()))
 				this.updateRequired = true;

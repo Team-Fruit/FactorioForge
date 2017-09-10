@@ -19,8 +19,8 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
 import net.teamfruit.factorioforge.factorioapi.FactorioAPI;
-import net.teamfruit.factorioforge.factorioapi.data.IInfo;
-import net.teamfruit.factorioforge.factorioapi.data.impl.Info;
+import net.teamfruit.factorioforge.factorioapi.data.impl.modportal.Info;
+import net.teamfruit.factorioforge.factorioapi.data.modportal.IInfo;
 
 public class ModListConverter {
 

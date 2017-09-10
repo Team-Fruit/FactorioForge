@@ -29,7 +29,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import net.teamfruit.factorioforge.FactorioForge;
-import net.teamfruit.factorioforge.factorioapi.data.IInfo;
+import net.teamfruit.factorioforge.factorioapi.data.modportal.IInfo;
 import net.teamfruit.factorioforge.mod.ModListConverter;
 import net.teamfruit.factorioforge.mod.ModListManager;
 import net.teamfruit.factorioforge.mod.RepositoryManager;

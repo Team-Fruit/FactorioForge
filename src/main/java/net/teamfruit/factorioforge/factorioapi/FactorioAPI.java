@@ -6,10 +6,10 @@ import java.util.concurrent.Callable;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import net.teamfruit.factorioforge.factorioapi.data.IModList;
-import net.teamfruit.factorioforge.factorioapi.data.IResponse;
-import net.teamfruit.factorioforge.factorioapi.data.IResult;
-import net.teamfruit.factorioforge.factorioapi.data.impl.Info;
+import net.teamfruit.factorioforge.factorioapi.data.impl.modportal.Info;
+import net.teamfruit.factorioforge.factorioapi.data.modportal.IModList;
+import net.teamfruit.factorioforge.factorioapi.data.modportal.IResponse;
+import net.teamfruit.factorioforge.factorioapi.data.modportal.IResult;
 
 public class FactorioAPI {
 

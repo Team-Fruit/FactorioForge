@@ -1,6 +1,6 @@
-package net.teamfruit.factorioforge.factorioapi.data.impl;
+package net.teamfruit.factorioforge.factorioapi.data.impl.modportal;
 
-import net.teamfruit.factorioforge.factorioapi.data.IRelease;
+import net.teamfruit.factorioforge.factorioapi.data.modportal.IRelease;
 
 public class Release implements IRelease {
 

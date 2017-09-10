@@ -12,8 +12,8 @@ import org.apache.http.impl.client.HttpClientBuilder;
 
 import com.google.gson.stream.JsonReader;
 
-import net.teamfruit.factorioforge.factorioapi.data.IResponse;
-import net.teamfruit.factorioforge.factorioapi.data.impl.Response;
+import net.teamfruit.factorioforge.factorioapi.data.impl.modportal.Response;
+import net.teamfruit.factorioforge.factorioapi.data.modportal.IResponse;
 
 public abstract class AbstractAPIRequest<E extends IResponse> implements APIRequest<E> {
 

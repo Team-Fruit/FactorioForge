@@ -1,6 +1,6 @@
-package net.teamfruit.factorioforge.factorioapi.data.impl;
+package net.teamfruit.factorioforge.factorioapi.data.impl.modportal;
 
-import net.teamfruit.factorioforge.factorioapi.data.IPaginationLink;
+import net.teamfruit.factorioforge.factorioapi.data.modportal.IPaginationLink;
 
 public class PaginationLink implements IPaginationLink {
 

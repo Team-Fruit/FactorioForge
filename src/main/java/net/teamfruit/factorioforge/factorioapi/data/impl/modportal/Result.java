@@ -1,9 +1,9 @@
-package net.teamfruit.factorioforge.factorioapi.data.impl;
+package net.teamfruit.factorioforge.factorioapi.data.impl.modportal;
 
 import java.util.List;
 
-import net.teamfruit.factorioforge.factorioapi.data.IFullResult;
-import net.teamfruit.factorioforge.factorioapi.data.IShortResult;
+import net.teamfruit.factorioforge.factorioapi.data.modportal.IFullResult;
+import net.teamfruit.factorioforge.factorioapi.data.modportal.IShortResult;
 
 public class Result extends Response implements IShortResult, IFullResult {
 

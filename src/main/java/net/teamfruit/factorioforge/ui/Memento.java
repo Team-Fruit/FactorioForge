@@ -1,6 +1,6 @@
 package net.teamfruit.factorioforge.ui;
 
-import net.teamfruit.factorioforge.factorioapi.data.IInfo;
+import net.teamfruit.factorioforge.factorioapi.data.modportal.IInfo;
 import net.teamfruit.factorioforge.mod.RepositoryManager;
 
 public class Memento {

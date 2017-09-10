@@ -14,8 +14,8 @@ import java.util.function.Consumer;
 
 import net.teamfruit.factorioforge.factorioapi.FactorioAPI;
 import net.teamfruit.factorioforge.factorioapi.FactorioAPIException;
-import net.teamfruit.factorioforge.factorioapi.data.IModList;
-import net.teamfruit.factorioforge.factorioapi.data.IShortResult;
+import net.teamfruit.factorioforge.factorioapi.data.modportal.IModList;
+import net.teamfruit.factorioforge.factorioapi.data.modportal.IShortResult;
 
 public class RepositoryManager {
 	public static final RepositoryManager INSTANCE = new RepositoryManager();

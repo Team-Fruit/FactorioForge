@@ -1,9 +1,9 @@
-package net.teamfruit.factorioforge.factorioapi.data;
+package net.teamfruit.factorioforge.factorioapi.data.modportal;
 
 import java.util.List;
 
 import net.teamfruit.factorioforge.factorioapi.ModListAPI;
-import net.teamfruit.factorioforge.factorioapi.data.impl.Result;
+import net.teamfruit.factorioforge.factorioapi.data.impl.modportal.Result;
 
 public interface IModList extends IResponse {
 

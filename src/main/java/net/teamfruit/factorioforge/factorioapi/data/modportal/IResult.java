@@ -2,6 +2,7 @@ package net.teamfruit.factorioforge.factorioapi.data.modportal;
 
 import java.util.List;
 
+import net.teamfruit.factorioforge.factorioapi.IResponse;
 import net.teamfruit.factorioforge.factorioapi.data.impl.modportal.Tag;
 
 public interface IResult extends IResponse {

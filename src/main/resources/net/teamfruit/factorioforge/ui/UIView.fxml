@@ -28,7 +28,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<fx:root prefHeight="480.0" prefWidth="854.0" stylesheets="@styles.css" type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.teamfruit.factorioforge.ui.UIView">
+<AnchorPane prefHeight="480.0" prefWidth="854.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.teamfruit.factorioforge.ui.UIView">
    <children>
       <BorderPane layoutX="123.0" layoutY="28.0" prefHeight="370.0" prefWidth="720.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -116,9 +116,9 @@
                <right>
                   <VBox prefHeight="438.0" prefWidth="200.0" styleClass="details" BorderPane.alignment="CENTER">
                      <children>
-                        <ScrollPane fx:id="textScroll" fitToWidth="true" maxHeight="1.7976931348623157E308" prefHeight="438.0" prefWidth="223.0" VBox.vgrow="ALWAYS">
+                        <ScrollPane fx:id="textScroll" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" prefHeight="438.0" prefWidth="223.0" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
                            <content>
-                              <VBox>
+                              <VBox maxHeight="1.7976931348623157E308">
                                  <children>
                                     <TextFlow styleClass="titlewrap" VBox.vgrow="NEVER">
                                        <children>
@@ -135,7 +135,7 @@
                                           <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
                                        </padding>
                                     </TextFlow>
-                                    <VBox fx:id="uidetailwrap">
+                                    <VBox fx:id="uidetailwrap" maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS">
                                        <padding>
                                           <Insets left="10.0" right="3.0" />
                                        </padding>
@@ -186,4 +186,4 @@
          </center>
       </BorderPane>
    </children>
-</fx:root>
+</AnchorPane>

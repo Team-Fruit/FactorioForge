@@ -99,6 +99,10 @@ public class UIView {
 
 		SmoothScroll.apply(this.textScroll);
 		SmoothScroll.apply(this.modpackScroll);
+
+		RepositoryManager.instance.thenAccept((modList) -> {
+
+		});
 	}
 
 	@FXML

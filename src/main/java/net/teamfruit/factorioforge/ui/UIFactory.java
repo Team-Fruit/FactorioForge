@@ -6,12 +6,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.util.ReflectionUtil;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.AnchorPane;
 
 public class UIFactory {
 	public static FXMLLoader getUI(final String name, final Class<?> env) throws IOException {
 		final FXMLLoader loader = new FXMLLoader(env.getResource(StringUtils.removeEnd(name, ".fxml")+".fxml"));
-		loader.setRoot(new AnchorPane());
 		// The following line is supposed to help Scene Builder, although it doesn't seem to be needed for me.
 		loader.setClassLoader(env.getClassLoader());
 		return loader;

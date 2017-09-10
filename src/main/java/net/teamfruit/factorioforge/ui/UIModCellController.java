@@ -59,6 +59,11 @@ public class UIModCellController {
 		return this.state;
 	}
 
+	@FXML
+	private void onUpdateButtonClicked(final ActionEvent event) {
+
+	}
+
 	public void update(final Memento item) {
 		this.label.setText(item.getInfo().getTitle());
 		this.updateButton.setVisible(item.isUpdateRequired());

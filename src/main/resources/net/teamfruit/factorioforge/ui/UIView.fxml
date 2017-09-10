@@ -75,13 +75,13 @@
                      <center>
                         <ListView fx:id="listView" cache="true" prefHeight="200.0" prefWidth="200.0" styleClass="modlist">
                            <contextMenu>
-                              <ContextMenu fx:id="menu">
+                              <ContextMenu fx:id="menu" onAction="#onMenuOpened">
                                 <items>
-                                    <MenuItem mnemonicParsing="false" text="有効" />
-                                    <MenuItem mnemonicParsing="false" text="無効" />
-                                    <MenuItem mnemonicParsing="false" text="ダウンロード" />
-                                  <MenuItem mnemonicParsing="false" text="削除" />
-                                    <MenuItem mnemonicParsing="false" text="アップデート" />
+                                    <MenuItem fx:id="menuEnable" mnemonicParsing="false" text="有効" />
+                                    <MenuItem fx:id="menuDisable" mnemonicParsing="false" text="無効" />
+                                    <MenuItem fx:id="menuDisable" mnemonicParsing="false" text="ダウンロード" visible="false" />
+                                  <MenuItem fx:id="menuDelete" mnemonicParsing="false" text="削除" />
+                                    <MenuItem fx:id="menuUpdate" mnemonicParsing="false" text="アップデート" visible="false" />
                                 </items>
                               </ContextMenu>
                            </contextMenu>

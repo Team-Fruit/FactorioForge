@@ -49,7 +49,7 @@
                         <Insets right="10.0" />
                      </BorderPane.margin>
                      <children>
-                        <Button maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#onUpdateAll" text="Update All" />
+                        <Button fx:id="updateallbutton" disable="true" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#onUpdateAll" text="Update All" />
                         <TextField maxHeight="1.7976931348623157E308" prefWidth="218.0" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets left="15.0" />
@@ -116,9 +116,9 @@
                <right>
                   <VBox prefHeight="438.0" prefWidth="200.0" styleClass="details" BorderPane.alignment="CENTER">
                      <children>
-                        <ScrollPane fx:id="textScroll" fitToWidth="true" maxHeight="1.7976931348623157E308" prefHeight="438.0" prefWidth="223.0" VBox.vgrow="ALWAYS">
+                        <ScrollPane fx:id="textScroll" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" prefHeight="438.0" prefWidth="223.0" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
                            <content>
-                              <VBox>
+                              <VBox maxHeight="1.7976931348623157E308">
                                  <children>
                                     <TextFlow styleClass="titlewrap" VBox.vgrow="NEVER">
                                        <children>
@@ -135,7 +135,7 @@
                                           <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
                                        </padding>
                                     </TextFlow>
-                                    <VBox fx:id="uidetailwrap">
+                                    <VBox fx:id="uidetailwrap" maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS">
                                        <padding>
                                           <Insets left="10.0" right="3.0" />
                                        </padding>

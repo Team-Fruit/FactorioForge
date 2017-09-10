@@ -11,7 +11,7 @@
 
 <fx:root fx:id="rootpane" prefHeight="480.0" prefWidth="854.0" style="-fx-background-color: rgba(10,10,10,0.95);" stylesheets="@styles.css" type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.teamfruit.factorioforge.ui.UILoginController">
    <children>
-      <VBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox fx:id="box" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <HBox alignment="CENTER">
                <children>
@@ -26,7 +26,7 @@
                                           <Insets bottom="10.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <TextField prefHeight="23.0" prefWidth="400.0" />
+                                    <TextField fx:id="username" prefHeight="23.0" prefWidth="400.0" />
                                  </children>
                                  <VBox.margin>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -46,7 +46,7 @@
                                           <Insets bottom="10.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <PasswordField />
+                                    <PasswordField fx:id="password" />
                                  </children>
                                  <VBox.margin>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -59,7 +59,7 @@
                         </VBox>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#onLogin" text="Login" AnchorPane.rightAnchor="0.0" />
+                              <Button focusTraversable="false" mnemonicParsing="false" onAction="#onLogin" text="Login" AnchorPane.rightAnchor="0.0" />
                            </children>
                            <VBox.margin>
                               <Insets bottom="5.0" top="5.0" />

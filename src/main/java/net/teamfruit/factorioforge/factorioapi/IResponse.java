@@ -1,4 +1,4 @@
-package net.teamfruit.factorioforge.factorioapi.data.modportal;
+package net.teamfruit.factorioforge.factorioapi;
 
 public interface IResponse {
 

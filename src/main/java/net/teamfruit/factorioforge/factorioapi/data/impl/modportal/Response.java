@@ -1,6 +1,6 @@
 package net.teamfruit.factorioforge.factorioapi.data.impl.modportal;
 
-import net.teamfruit.factorioforge.factorioapi.data.modportal.IResponse;
+import net.teamfruit.factorioforge.factorioapi.IResponse;
 
 public class Response implements IResponse {
 

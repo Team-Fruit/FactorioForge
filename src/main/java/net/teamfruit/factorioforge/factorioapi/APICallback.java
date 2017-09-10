@@ -1,7 +1,5 @@
 package net.teamfruit.factorioforge.factorioapi;
 
-import net.teamfruit.factorioforge.factorioapi.data.modportal.IResponse;
-
 public interface APICallback<E extends IResponse> {
 
 	void onSuccess(E res);

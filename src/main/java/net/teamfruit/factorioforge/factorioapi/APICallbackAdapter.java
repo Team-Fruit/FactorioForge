@@ -1,7 +1,5 @@
 package net.teamfruit.factorioforge.factorioapi;
 
-import net.teamfruit.factorioforge.factorioapi.data.modportal.IResponse;
-
 public class APICallbackAdapter<E extends IResponse> implements APICallback<E> {
 
 	@Override

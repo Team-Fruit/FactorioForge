@@ -43,7 +43,11 @@ public enum UIRepository {
 	}
 
 	private <T> void set(final Object current, final UIRepositoryProperty<T> key, final T value) {
-		this.map.put(getKey(current), key, value);
+		final Object currentKey = getKey(current);
+		if (value!=null)
+			this.map.put(currentKey, key, value);
+		else
+			this.map.remove(currentKey, key);
 	}
 
 	public static <T> UIUniversalRepositoryProperty<T> key() {

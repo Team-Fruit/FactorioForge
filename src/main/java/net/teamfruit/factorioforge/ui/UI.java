@@ -24,16 +24,16 @@ public class UI extends Application {
 		final FXMLLoader rootLoader = UIFactory.loadUI("UIRoot");
 
 		final AnchorPane root = rootLoader.getRoot();
-		//final UIRootController rootController = rootLoader.getController();
+		final UIRootController rootController = rootLoader.getController();
 
 		final Scene scene = new Scene(root);
 		stage.setScene(scene);
-		//ROOT.set(scene, rootController);
+		ROOT.set(scene, rootController);
 
-		/*final AnchorPane view = UIFactory.loadUI("UIView").getRoot();
+		final AnchorPane view = UIFactory.loadUI("UIView").getRoot();
 		rootController.getChildren().add(view);
 		final AnchorPane login = UIFactory.loadUI("UILogin").getRoot();
-		rootController.getChildren().add(login);*/
+		rootController.getChildren().add(login);
 
 		stage.show();
 		stage.setOnCloseRequest(we -> RepositoryManager.INSTANCE.executor.shutdown());

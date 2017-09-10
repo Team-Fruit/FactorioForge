@@ -21,7 +21,8 @@ public class ModListManager {
 	}
 
 	public ModListManager save() throws IOException {
-		ModListConverter.setModList(this.modListFile, this.modList);
+		if (this.modList!=null)
+			ModListConverter.setModList(this.modListFile, this.modList);
 		return this;
 	}
 }

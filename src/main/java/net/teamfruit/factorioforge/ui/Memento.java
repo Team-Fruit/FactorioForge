@@ -1,7 +1,10 @@
 package net.teamfruit.factorioforge.ui;
 
+import java.io.IOException;
+
 import net.teamfruit.factorioforge.factorioapi.data.modportal.IInfo;
 import net.teamfruit.factorioforge.mod.ModListBean.ModBean;
+import net.teamfruit.factorioforge.mod.ModListManager;
 import net.teamfruit.factorioforge.mod.RepositoryManager;
 
 public class Memento {
@@ -43,6 +46,17 @@ public class Memento {
 
 	public Memento setEnabled(final boolean enabled) {
 		this.enabled = enabled;
+		return this;
+	}
+
+	public Memento commitEnabled() {
+		if (this.localmod!=null) {
+			this.localmod.enabled = isEnabled();
+			try {
+				ModListManager.INSTANCE.save();
+			} catch (final IOException e) {
+			}
+		}
 		return this;
 	}
 

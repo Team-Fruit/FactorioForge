@@ -1,6 +1,6 @@
-package net.teamfruit.factorioforge.factorioapi.data.impl;
+package net.teamfruit.factorioforge.factorioapi.data.impl.modportal;
 
-import net.teamfruit.factorioforge.factorioapi.data.IMediaFile;
+import net.teamfruit.factorioforge.factorioapi.data.modportal.IMediaFile;
 
 public class MediaFile implements IMediaFile {
 

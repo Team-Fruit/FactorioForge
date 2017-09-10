@@ -2,6 +2,7 @@ package net.teamfruit.factorioforge;
 
 import java.io.File;
 
+import net.teamfruit.factorioforge.mod.RepositoryManager;
 import net.teamfruit.factorioforge.ui.UI;
 
 public class FactorioForge {
@@ -19,8 +20,7 @@ public class FactorioForge {
 		if (!this.workingDir.exists())
 			this.workingDir.mkdirs();
 
-		RepositoryManager.instance.init();
-		RepositoryManager.instance.thenAccept(System.out::println);
+		RepositoryManager.INSTANCE.init();
 
 		UI.launchApplication();
 	}

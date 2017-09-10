@@ -1,4 +1,4 @@
-package net.teamfruit.factorioforge.factorioapi.data;
+package net.teamfruit.factorioforge.factorioapi.data.modportal;
 
 public interface IMediaURL {
 

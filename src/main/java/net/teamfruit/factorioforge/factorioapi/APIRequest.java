@@ -2,7 +2,7 @@ package net.teamfruit.factorioforge.factorioapi;
 
 import java.io.IOException;
 
-import net.teamfruit.factorioforge.factorioapi.data.IResponse;
+import net.teamfruit.factorioforge.factorioapi.data.modportal.IResponse;
 
 public interface APIRequest<E extends IResponse> {
 

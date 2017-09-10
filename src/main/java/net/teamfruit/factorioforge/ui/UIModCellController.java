@@ -24,6 +24,8 @@ public class UIModCellController {
 	private Pane slideBack;
 	@FXML
 	private Label label;
+	@FXML
+	private Button updateButton;
 
 	@FXML
 	private void onSlideButtonClicked(final ActionEvent event) {
@@ -59,5 +61,6 @@ public class UIModCellController {
 
 	public void update(final Memento item) {
 		this.label.setText(item.getInfo().getTitle());
+		this.updateButton.setVisible(item.isUpdateRequired());
 	}
 }

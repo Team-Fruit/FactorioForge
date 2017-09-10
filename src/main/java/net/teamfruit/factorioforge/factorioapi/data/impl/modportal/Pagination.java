@@ -1,7 +1,7 @@
-package net.teamfruit.factorioforge.factorioapi.data.impl;
+package net.teamfruit.factorioforge.factorioapi.data.impl.modportal;
 
 import net.teamfruit.factorioforge.factorioapi.ModListAPI;
-import net.teamfruit.factorioforge.factorioapi.data.IPagination;
+import net.teamfruit.factorioforge.factorioapi.data.modportal.IPagination;
 
 public class Pagination implements IPagination {
 

@@ -1,4 +1,4 @@
-package net.teamfruit.factorioforge.factorioapi.data.impl;
+package net.teamfruit.factorioforge.factorioapi.data.impl.modportal;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 
-import net.teamfruit.factorioforge.factorioapi.data.IInfo;
+import net.teamfruit.factorioforge.factorioapi.data.modportal.IInfo;
 
 public class Info implements IInfo {
 

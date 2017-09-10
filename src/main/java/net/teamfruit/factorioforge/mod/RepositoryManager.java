@@ -1,23 +1,31 @@
-package net.teamfruit.factorioforge;
+package net.teamfruit.factorioforge.mod;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.function.Consumer;
 
 import net.teamfruit.factorioforge.factorioapi.FactorioAPI;
-import net.teamfruit.factorioforge.factorioapi.data.IModList;
+import net.teamfruit.factorioforge.factorioapi.FactorioAPIException;
+import net.teamfruit.factorioforge.factorioapi.data.modportal.IModList;
+import net.teamfruit.factorioforge.factorioapi.data.modportal.IShortResult;
 
 public class RepositoryManager {
-	public static RepositoryManager instance = new RepositoryManager();
+	public static final RepositoryManager INSTANCE = new RepositoryManager();
 
 	public final ExecutorService executor = Executors.newFixedThreadPool(2, (r) -> new Thread(r, "FactorioForge-communication-thread"));
 	private IModList modList;
-	private final Deque<Consumer<IModList>> thenAccepts = new ArrayDeque<>();
+	private final Deque<Consumer<Optional<IModList>>> thenAccepts = new ArrayDeque<>();
+	private final Map<String, IShortResult> results = new ConcurrentHashMap<>();
+	private boolean error;
+	private Throwable throwable;
 	private int count;
 	private int pageCount;
 
@@ -29,13 +37,27 @@ public class RepositoryManager {
 			this.count = result1.getPagination().getCount();
 			this.pageCount = result1.getPagination().getPageCount();
 			final CompletableFuture<IModList> future = requestModList(1, this.count);
-			future.thenAccept(result2 -> this.modList = result2);
-			future.thenAccept(result2 -> this.thenAccepts.stream().forEach(c -> c.accept(result2)));
+			future.whenComplete((result2, t) -> {
+				if (t!=null||result2.isError()) {
+					this.error = true;
+					if (t!=null)
+						this.throwable = t;
+					else
+						this.throwable = new FactorioAPIException(result2.getErrorMessage());
+				} else {
+					this.modList = result2;
+					result2.getResults().stream().forEach(r -> RepositoryManager.this.results.put(r.getName(), r));
+				}
+			}).thenAccept(result2 -> this.thenAccepts.stream().forEach(c -> c.accept(Optional.ofNullable(result2))));
 		});
 	}
 
 	public boolean isComplete() {
 		return this.modList!=null;
+	}
+
+	public boolean isError() {
+		return this.error;
 	}
 
 	public IModList getModList() {
@@ -54,9 +76,13 @@ public class RepositoryManager {
 		return this.pageCount;
 	}
 
-	public void thenAccept(final Consumer<IModList> consumer) {
+	public Optional<IShortResult> getResultByName(final String name) {
+		return Optional.ofNullable(this.results.get(name));
+	}
+
+	public void thenAccept(final Consumer<Optional<IModList>> consumer) {
 		if (isComplete())
-			consumer.accept(this.modList);
+			consumer.accept(Optional.ofNullable(this.modList));
 		this.thenAccepts.offer(consumer);
 	}
 

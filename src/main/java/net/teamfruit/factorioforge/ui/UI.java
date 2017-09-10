@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import net.teamfruit.factorioforge.mod.RepositoryManager;
 import net.teamfruit.factorioforge.ui.UIRepository.UISpecificRepositoryProperty;
 
 public class UI extends Application {
@@ -35,6 +36,7 @@ public class UI extends Application {
 		rootController.getChildren().add(login);*/
 
 		stage.show();
+		stage.setOnCloseRequest(we -> RepositoryManager.INSTANCE.executor.shutdown());
 	}
 
 	/**

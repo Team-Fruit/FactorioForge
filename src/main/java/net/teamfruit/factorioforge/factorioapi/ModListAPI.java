@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import com.google.gson.stream.JsonReader;
 
 import net.teamfruit.factorioforge.Log;
-import net.teamfruit.factorioforge.factorioapi.data.IModList;
-import net.teamfruit.factorioforge.factorioapi.data.impl.ModList;
-import net.teamfruit.factorioforge.factorioapi.data.impl.Pagination;
-import net.teamfruit.factorioforge.factorioapi.data.impl.Result;
+import net.teamfruit.factorioforge.factorioapi.data.impl.modportal.ModList;
+import net.teamfruit.factorioforge.factorioapi.data.impl.modportal.Pagination;
+import net.teamfruit.factorioforge.factorioapi.data.impl.modportal.Result;
+import net.teamfruit.factorioforge.factorioapi.data.modportal.IModList;
 
 public class ModListAPI extends AbstractAPIRequest<IModList> {
 

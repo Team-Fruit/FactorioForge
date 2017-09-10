@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.control.ListCell;
 
 public class ModListCell extends ListCell<Memento> {
@@ -23,11 +22,9 @@ public class ModListCell extends ListCell<Memento> {
 			if (this.controller==null||getGraphic()==null)
 				try {
 					final FXMLLoader loader = UIFactory.loadUI("UIModCell");
-					final Node node = loader.getRoot();
 					this.controller = loader.getController();
-					setGraphic(node);
+					setGraphic(loader.getRoot());
 				} catch (final IOException e) {
-					e.printStackTrace();
 					throw new UncheckedIOException(e);
 				}
 			this.controller.update(item);

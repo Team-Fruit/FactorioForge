@@ -6,7 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
-import net.teamfruit.factorioforge.factorioapi.data.IInfo;
+import net.teamfruit.factorioforge.factorioapi.data.modportal.IInfo;
 
 public class UIModDetailController {
 	@FXML

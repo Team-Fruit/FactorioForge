@@ -1,9 +1,9 @@
-package net.teamfruit.factorioforge.factorioapi.data;
+package net.teamfruit.factorioforge.factorioapi.data.modportal;
 
 import java.util.List;
 
-import net.teamfruit.factorioforge.factorioapi.data.impl.MediaFile;
-import net.teamfruit.factorioforge.factorioapi.data.impl.Release;
+import net.teamfruit.factorioforge.factorioapi.data.impl.modportal.MediaFile;
+import net.teamfruit.factorioforge.factorioapi.data.impl.modportal.Release;
 
 public interface IFullResult extends IResult {
 

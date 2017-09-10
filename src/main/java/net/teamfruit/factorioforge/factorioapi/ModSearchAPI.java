@@ -2,8 +2,8 @@ package net.teamfruit.factorioforge.factorioapi;
 
 import com.google.gson.stream.JsonReader;
 
-import net.teamfruit.factorioforge.factorioapi.data.IResult;
-import net.teamfruit.factorioforge.factorioapi.data.impl.Result;
+import net.teamfruit.factorioforge.factorioapi.data.impl.modportal.Result;
+import net.teamfruit.factorioforge.factorioapi.data.modportal.IResult;
 
 public class ModSearchAPI extends AbstractAPIRequest<IResult> {
 

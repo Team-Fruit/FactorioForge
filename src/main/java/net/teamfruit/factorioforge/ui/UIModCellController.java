@@ -39,17 +39,24 @@ public class UIModCellController {
 
 	@FXML
 	private void onSlideButtonClicked(final ActionEvent event) {
-		setState(!getState(), false);
-		if (this.current!=null)
-			this.current.setEnabled(getState());
+		setState(!getState(), false, () -> {
+			if (this.current!=null)
+				this.current.setEnabled(getState()).commitEnabled();
+		});
 	}
 
 	public void setState(final boolean state, final boolean fast) {
+		setState(state, fast, null);
+	}
+
+	public void setState(final boolean state, final boolean fast, final Runnable callback) {
 		if (this.state!=state)
 			if (fast) {
 				this.slideButton.setTranslateX(this.state ? 0 : 26);
 				this.slideBack.prefWidthProperty().set(this.state ? 13 : 26+13);
 				this.state = state;
+				if (callback!=null)
+					callback.run();
 			} else {
 				this.slideButton.setDisable(true);
 				final TranslateTransition transition1 = new TranslateTransition();
@@ -62,6 +69,8 @@ public class UIModCellController {
 				transition1.setOnFinished((ev) -> {
 					this.state = state;
 					this.slideButton.setDisable(false);
+					if (callback!=null)
+						callback.run();
 				});
 
 				final Timeline transition2 = new Timeline();

@@ -19,6 +19,7 @@ import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
@@ -78,7 +79,7 @@ public class UIView {
 					if (modFile!=null)
 						try {
 							final IInfo info = ModListConverter.getModInfo(modFile);
-							list.add(new Memento(mod.name).setInfo(info).setEnabled(mod.enabled));
+							list.add(new Memento(mod.name).setLocalMod(mod).setInfo(info).setEnabled(mod.enabled));
 						} catch (final IOException e) {
 							throw new UncheckedIOException(e);
 						}
@@ -95,7 +96,8 @@ public class UIView {
 		SmoothScroll.apply(this.modpackScroll);
 
 		RepositoryManager.INSTANCE.thenAccept((modList) -> {
-
+			this.filterPublic.setDisable(false);
+			this.updateallbutton.setDisable(false);
 		});
 	}
 
@@ -123,6 +125,9 @@ public class UIView {
 	private CheckBox filterCached;
 	@FXML
 	private CheckBox filterPublic;
+
+	@FXML
+	private Button updateallbutton;
 
 	@FXML
 	private void onUpdateAll(final ActionEvent e) {

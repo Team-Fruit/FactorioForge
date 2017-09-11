@@ -27,9 +27,9 @@ import javafx.util.Duration;
 import net.teamfruit.factorioforge.FactorioForge;
 import net.teamfruit.factorioforge.factorioapi.FactorioAPI;
 import net.teamfruit.factorioforge.factorioapi.data.auth.IToken;
-import net.teamfruit.factorioforge.factorioapi.data.impl.auth.Token;
 import net.teamfruit.factorioforge.mod.ModDownloader;
 import net.teamfruit.factorioforge.mod.RepositoryManager;
+import net.teamfruit.factorioforge.mod.UserData;
 
 public class UILoginController {
 	@FXML
@@ -91,9 +91,10 @@ public class UILoginController {
 					showMessage(token.getErrorMessage());
 				else {
 					if (this.rememberMe.isSelected()) {
-						final File file = new File(FactorioForge.instance.workingDir, "token.json");
+						final File file = new File(FactorioForge.instance.workingDir, "userdata.json");
 						try (FileWriter w = new FileWriter(file)) {
-							FactorioAPI.gson.toJson(token, Token.class, w);
+							FactorioAPI.gson.toJson(new UserData().setUsername(this.username.getText()).setToken(token.getToken()), UserData.class, w);
+							ModDownloader.setUsername(this.username.getText());
 							ModDownloader.setToken(token.getToken());
 						} catch (final IOException e) {
 							throw new UncheckedIOException(e);
@@ -106,7 +107,6 @@ public class UILoginController {
 				}
 			});
 			task.setOnFailed(wse -> {
-				task.getException().printStackTrace();
 				showMessage(task.getException().getClass().getSimpleName());
 				this.indicator.setVisible(false);
 				this.login.setDisable(false);

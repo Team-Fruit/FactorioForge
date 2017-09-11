@@ -33,7 +33,7 @@ public class UI extends Application {
 
 		final AnchorPane view = UIFactory.loadUI("UIView").getRoot();
 		rootController.getChildren().add(view);
-		if (!ModDownloader.isTokenProvided()) {
+		if (!ModDownloader.isUserDataProvided()) {
 			final AnchorPane login = UIFactory.loadUI("UILogin").getRoot();
 			rootController.getChildren().add(login);
 		}

@@ -6,10 +6,9 @@ import java.io.FileReader;
 import java.io.UncheckedIOException;
 
 import net.teamfruit.factorioforge.factorioapi.FactorioAPI;
-import net.teamfruit.factorioforge.factorioapi.data.auth.IToken;
-import net.teamfruit.factorioforge.factorioapi.data.impl.auth.Token;
 import net.teamfruit.factorioforge.mod.ModDownloader;
 import net.teamfruit.factorioforge.mod.RepositoryManager;
+import net.teamfruit.factorioforge.mod.UserData;
 import net.teamfruit.factorioforge.ui.UI;
 
 public class FactorioForge {
@@ -29,16 +28,18 @@ public class FactorioForge {
 
 		RepositoryManager.INSTANCE.init();
 
-		final File file = new File(this.workingDir, "token.json");
+		final File file = new File(this.workingDir, "userdata.json");
 		if (file.exists())
 			try {
-				final IToken token = FactorioAPI.gson.fromJson(new FileReader(file), Token.class);
-				if (token!=null)
-					ModDownloader.setToken(token.getToken());
+				final UserData data = FactorioAPI.gson.fromJson(new FileReader(file), UserData.class);
+				if (data!=null) {
+					ModDownloader.setUsername(data.getUsername());
+					ModDownloader.setToken(data.getToken());
+				}
 			} catch (final FileNotFoundException e) {
 				throw new UncheckedIOException(e);
 			}
 
 		UI.launchApplication();
 	}
-}
+};

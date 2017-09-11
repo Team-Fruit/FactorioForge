@@ -24,7 +24,7 @@ import net.teamfruit.factorioforge.ui.Memento.ModFileState;
 public class RepositoryManager {
 	public static final RepositoryManager INSTANCE = new RepositoryManager();
 
-	public final ExecutorService executor = Executors.newFixedThreadPool(2, (r) -> new Thread(r, "FactorioForge-communication-thread"));
+	public final ExecutorService executor = Executors.newFixedThreadPool(2, r -> new Thread(r, "FactorioForge-communication-thread"));
 	private IModList modList;
 	private final Deque<Consumer<Optional<IModList>>> thenAccepts = new ArrayDeque<>();
 	private final Map<String, IShortResult> results = new ConcurrentHashMap<>();

@@ -5,9 +5,11 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
 <fx:root fx:id="rootpane" prefHeight="480.0" prefWidth="854.0" style="-fx-background-color: rgba(10,10,10,0.95);" stylesheets="@styles.css" type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.teamfruit.factorioforge.ui.UILoginController">
@@ -60,8 +62,14 @@
                         </VBox>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#onLogin" text="Login" AnchorPane.rightAnchor="0.0" />
-                              <CheckBox layoutX="14.0" layoutY="10.0" mnemonicParsing="false" text="Remember Me" />
+                              <Button focusTraversable="false" mnemonicParsing="false" onAction="#onLogin" text="Login" AnchorPane.rightAnchor="0.0" />
+                              <StackPane alignment="BOTTOM_LEFT" layoutX="14.0" layoutY="10.0">
+                                 <children>
+                                    <CheckBox fx:id="rememberMe" mnemonicParsing="false" text="Remember Me" />
+                                    <Label fx:id="label" style="-fx-text-fill: red;" visible="false" />
+                                 </children>
+                              </StackPane>
+                              <ProgressIndicator fx:id="indicator" layoutX="378.0" prefHeight="39.0" prefWidth="44.0" visible="false" />
                            </children>
                            <VBox.margin>
                               <Insets bottom="5.0" top="5.0" />

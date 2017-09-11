@@ -36,7 +36,6 @@ import net.teamfruit.factorioforge.factorioapi.data.modportal.IInfo;
 import net.teamfruit.factorioforge.mod.ModListConverter;
 import net.teamfruit.factorioforge.mod.ModListManager;
 import net.teamfruit.factorioforge.mod.RepositoryManager;
-import net.teamfruit.factorioforge.ui.Memento.ModFileState;
 
 public class UIView {
 	private AnchorPane uidetail;
@@ -108,18 +107,19 @@ public class UIView {
 			this.filterPublic.setDisable(false);
 			this.updateallbutton.setDisable(false);
 			this.remoteMods = RepositoryManager.INSTANCE.getMementoes();
-			task.setOnScheduled(wse -> this.remoteMods.stream().forEach(memento -> {
-				try {
-					ModListManager.INSTANCE.getModList().mods.stream()
-							.filter(local -> local.name.equals(memento.getInfo().getTitle())).findAny().ifPresent(bean -> {
-								memento.setLocalMod(bean);
-								memento.setModFileState(ModFileState.LOCAL);
-								memento.setEnabled(bean.enabled);
-							});
-				} catch (final IOException e) {
-					throw new UncheckedIOException(e);
-				}
-			}));
+			//			task.setOnScheduled(wse -> this.remoteMods.stream().forEach(memento -> {
+			//				Log.log.info("hey");
+			//				try {
+			//					ModListManager.INSTANCE.getModList().mods.stream()
+			//							.filter(local -> local.name.equals(memento.getInfo().getTitle())).findAny().ifPresent(bean -> {
+			//								memento.setLocalMod(bean);
+			//								memento.setModFileState(ModFileState.LOCAL);
+			//								memento.setEnabled(bean.enabled);
+			//							});
+			//				} catch (final IOException e) {
+			//					throw new UncheckedIOException(e);
+			//				}
+			//			}));
 		});
 	}
 

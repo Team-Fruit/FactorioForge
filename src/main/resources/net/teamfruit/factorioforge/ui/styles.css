@@ -543,6 +543,16 @@
 }
 
 .dl-progress > .track {
-  -fx-text-box-border: #000;
-  -fx-control-inner-background: #000;
+    -fx-background-color: transparent;
+    -fx-text-box-border: #000;
+    -fx-control-inner-background: #000;
+}
+
+.dl-progress > .bar {
+    -fx-background-color: rgba(0, 255, 0, 0.5);
+}
+
+.modlist .list-cell:filled:selected {
+    -fx-background-color: -fx-background ;
+    -fx-background-insets: 0 ;
 }

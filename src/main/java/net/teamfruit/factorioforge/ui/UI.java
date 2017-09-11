@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import net.teamfruit.factorioforge.mod.ModDownloader;
 import net.teamfruit.factorioforge.mod.RepositoryManager;
 import net.teamfruit.factorioforge.ui.UIRepository.UISpecificRepositoryProperty;
 
@@ -32,8 +33,10 @@ public class UI extends Application {
 
 		final AnchorPane view = UIFactory.loadUI("UIView").getRoot();
 		rootController.getChildren().add(view);
-		final AnchorPane login = UIFactory.loadUI("UILogin").getRoot();
-		rootController.getChildren().add(login);
+		if (!ModDownloader.isTokenProvided()) {
+			final AnchorPane login = UIFactory.loadUI("UILogin").getRoot();
+			rootController.getChildren().add(login);
+		}
 
 		stage.show();
 		stage.setOnCloseRequest(we -> RepositoryManager.INSTANCE.executor.shutdown());

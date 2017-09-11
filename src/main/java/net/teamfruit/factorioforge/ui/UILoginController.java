@@ -1,6 +1,9 @@
 package net.teamfruit.factorioforge.ui;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.UncheckedIOException;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -11,6 +14,7 @@ import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -20,13 +24,18 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import net.teamfruit.factorioforge.FactorioForge;
 import net.teamfruit.factorioforge.factorioapi.FactorioAPI;
 import net.teamfruit.factorioforge.factorioapi.data.auth.IToken;
+import net.teamfruit.factorioforge.factorioapi.data.impl.auth.Token;
+import net.teamfruit.factorioforge.mod.ModDownloader;
 import net.teamfruit.factorioforge.mod.RepositoryManager;
 
 public class UILoginController {
 	@FXML
 	private AnchorPane rootpane;
+	@FXML
+	private Button login;
 	@FXML
 	private TextField username;
 	@FXML
@@ -41,7 +50,7 @@ public class UILoginController {
 	@FXML
 	private void initialize() {
 		this.rootpane.setOnKeyPressed(event -> {
-			if (event.getCode()==KeyCode.ENTER)
+			if (event.getCode()==KeyCode.ENTER&&!this.login.isDisable())
 				login(event.getSource());
 		});
 		this.username.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
@@ -76,25 +85,39 @@ public class UILoginController {
 			};
 			task.setOnSucceeded(wse -> {
 				this.indicator.setVisible(false);
+				this.login.setDisable(false);
 				final IToken token = task.getValue();
 				if (token.isError())
 					showMessage(token.getErrorMessage());
-				else if (o instanceof Node) {
-					final UIRootController root = UI.ROOT.get(o);
-					root.getChildren().remove(this.rootpane);
+				else {
+					if (this.rememberMe.isSelected()) {
+						final File file = new File(FactorioForge.instance.workingDir, "token.json");
+						try (FileWriter w = new FileWriter(file)) {
+							FactorioAPI.gson.toJson(token, Token.class, w);
+							ModDownloader.setToken(token.getToken());
+						} catch (final IOException e) {
+							throw new UncheckedIOException(e);
+						}
+					}
+					if (o instanceof Node) {
+						final UIRootController root = UI.ROOT.get(o);
+						root.getChildren().remove(this.rootpane);
+					}
 				}
 			});
 			task.setOnFailed(wse -> {
 				task.getException().printStackTrace();
 				showMessage(task.getException().getClass().getSimpleName());
 				this.indicator.setVisible(false);
+				this.login.setDisable(false);
 			});
 			this.indicator.progressProperty().bind(task.progressProperty());
 			this.indicator.setVisible(true);
+			this.login.setDisable(true);
 			RepositoryManager.INSTANCE.executor.submit(task);
 
 		} else
-			showMessage("Username and password can not be empty.");
+			showMessage("Username and password can not be empty");
 	}
 
 	private void showMessage(final String message) {

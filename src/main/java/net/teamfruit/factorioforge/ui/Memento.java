@@ -23,7 +23,7 @@ public class Memento {
 
 	public Memento setInfo(final IInfo info) {
 		this.info = info;
-		RepositoryManager.INSTANCE.thenAccept((mods) -> RepositoryManager.INSTANCE.getResultByName(info.getName()).ifPresent(r -> {
+		RepositoryManager.INSTANCE.thenAccept(mods -> RepositoryManager.INSTANCE.getResultByName(info.getName()).ifPresent(r -> {
 			this.updateChecked = true;
 			if (!r.getLatestRelease().getVersion().equals(info.getVersion()))
 				this.updateRequired = true;

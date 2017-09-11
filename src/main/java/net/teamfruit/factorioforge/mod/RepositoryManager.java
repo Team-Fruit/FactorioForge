@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -11,11 +12,14 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 import net.teamfruit.factorioforge.factorioapi.FactorioAPI;
 import net.teamfruit.factorioforge.factorioapi.FactorioAPIException;
 import net.teamfruit.factorioforge.factorioapi.data.modportal.IModList;
 import net.teamfruit.factorioforge.factorioapi.data.modportal.IShortResult;
+import net.teamfruit.factorioforge.ui.Memento;
+import net.teamfruit.factorioforge.ui.Memento.ModFileState;
 
 public class RepositoryManager {
 	public static final RepositoryManager INSTANCE = new RepositoryManager();
@@ -62,6 +66,12 @@ public class RepositoryManager {
 
 	public IModList getModList() {
 		return this.modList;
+	}
+
+	public List<Memento> getMementoes() {
+		return getModList().getResults().stream()
+				.map(result -> new Memento(result.getShortResult().getTitle()).setInfo(result.getShortResult().getLatestRelease().getInfoJson()).setModFileState(ModFileState.REMOTE))
+				.collect(Collectors.toList());
 	}
 
 	public int getCount() {

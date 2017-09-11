@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -35,6 +36,7 @@ import net.teamfruit.factorioforge.factorioapi.data.modportal.IInfo;
 import net.teamfruit.factorioforge.mod.ModListConverter;
 import net.teamfruit.factorioforge.mod.ModListManager;
 import net.teamfruit.factorioforge.mod.RepositoryManager;
+import net.teamfruit.factorioforge.ui.Memento.ModFileState;
 
 public class UIView {
 	private AnchorPane uidetail;
@@ -50,6 +52,8 @@ public class UIView {
 	@FXML
 	private ListView<Memento> listView;
 	private final ObservableList<Memento> listRecords = FXCollections.observableArrayList();
+	private List<Memento> localMods;
+	private List<Memento> remoteMods;
 
 	@FXML
 	private void initialize() throws IOException {
@@ -58,7 +62,6 @@ public class UIView {
 		this.uidetailcontroller = moddetail.getController();
 
 		this.listView.setCellFactory(param -> new ModListCell());
-		RepositoryManager.INSTANCE.thenAccept(o -> this.listView.refresh());
 		this.listView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> {
 			this.uidetailwrap.getChildren().clear();
 			this.uidetailwrap.getChildren().add(this.uidetail);
@@ -69,10 +72,10 @@ public class UIView {
 			this.uidetailcontroller.setStatus("Not implemented");
 		});
 
-		final Task<ObservableList<Memento>> task = new Task<ObservableList<Memento>>() {
+		final Task<List<Memento>> task = new Task<List<Memento>>() {
 			@Override
-			protected ObservableList<Memento> call() throws Exception {
-				final ObservableList<Memento> list = FXCollections.observableArrayList();
+			protected List<Memento> call() throws Exception {
+				final List<Memento> list = new ArrayList<>();
 				//				updateValue(list);
 				final Map<String, File> mods = ModListConverter.discoverModsDir(new File(FactorioForge.instance.factorioDir, "mods"));
 				ModListManager.INSTANCE.getModList().mods.stream().forEach((mod) -> {
@@ -88,7 +91,11 @@ public class UIView {
 				return list;
 			}
 		};
-		task.setOnSucceeded(wse -> UIView.this.listView.setItems(task.getValue()));
+		task.setOnSucceeded(wse -> {
+			this.localMods = task.getValue();
+			this.listRecords.addAll(task.getValue());
+		});
+		UIView.this.listView.setItems(this.listRecords);
 		RepositoryManager.INSTANCE.executor.submit(task);
 
 		this.listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -96,9 +103,23 @@ public class UIView {
 		SmoothScroll.apply(this.textScroll);
 		SmoothScroll.apply(this.modpackScroll);
 
-		RepositoryManager.INSTANCE.thenAccept((modList) -> {
+		RepositoryManager.INSTANCE.thenAccept(modList -> {
+			this.listView.refresh();
 			this.filterPublic.setDisable(false);
 			this.updateallbutton.setDisable(false);
+			this.remoteMods = RepositoryManager.INSTANCE.getMementoes();
+			task.setOnScheduled(wse -> this.remoteMods.stream().forEach(memento -> {
+				try {
+					ModListManager.INSTANCE.getModList().mods.stream()
+							.filter(local -> local.name.equals(memento.getInfo().getTitle())).findAny().ifPresent(bean -> {
+								memento.setLocalMod(bean);
+								memento.setModFileState(ModFileState.LOCAL);
+								memento.setEnabled(bean.enabled);
+							});
+				} catch (final IOException e) {
+					throw new UncheckedIOException(e);
+				}
+			}));
 		});
 	}
 
@@ -138,6 +159,36 @@ public class UIView {
 	private CheckBox filterCached;
 	@FXML
 	private CheckBox filterPublic;
+
+	@FXML
+	private void onFilterEnableClicked(final ActionEvent event) {
+
+	}
+
+	@FXML
+	private void onFilterDisableClicked(final ActionEvent event) {
+
+	}
+
+	@FXML
+	private void onFilterCachedClicked(final ActionEvent event) {
+
+	}
+
+	@FXML
+	private void onFilterPublicClicked(final ActionEvent event) {
+		final boolean select = this.filterPublic.isSelected();
+		this.filterEnable.setDisable(select);
+		this.filterDisable.setDisable(select);
+		this.listRecords.clear();
+		this.listRecords.addAll(select ? this.remoteMods : this.localMods);
+		clearDetail();
+	}
+
+	private void clearDetail() {
+		this.uidetailwrap.getChildren().clear();
+		this.uidetailtitle.setText(null);
+	}
 
 	@FXML
 	private MenuItem menuEnable;

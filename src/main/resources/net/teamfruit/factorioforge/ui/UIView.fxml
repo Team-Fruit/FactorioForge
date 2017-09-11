@@ -50,7 +50,7 @@
                      </BorderPane.margin>
                      <children>
                         <Button fx:id="updateallbutton" disable="true" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#onUpdateAll" text="Update All" />
-                        <TextField maxHeight="1.7976931348623157E308" prefWidth="218.0" HBox.hgrow="ALWAYS">
+                        <TextField focusTraversable="false" maxHeight="1.7976931348623157E308" prefWidth="218.0" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets left="15.0" />
                            </HBox.margin>
@@ -100,10 +100,10 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <CheckBox fx:id="filterEnable" mnemonicParsing="false" selected="true" text="有効" GridPane.columnIndex="1" />
-                              <CheckBox fx:id="filterDisable" mnemonicParsing="false" selected="true" text="無効" GridPane.columnIndex="2" />
-                              <CheckBox fx:id="filterCached" mnemonicParsing="false" text="キャッシュ" GridPane.columnIndex="3" />
-                              <CheckBox fx:id="filterPublic" disable="true" mnemonicParsing="false" text="MODポータル" GridPane.columnIndex="4" />
+                              <CheckBox fx:id="filterEnable" mnemonicParsing="false" onAction="#onFilterEnableClicked" selected="true" text="有効" GridPane.columnIndex="1" />
+                              <CheckBox fx:id="filterDisable" mnemonicParsing="false" onAction="#onFilterDisableClicked" selected="true" text="無効" GridPane.columnIndex="2" />
+                              <CheckBox fx:id="filterCached" mnemonicParsing="false" onAction="#onFilterCachedClicked" text="キャッシュ" GridPane.columnIndex="3" />
+                              <CheckBox fx:id="filterPublic" disable="true" mnemonicParsing="false" onAction="#onFilterPublicClicked" text="MODポータル" GridPane.columnIndex="4" />
                               <Label text="Filter" />
                            </children>
                            <padding>

@@ -1,7 +1,5 @@
 package net.teamfruit.factorioforge.mod;
 
-import static org.junit.Assert.*;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -12,7 +10,6 @@ import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpGet;
 
 import javafx.concurrent.Task;
-import net.teamfruit.factorioforge.Log;
 import net.teamfruit.factorioforge.factorioapi.AbstractAPIRequest;
 
 public class ModDownloader extends Task<Void> {
@@ -32,7 +29,7 @@ public class ModDownloader extends Task<Void> {
 	protected Void call() throws Exception {
 		final HttpResponse res = AbstractAPIRequest.client.execute(new HttpGet(this.url+"?username="+username+"&token="+token));
 		if (res.getStatusLine().getStatusCode()!=HttpStatus.SC_OK) {
-			fail(res.getStatusLine().getStatusCode()+" "+res.getStatusLine().getReasonPhrase());
+			cancel();
 			return null;
 		}
 		final long length = Long.parseLong(res.getFirstHeader("Content-Length").getValue());
@@ -44,14 +41,17 @@ public class ModDownloader extends Task<Void> {
 				final byte[] buf = new byte[8192];
 				int len;
 				while ((len = is.read(buf))!=-1) {
-					Log.log.info(i);
+					if (isCancelled()) {
+						this.file.delete();
+						break;
+					}
 					fos.write(buf, 0, len);
 					i++;
 					updateProgress(i*8192, length);
 				}
 			}
 		} else
-			fail();
+			cancel();
 		return null;
 	}
 

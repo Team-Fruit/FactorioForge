@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -12,7 +13,8 @@
 
 <fx:root prefHeight="30.0" prefWidth="423.0" stylesheets="@styles.css" type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.teamfruit.factorioforge.ui.UIModCellController">
    <children>
-      <BorderPane fx:id="slidePane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ProgressBar prefHeight="30.0" prefWidth="423.0" progress="0.0" styleClass="dl-progress" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <BorderPane fx:id="slidePane" prefHeight="30.0" prefWidth="423.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
             <AnchorPane>
                <children>

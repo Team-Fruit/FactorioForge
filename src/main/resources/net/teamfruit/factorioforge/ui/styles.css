@@ -541,3 +541,8 @@
 .details .contentcontainer > * {
 	-fx-padding: 3.0px;
 }
+
+.dl-progress > .track {
+  -fx-text-box-border: #000;
+  -fx-control-inner-background: #000;
+}

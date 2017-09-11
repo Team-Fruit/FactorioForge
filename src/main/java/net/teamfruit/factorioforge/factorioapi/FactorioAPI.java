@@ -15,6 +15,7 @@ import net.teamfruit.factorioforge.factorioapi.data.modportal.IResult;
 public class FactorioAPI {
 
 	public static Gson gson = new GsonBuilder()
+			.setPrettyPrinting()
 			.registerTypeAdapter(Info.class, new Info.DependenciesDeserilizer())
 			.registerTypeAdapter(Token.class, new Token.ResponseDeserilizer())
 			.create();

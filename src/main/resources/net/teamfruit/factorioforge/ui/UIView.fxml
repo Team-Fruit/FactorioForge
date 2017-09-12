@@ -97,14 +97,15 @@
                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                           </columnConstraints>
                           <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints />
+                              <RowConstraints />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <CheckBox fx:id="filterEnable" mnemonicParsing="false" onAction="#onFilterEnableClicked" selected="true" text="有効" GridPane.columnIndex="1" />
-                              <CheckBox fx:id="filterDisable" mnemonicParsing="false" onAction="#onFilterDisableClicked" selected="true" text="無効" GridPane.columnIndex="2" />
-                              <CheckBox fx:id="filterCached" disable="true" mnemonicParsing="false" onAction="#onFilterCachedClicked" text="キャッシュ" GridPane.columnIndex="3" />
-                              <CheckBox fx:id="filterPublic" disable="true" mnemonicParsing="false" onAction="#onFilterPublicClicked" text="MODポータル" GridPane.columnIndex="4" />
-                              <Label text="Filter" />
+                              <CheckBox fx:id="filterEnable" mnemonicParsing="false" onAction="#onFilterEnableClicked" selected="true" text="有効" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                              <CheckBox fx:id="filterDisable" mnemonicParsing="false" onAction="#onFilterDisableClicked" selected="true" text="無効" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                              <CheckBox fx:id="filterPublic" disable="true" mnemonicParsing="false" onAction="#onFilterPublicClicked" text="MODポータル" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                              <Label text="表示" GridPane.rowIndex="2" />
                            </children>
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

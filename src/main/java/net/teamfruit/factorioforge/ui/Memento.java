@@ -3,6 +3,7 @@ package net.teamfruit.factorioforge.ui;
 import java.io.IOException;
 
 import net.teamfruit.factorioforge.factorioapi.data.modportal.IInfo;
+import net.teamfruit.factorioforge.mod.ModDownloader;
 import net.teamfruit.factorioforge.mod.ModListBean.ModBean;
 import net.teamfruit.factorioforge.mod.ModListManager;
 import net.teamfruit.factorioforge.mod.RepositoryManager;
@@ -16,6 +17,7 @@ public class Memento {
 	private boolean updateChecked = false;
 	private boolean updateRequired = false;
 	private ModFileState fileState = ModFileState.LOCAL;
+	private ModDownloader currentTask;
 
 	public Memento(final String name) {
 		this.name = name;
@@ -68,6 +70,11 @@ public class Memento {
 		return this.updateChecked;
 	}
 
+	public Memento setUpdateRequired(final boolean bool) {
+		this.updateRequired = bool;
+		return this;
+	}
+
 	public boolean isUpdateRequired() {
 		return this.updateRequired;
 	}
@@ -79,6 +86,15 @@ public class Memento {
 
 	public ModFileState getModFileState() {
 		return this.fileState;
+	}
+
+	public Memento setCurrentTask(final ModDownloader task) {
+		this.currentTask = task;
+		return this;
+	}
+
+	public ModDownloader getCurrentTask() {
+		return this.currentTask;
 	}
 
 	@Override

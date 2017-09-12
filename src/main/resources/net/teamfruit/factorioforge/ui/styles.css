@@ -544,12 +544,14 @@
 
 .dl-progress > .track {
     -fx-background-color: transparent;
-    -fx-text-box-border: #000;
-    -fx-control-inner-background: #000;
 }
 
 .dl-progress > .bar {
     -fx-background-color: rgba(0, 255, 0, 0.5);
+}
+
+.dl-progress > .error-bar {
+    -fx-background-color: rgba(255, 0, 0, 0.5);
 }
 
 .modlist .list-cell:filled:selected {

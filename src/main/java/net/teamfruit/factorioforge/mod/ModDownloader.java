@@ -19,10 +19,12 @@ public class ModDownloader extends Task<Void> {
 
 	protected final String url;
 	protected final File file;
+	protected final File old;
 
-	public ModDownloader(final String url, final File file) {
+	public ModDownloader(final String url, final File file, final File old) {
 		this.url = url;
 		this.file = file;
+		this.old = old;
 	}
 
 	@Override
@@ -49,6 +51,8 @@ public class ModDownloader extends Task<Void> {
 					i++;
 					updateProgress(i*8192, length);
 				}
+				if (this.old!=null&&this.old.exists())
+					this.old.delete();
 			}
 		} else
 			cancel();

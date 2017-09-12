@@ -10,10 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.jutils.jprocesses.JProcesses;
 import org.jutils.jprocesses.model.ProcessInfo;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -28,6 +30,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -50,9 +53,12 @@ public class UIView {
 	private Label typeLabel;
 	@FXML
 	private ListView<Memento> listView;
+	private final Label placeHolder = new Label();
 	private final ObservableList<Memento> listRecords = FXCollections.observableArrayList();
-	private List<Memento> localMods;
-	private List<Memento> remoteMods;
+	private final List<Memento> enableMods = new ArrayList<>();
+	private final List<Memento> disableMods = new ArrayList<>();
+	private final List<Memento> localMods = new ArrayList<>();
+	private final List<Memento> remoteMods = new ArrayList<>();
 
 	@FXML
 	private void initialize() throws IOException {
@@ -73,31 +79,34 @@ public class UIView {
 
 		final Task<List<Memento>> task = new Task<List<Memento>>() {
 			@Override
-			protected List<Memento> call() throws Exception {
-				final List<Memento> list = new ArrayList<>();
-				//				updateValue(list);
+			protected ObservableList<Memento> call() throws Exception {
 				final Map<String, File> mods = ModListConverter.discoverModsDir(new File(FactorioForge.instance.factorioDir, "mods"));
 				ModListManager.INSTANCE.getModList().mods.stream().forEach((mod) -> {
 					final File modFile = mods.get(mod.name);
 					if (modFile!=null)
 						try {
 							final IInfo info = ModListConverter.getModInfo(modFile);
-							list.add(new Memento(mod.name).setLocalMod(mod).setInfo(info).setEnabled(mod.enabled));
+							final Memento memento = new Memento(mod.name).setLocalMod(mod).setInfo(info).setEnabled(mod.enabled);
+							Platform.runLater(() -> {
+								UIView.this.listRecords.add(memento);
+								UIView.this.localMods.add(memento);
+								if (mod.enabled)
+									UIView.this.enableMods.add(memento);
+								else
+									UIView.this.disableMods.add(memento);
+							});
 						} catch (final IOException e) {
 							throw new UncheckedIOException(e);
 						}
 				});
-				return list;
+				return UIView.this.listRecords;
 			}
 		};
-		task.setOnSucceeded(wse -> {
-			this.localMods = task.getValue();
-			this.listRecords.addAll(task.getValue());
-		});
 		UIView.this.listView.setItems(this.listRecords);
 		RepositoryManager.INSTANCE.executor.submit(task);
 
 		this.listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		this.listView.setPlaceholder(this.placeHolder);
 
 		SmoothScroll.apply(this.textScroll);
 		SmoothScroll.apply(this.modpackScroll);
@@ -106,7 +115,7 @@ public class UIView {
 			this.listView.refresh();
 			this.filterPublic.setDisable(false);
 			this.updateallbutton.setDisable(false);
-			this.remoteMods = RepositoryManager.INSTANCE.getMementoes();
+			this.remoteMods.addAll(RepositoryManager.INSTANCE.getMementoes());
 			//			task.setOnScheduled(wse -> this.remoteMods.stream().forEach(memento -> {
 			//				Log.log.info("hey");
 			//				try {
@@ -152,27 +161,58 @@ public class UIView {
 	private ScrollPane modpackScroll;
 
 	@FXML
+	private TextField searchField;
+	private String searchText;
+
+	@FXML
+	private void onSearchButtonClicked(final ActionEvent event) {
+		this.searchText = this.searchField.getText();
+		filter(this.searchText);
+	}
+
+	@FXML
 	private CheckBox filterEnable;
 	@FXML
 	private CheckBox filterDisable;
-	@FXML
-	private CheckBox filterCached;
 	@FXML
 	private CheckBox filterPublic;
 
 	@FXML
 	private void onFilterEnableClicked(final ActionEvent event) {
-
+		filter(this.searchText);
 	}
 
 	@FXML
 	private void onFilterDisableClicked(final ActionEvent event) {
-
+		filter(this.searchText);
 	}
 
-	@FXML
-	private void onFilterCachedClicked(final ActionEvent event) {
-
+	private void filter(final String str) {
+		final boolean enable = this.filterEnable.isSelected();
+		final boolean disable = this.filterDisable.isSelected();
+		if (StringUtils.isBlank(str)&&!this.filterPublic.isSelected()) {
+			if (enable&&disable) {
+				this.listRecords.clear();
+				this.listRecords.addAll(this.localMods);
+			} else if (enable)
+				this.listRecords.removeAll(this.disableMods);
+			else if (disable)
+				this.listRecords.removeAll(this.enableMods);
+			else
+				this.placeHolder.setText("フィルターに一致する項目はありません。");
+		} else {
+			//TODO StackOverFlow
+			filter(null);
+			this.listRecords.removeIf(memento -> {
+				if (StringUtils.startsWith(str, "\"")&&StringUtils.endsWith(str, "\"")) {
+					final String s = StringUtils.substring(StringUtils.substring(str, 0, str.length()-1), 1);
+					return !(StringUtils.equalsIgnoreCase(memento.getInfo().getTitle(), s)||StringUtils.equalsIgnoreCase(memento.getInfo().getName(), s));
+				} else
+					return !(StringUtils.containsIgnoreCase(memento.getInfo().getTitle(), str)||StringUtils.containsIgnoreCase(memento.getInfo().getName(), str));
+			});
+			this.placeHolder.setText("検索条件に一致する項目はありません。");
+		}
+		clearDetail();
 	}
 
 	@FXML

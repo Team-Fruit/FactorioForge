@@ -23,6 +23,7 @@ public class ModListCell extends ListCell<Memento> {
 				try {
 					final FXMLLoader loader = UIFactory.loadUI("UIModCell");
 					this.controller = loader.getController();
+					this.controller.setWidthProperty(prefWidthProperty());
 					setGraphic(loader.getRoot());
 				} catch (final IOException e) {
 					throw new UncheckedIOException(e);

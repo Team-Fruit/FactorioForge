@@ -35,6 +35,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import net.teamfruit.factorioforge.FactorioForge;
@@ -77,6 +78,10 @@ public class UIView {
 
 		this.listView.setCellFactory(param -> {
 			final ModListCell cell = new ModListCell();
+
+			cell.prefWidthProperty().bind(this.listView.widthProperty().subtract(20));
+			cell.setMaxWidth(Region.USE_PREF_SIZE);
+
 			final ContextMenu menu = new ContextMenu();
 			final MenuItem enableItem = new MenuItem("有効");
 			final MenuItem disableItem = new MenuItem("無効");

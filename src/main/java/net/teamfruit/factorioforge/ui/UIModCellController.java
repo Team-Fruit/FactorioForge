@@ -6,10 +6,12 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
+import javafx.beans.property.DoubleProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.OverrunStyle;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.BorderPane;
@@ -39,7 +41,9 @@ public class UIModCellController {
 
 	@FXML
 	private void initialize() {
-
+		this.updateButton.setMaxWidth(100);
+		this.label.setTextOverrun(OverrunStyle.ELLIPSIS);
+		this.label.setEllipsisString("...");
 	}
 
 	@FXML
@@ -48,6 +52,10 @@ public class UIModCellController {
 			if (this.current!=null)
 				this.current.setEnabled(getState()).commitEnabled();
 		});
+	}
+
+	public void setWidthProperty(final DoubleProperty property) {
+		this.label.maxWidthProperty().bind(property.subtract(152));
 	}
 
 	public void setState(final boolean state, final boolean fast) {
@@ -99,7 +107,8 @@ public class UIModCellController {
 		this.current = item;
 		setState(item.isEnabled(), true);
 		this.label.setText(item.getInfo().getTitle());
-		this.updateButton.setVisible(item.isUpdateRequired()&&item.getDownloadState()==DownloadState.NONE);
+		this.updateButton.setVisible(item.getDownloadState()==DownloadState.NONE&&(item.isUpdateRequired()||!item.isLocalMod()));
+		this.updateButton.setText(item.isLocalMod() ? "Update" : "Download");
 		this.updateChecking.setVisible(!item.isUpdateChecked());
 		switch (item.getDownloadState()) {
 			case DOWNLOADING:

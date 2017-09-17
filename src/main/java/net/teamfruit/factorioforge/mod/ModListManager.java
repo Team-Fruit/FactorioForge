@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import net.teamfruit.factorioforge.FactorioForge;
+import net.teamfruit.factorioforge.mod.ModListBean.ModBean;
 
 public class ModListManager {
 	public static final ModListManager INSTANCE = new ModListManager();
@@ -18,6 +19,11 @@ public class ModListManager {
 		if (this.modList==null)
 			this.modList = ModListConverter.getModList(this.modListFile);
 		return this.modList;
+	}
+
+	public ModListManager add(final ModBean bean) throws IOException {
+		getModList().mods.add(bean);
+		return this;
 	}
 
 	public ModListManager save() throws IOException {

@@ -1,7 +1,5 @@
 package net.teamfruit.factorioforge.ui;
 
-import java.io.File;
-
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
@@ -17,12 +15,7 @@ import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
-import net.teamfruit.factorioforge.FactorioForge;
-import net.teamfruit.factorioforge.factorioapi.data.modportal.IRelease;
-import net.teamfruit.factorioforge.mod.ModDownloader;
-import net.teamfruit.factorioforge.mod.ModListConverter;
-import net.teamfruit.factorioforge.mod.RepositoryManager;
-import net.teamfruit.factorioforge.ui.Memento.ModFileState;
+import net.teamfruit.factorioforge.ui.Memento.DownloadState;
 
 public class UIModCellController {
 	private boolean state;
@@ -99,60 +92,44 @@ public class UIModCellController {
 
 	@FXML
 	private void onUpdateButtonClicked(final ActionEvent event) {
-		RepositoryManager.INSTANCE.getResultByName(this.current.getInfo().getName()).ifPresent(result -> {
-			final IRelease release = result.getLatestRelease();
-			final ModDownloader task = new ModDownloader("https://mods.factorio.com"+release.getDownloadURL(),
-					new File(FactorioForge.instance.modsDir, release.getFileName()),
-					ModListConverter.discoverModsDir(FactorioForge.instance.modsDir).get(result.getName()));
-			setTask(task);
-			RepositoryManager.INSTANCE.executor.submit(task);
-			this.current.setModFileState(ModFileState.DOWNLOADING);
-			this.current.setCurrentTask(task);
-		});
+		this.current.runModDownloader();
 	}
 
 	public void update(final Memento item) {
 		this.current = item;
 		setState(item.isEnabled(), true);
 		this.label.setText(item.getInfo().getTitle());
-		this.updateButton.setVisible(item.isUpdateRequired());
+		this.updateButton.setVisible(item.isUpdateRequired()&&item.getDownloadState()==DownloadState.NONE);
 		this.updateChecking.setVisible(!item.isUpdateChecked());
-		if (item.getModFileState()==ModFileState.DOWNLOADING) {
-			setTask(item.getCurrentTask());
-		} else {
-			this.progress.progressProperty().unbind();
-			this.progress.progressProperty().set(0);
-			item.setCurrentTask(null);
-		}
-	}
-
-	private void setTask(final ModDownloader task) {
-		this.updateButton.setVisible(false);
-		task.setOnSucceeded(e -> {
-			this.progress.progressProperty().unbind();
-			final FadeTransition fade = new FadeTransition(new Duration(1000), this.progress);
-			fade.setDelay(new Duration(1000));
-			fade.setToValue(0);
-			fade.setOnFinished(ae -> {
+		switch (item.getDownloadState()) {
+			case DOWNLOADING:
+				this.updateButton.setVisible(false);
+				this.progress.progressProperty().unbind();
+				this.progress.progressProperty().bind(item.getCurrentTask().progressProperty());
+				break;
+			case FAILED:
+				this.progress.lookup(".bar").setStyle("-fx-background-color: rgba(255, 0, 0, 0.5);");
+				this.updateButton.setText("Retry");
+			case CANCELLED:
+				this.updateButton.setVisible(true);
+			case SUCCEEDED:
+				final FadeTransition fade = new FadeTransition(new Duration(1000), this.progress);
+				fade.setDelay(new Duration(1000));
+				fade.setToValue(0);
+				fade.setOnFinished(ae -> {
+					this.progress.progressProperty().unbind();
+					this.progress.progressProperty().set(0);
+					this.progress.setOpacity(1);
+					this.progress.lookup(".bar").setStyle("-fx-background-color: rgba(0, 255, 0, 0.5);");
+					item.setUpdateRequired(false);
+					item.setDownloadState(DownloadState.NONE);
+				});
+				fade.play();
+				break;
+			default:
+				this.progress.progressProperty().unbind();
 				this.progress.progressProperty().set(0);
-				this.progress.setOpacity(1);
-			});
-			fade.play();
-			this.current.setUpdateRequired(false);
-			this.current.setModFileState(ModFileState.LOCAL);
-		});
-		task.setOnCancelled(e -> {
-			this.updateButton.setVisible(true);
-			this.current.setModFileState(ModFileState.LOCAL);
-		});
-		task.setOnFailed(e -> {
-			this.progress.lookup(".bar").setStyle("-fx-background-color: rgba(255, 0, 0, 0.5);");
-			this.updateButton.setText("Retry");
-			this.updateButton.setVisible(true);
-			this.current.setModFileState(ModFileState.LOCAL);
-		});
-		this.progress.progressProperty().unbind();
-		this.progress.progressProperty().bind(task.progressProperty());
+		}
 	}
 
 }

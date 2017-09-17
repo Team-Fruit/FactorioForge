@@ -16,8 +16,10 @@ import org.jutils.jprocesses.JProcesses;
 import org.jutils.jprocesses.model.ProcessInfo;
 
 import javafx.application.Platform;
+import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,6 +30,7 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
@@ -53,10 +56,16 @@ public class UIView {
 	private Label typeLabel;
 	@FXML
 	private ListView<Memento> listView;
-	private final Label placeHolder = new Label();
-	private final ObservableList<Memento> listRecords = FXCollections.observableArrayList();
-	private final List<Memento> enableMods = new ArrayList<>();
-	private final List<Memento> disableMods = new ArrayList<>();
+	private ContextMenu menu = new ContextMenu();
+	private final Label placeHolderLabel = new Label();
+	private final ProgressIndicator placeHolderIndicator = new ProgressIndicator();
+	private final ObservableList<Memento> listRecords = FXCollections.observableArrayList(memento -> new Observable[] {
+			memento.enabledProperty(),
+			memento.updateCheckedProperty(),
+			memento.updateRequiredProperty(),
+			memento.downloadStateProperty()
+	});
+	private final FilteredList<Memento> filterRecords = new FilteredList<>(this.listRecords);
 	private final List<Memento> localMods = new ArrayList<>();
 	private final List<Memento> remoteMods = new ArrayList<>();
 
@@ -66,22 +75,56 @@ public class UIView {
 		this.uidetail = moddetail.getRoot();
 		this.uidetailcontroller = moddetail.getController();
 
-		this.listView.setCellFactory(param -> new ModListCell());
-		this.listView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> {
-			this.uidetailwrap.getChildren().clear();
-			this.uidetailwrap.getChildren().add(this.uidetail);
-			final IInfo info = newvalue.getInfo();
+		this.listView.setCellFactory(param -> {
+			final ModListCell cell = new ModListCell();
+			final ContextMenu menu = new ContextMenu();
+			final MenuItem enableItem = new MenuItem("有効");
+			final MenuItem disableItem = new MenuItem("無効");
+			final MenuItem downloadItem = new MenuItem("ダウンロード");
+			final MenuItem deleteItem = new MenuItem("消去");
 
-			this.uidetailtitle.setText(info.getTitle());
-			this.uidetailcontroller.setInfo(info);
-			this.uidetailcontroller.setStatus("Not implemented");
+			enableItem.setOnAction(ae -> this.listView.getSelectionModel().getSelectedItems().stream().forEach(memento -> memento.setEnabled(true)));
+			disableItem.setOnAction(ae -> this.listView.getSelectionModel().getSelectedItems().stream().forEach(memento -> memento.setEnabled(false)));
+			enableItem.setOnAction(ae -> this.listView.getSelectionModel().getSelectedItems().stream().forEach(memento -> memento.setEnabled(true)));
+			enableItem.setOnAction(ae -> this.listView.getSelectionModel().getSelectedItems().stream().forEach(memento -> memento.setEnabled(true)));
+
+			menu.getItems().addAll(enableItem, disableItem, downloadItem, deleteItem);
+			menu.setOnShowing(we -> {
+				if (!this.listView.getSelectionModel().isSelected(cell.getIndex())) {
+					this.listView.getSelectionModel().clearSelection();
+					this.listView.getSelectionModel().select(cell.getIndex());
+				}
+				final List<Memento> items = this.listView.getSelectionModel().getSelectedItems();
+				enableItem.setVisible(items.stream().anyMatch(memento -> !memento.isEnabled()));
+				disableItem.setVisible(items.stream().anyMatch(memento -> memento.isEnabled()));
+				downloadItem.setVisible(items.stream().allMatch(memento -> !memento.isLocalMod()));
+				deleteItem.setVisible(items.stream().allMatch(memento -> memento.isLocalMod()));
+			});
+
+			cell.emptyProperty().addListener((obs, wasEmpty, isNowEmpty) -> cell.setContextMenu(isNowEmpty ? null : menu));
+			return cell;
+		});
+
+		this.listView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> {
+			if (newvalue!=null) {
+				this.uidetailwrap.getChildren().clear();
+				this.uidetailwrap.getChildren().add(this.uidetail);
+				final IInfo info = newvalue.getInfo();
+
+				this.uidetailtitle.setText(info.getTitle());
+				this.uidetailcontroller.setInfo(info);
+				this.uidetailcontroller.setStatus("Not implemented");
+			} else {
+				this.uidetailwrap.getChildren().clear();
+				this.uidetailtitle.setText(null);
+			}
 		});
 
 		final Task<List<Memento>> task = new Task<List<Memento>>() {
 			@Override
 			protected ObservableList<Memento> call() throws Exception {
 				final Map<String, File> mods = ModListConverter.discoverModsDir(new File(FactorioForge.instance.factorioDir, "mods"));
-				ModListManager.INSTANCE.getModList().mods.stream().forEach((mod) -> {
+				ModListManager.INSTANCE.getModList().mods.stream().forEach(mod -> {
 					final File modFile = mods.get(mod.name);
 					if (modFile!=null)
 						try {
@@ -90,10 +133,6 @@ public class UIView {
 							Platform.runLater(() -> {
 								UIView.this.listRecords.add(memento);
 								UIView.this.localMods.add(memento);
-								if (mod.enabled)
-									UIView.this.enableMods.add(memento);
-								else
-									UIView.this.disableMods.add(memento);
 							});
 						} catch (final IOException e) {
 							throw new UncheckedIOException(e);
@@ -102,43 +141,21 @@ public class UIView {
 				return UIView.this.listRecords;
 			}
 		};
-		UIView.this.listView.setItems(this.listRecords);
+		UIView.this.listView.setItems(this.filterRecords);
 		RepositoryManager.INSTANCE.executor.submit(task);
 
+		this.placeHolderIndicator.setMaxSize(100, 100);
+
 		this.listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-		this.listView.setPlaceholder(this.placeHolder);
+		this.listView.setPlaceholder(this.placeHolderIndicator);
 
 		SmoothScroll.apply(this.textScroll);
 		SmoothScroll.apply(this.modpackScroll);
 
 		RepositoryManager.INSTANCE.thenAccept(modList -> {
-			this.listView.refresh();
 			this.filterPublic.setDisable(false);
 			this.updateallbutton.setDisable(false);
 			this.remoteMods.addAll(RepositoryManager.INSTANCE.getMementoes());
-			//			task.setOnScheduled(wse -> this.remoteMods.stream().forEach(memento -> {
-			//				Log.log.info("hey");
-			//				try {
-			//					ModListManager.INSTANCE.getModList().mods.stream()
-			//							.filter(local -> local.name.equals(memento.getInfo().getTitle())).findAny().ifPresent(bean -> {
-			//								memento.setLocalMod(bean);
-			//								memento.setModFileState(ModFileState.LOCAL);
-			//								memento.setEnabled(bean.enabled);
-			//							});
-			//				} catch (final IOException e) {
-			//					throw new UncheckedIOException(e);
-			//				}
-			//			}));
-		});
-	}
-
-	@FXML
-	private ContextMenu menu;
-
-	@FXML
-	private void onMenuOpened(final ActionEvent event) {
-		this.listView.getSelectionModel().getSelectedItems().stream().forEach(memento -> {
-
 		});
 	}
 
@@ -162,12 +179,20 @@ public class UIView {
 
 	@FXML
 	private TextField searchField;
-	private String searchText;
 
 	@FXML
 	private void onSearchButtonClicked(final ActionEvent event) {
-		this.searchText = this.searchField.getText();
-		filter(this.searchText);
+		final String searchText = this.searchField.getText();
+		this.filterRecords.setPredicate(memento -> {
+			if (StringUtils.startsWith(searchText, "\"")&&StringUtils.endsWith(searchText, "\"")) {
+				final String s = StringUtils.substring(StringUtils.substring(searchText, 0, searchText.length()-1), 1);
+				return StringUtils.equalsIgnoreCase(memento.getInfo().getTitle(), s)||StringUtils.equalsIgnoreCase(memento.getInfo().getName(), s);
+			} else
+				return StringUtils.containsIgnoreCase(memento.getInfo().getTitle(), searchText)||StringUtils.containsIgnoreCase(memento.getInfo().getName(), searchText);
+		});
+		this.placeHolderLabel.setText("検索条件に一致する項目はありません。");
+		this.listView.setPlaceholder(this.placeHolderLabel);
+		this.listView.getSelectionModel().clearSelection();
 	}
 
 	@FXML
@@ -179,40 +204,27 @@ public class UIView {
 
 	@FXML
 	private void onFilterEnableClicked(final ActionEvent event) {
-		filter(this.searchText);
+		filterEnable(this.filterEnable.isSelected(), this.filterDisable.isSelected());
 	}
 
 	@FXML
 	private void onFilterDisableClicked(final ActionEvent event) {
-		filter(this.searchText);
+		filterEnable(this.filterEnable.isSelected(), this.filterDisable.isSelected());
 	}
 
-	private void filter(final String str) {
-		final boolean enable = this.filterEnable.isSelected();
-		final boolean disable = this.filterDisable.isSelected();
-		if (StringUtils.isBlank(str)&&!this.filterPublic.isSelected()) {
-			if (enable&&disable) {
-				this.listRecords.clear();
-				this.listRecords.addAll(this.localMods);
-			} else if (enable)
-				this.listRecords.removeAll(this.disableMods);
-			else if (disable)
-				this.listRecords.removeAll(this.enableMods);
-			else
-				this.placeHolder.setText("フィルターに一致する項目はありません。");
-		} else {
-			//TODO StackOverFlow
-			filter(null);
-			this.listRecords.removeIf(memento -> {
-				if (StringUtils.startsWith(str, "\"")&&StringUtils.endsWith(str, "\"")) {
-					final String s = StringUtils.substring(StringUtils.substring(str, 0, str.length()-1), 1);
-					return !(StringUtils.equalsIgnoreCase(memento.getInfo().getTitle(), s)||StringUtils.equalsIgnoreCase(memento.getInfo().getName(), s));
-				} else
-					return !(StringUtils.containsIgnoreCase(memento.getInfo().getTitle(), str)||StringUtils.containsIgnoreCase(memento.getInfo().getName(), str));
-			});
-			this.placeHolder.setText("検索条件に一致する項目はありません。");
+	private void filterEnable(final boolean enable, final boolean disable) {
+		if (enable&&disable)
+			this.filterRecords.setPredicate(null);
+		else if (enable)
+			this.filterRecords.setPredicate(m -> m.getLocalMod().enabled);
+		else if (disable)
+			this.filterRecords.setPredicate(m -> !m.getLocalMod().enabled);
+		else {
+			this.placeHolderLabel.setText("フィルターに一致する項目はありません。");
+			this.listView.setPlaceholder(this.placeHolderLabel);
+			this.filterRecords.setPredicate(m -> false);
 		}
-		clearDetail();
+		this.listView.getSelectionModel().clearSelection();
 	}
 
 	@FXML
@@ -221,13 +233,8 @@ public class UIView {
 		this.filterEnable.setDisable(select);
 		this.filterDisable.setDisable(select);
 		this.listRecords.clear();
+		this.listView.getSelectionModel().clearSelection();
 		this.listRecords.addAll(select ? this.remoteMods : this.localMods);
-		clearDetail();
-	}
-
-	private void clearDetail() {
-		this.uidetailwrap.getChildren().clear();
-		this.uidetailtitle.setText(null);
 	}
 
 	@FXML

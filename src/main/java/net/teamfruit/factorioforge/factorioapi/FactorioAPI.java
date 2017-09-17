@@ -84,10 +84,10 @@ public class FactorioAPI {
 		new Thread(runnable(newWebAuthAPI(username, password), callback)).start();
 	}
 
-	private static Runnable runnable(final APIRequest req, final APICallback callback) {
+	private static <E extends IResponse> Runnable runnable(final APIRequest<E> req, final APICallback<E> callback) {
 		return () -> {
 			try {
-				final IResponse res = req.getAPIResponse();
+				final E res = req.getAPIResponse();
 				if (res.isError())
 					callback.onErrorResponse(res);
 				else

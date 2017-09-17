@@ -550,10 +550,6 @@
     -fx-background-color: rgba(0, 255, 0, 0.5);
 }
 
-.dl-progress > .error-bar {
-    -fx-background-color: rgba(255, 0, 0, 0.5);
-}
-
 .modlist .list-cell:filled:selected {
     -fx-background-color: -fx-background ;
     -fx-background-insets: 0 ;

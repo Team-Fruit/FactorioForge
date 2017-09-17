@@ -1,10 +1,19 @@
 package net.teamfruit.factorioforge.ui;
 
+import java.io.File;
 import java.io.IOException;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import net.teamfruit.factorioforge.FactorioForge;
 import net.teamfruit.factorioforge.factorioapi.data.modportal.IInfo;
+import net.teamfruit.factorioforge.factorioapi.data.modportal.IRelease;
+import net.teamfruit.factorioforge.factorioapi.data.modportal.IShortResult;
 import net.teamfruit.factorioforge.mod.ModDownloader;
 import net.teamfruit.factorioforge.mod.ModListBean.ModBean;
+import net.teamfruit.factorioforge.mod.ModListConverter;
 import net.teamfruit.factorioforge.mod.ModListManager;
 import net.teamfruit.factorioforge.mod.RepositoryManager;
 
@@ -13,23 +22,28 @@ public class Memento {
 	private ModBean localmod;
 	private IInfo info;
 
-	private boolean enabled = false;
-	private boolean updateChecked = false;
-	private boolean updateRequired = false;
-	private ModFileState fileState = ModFileState.LOCAL;
-	private ModDownloader currentTask;
+	private BooleanProperty enabled = new SimpleBooleanProperty(false);
+	private BooleanProperty updateChecked = new SimpleBooleanProperty(false);
+	private BooleanProperty updateRequired = new SimpleBooleanProperty(false);
+	private ObjectProperty<DownloadState> downloadState = new SimpleObjectProperty<>(DownloadState.NONE);
+	private ModDownloader currentTask;;
 
 	public Memento(final String name) {
 		this.name = name;
 	}
 
+	public String getName() {
+		return this.name;
+	}
+
 	public Memento setInfo(final IInfo info) {
 		this.info = info;
-		RepositoryManager.INSTANCE.thenAccept(mods -> RepositoryManager.INSTANCE.getResultByName(info.getName()).ifPresent(r -> {
-			this.updateChecked = true;
-			if (!r.getLatestRelease().getVersion().equals(info.getVersion()))
-				this.updateRequired = true;
-		}));
+		RepositoryManager.INSTANCE.thenAccept(mods -> {
+			final IShortResult r = RepositoryManager.INSTANCE.getResultByName(info.getName());
+			this.updateChecked.set(true);
+			if (r!=null&&!r.getLatestRelease().getVersion().equals(info.getVersion()))
+				this.updateRequired.set(true);
+		});
 		return this;
 	}
 
@@ -46,8 +60,12 @@ public class Memento {
 		return this.localmod;
 	}
 
+	public boolean isLocalMod() {
+		return getLocalMod()!=null;
+	}
+
 	public Memento setEnabled(final boolean enabled) {
-		this.enabled = enabled;
+		this.enabled.set(enabled);
 		return this;
 	}
 
@@ -63,29 +81,33 @@ public class Memento {
 	}
 
 	public boolean isEnabled() {
+		return this.enabled.get();
+	}
+
+	public BooleanProperty enabledProperty() {
 		return this.enabled;
 	}
 
 	public boolean isUpdateChecked() {
+		return this.updateChecked.get();
+	}
+
+	public BooleanProperty updateCheckedProperty() {
 		return this.updateChecked;
 	}
 
 	public Memento setUpdateRequired(final boolean bool) {
-		this.updateRequired = bool;
+		this.updateRequired.set(bool);
+		;
 		return this;
 	}
 
 	public boolean isUpdateRequired() {
+		return this.updateRequired.get();
+	}
+
+	public BooleanProperty updateRequiredProperty() {
 		return this.updateRequired;
-	}
-
-	public Memento setModFileState(final ModFileState fileState) {
-		this.fileState = fileState;
-		return this;
-	}
-
-	public ModFileState getModFileState() {
-		return this.fileState;
 	}
 
 	public Memento setCurrentTask(final ModDownloader task) {
@@ -97,14 +119,72 @@ public class Memento {
 		return this.currentTask;
 	}
 
+	public DownloadState getDownloadState() {
+		return this.downloadState.get();
+	}
+
+	public Memento setDownloadState(final DownloadState state) {
+		this.downloadState.set(state);
+		return this;
+	}
+
+	public ObjectProperty<DownloadState> downloadStateProperty() {
+		return this.downloadState;
+	}
+
+	public ModDownloader runModDownloader() {
+		final IShortResult result = RepositoryManager.INSTANCE.getResultByName(getInfo().getName());
+		if (result==null)
+			throw new IllegalStateException();
+		final IRelease release = result.getLatestRelease();
+		final ModDownloader task = new ModDownloader("https://mods.factorio.com"+release.getDownloadURL(),
+				new File(FactorioForge.instance.modsDir, release.getFileName()),
+				ModListConverter.discoverModsDir(FactorioForge.instance.modsDir).get(result.getName())) {
+
+			@Override
+			protected void succeeded() {
+				if (!isLocalMod()) {
+					final ModBean bean = new ModBean();
+					bean.name = getName();
+					bean.enabled = isEnabled();
+					try {
+						ModListManager.INSTANCE.add(bean).save();
+					} catch (final IOException e) {
+						setException(e);
+						failed();
+						return;
+					}
+					setLocalMod(bean);
+				}
+				setDownloadState(DownloadState.SUCCEEDED);
+			}
+
+			@Override
+			protected void cancelled() {
+				setDownloadState(DownloadState.CANCELLED);
+			}
+
+			@Override
+			protected void failed() {
+				setDownloadState(DownloadState.FAILED);
+			}
+		};
+		RepositoryManager.INSTANCE.executor.submit(task);
+		setCurrentTask(task);
+		setDownloadState(DownloadState.DOWNLOADING);
+		return task;
+	}
+
 	@Override
 	public String toString() {
 		return String.format("Memento [text=%s]", this.name);
 	}
 
-	public enum ModFileState {
-		LOCAL,
+	public enum DownloadState {
+		NONE,
 		DOWNLOADING,
-		REMOTE,
+		SUCCEEDED,
+		CANCELLED,
+		FAILED
 	}
 }

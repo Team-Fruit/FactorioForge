@@ -19,12 +19,11 @@ import net.teamfruit.factorioforge.factorioapi.FactorioAPIException;
 import net.teamfruit.factorioforge.factorioapi.data.modportal.IModList;
 import net.teamfruit.factorioforge.factorioapi.data.modportal.IShortResult;
 import net.teamfruit.factorioforge.ui.Memento;
-import net.teamfruit.factorioforge.ui.Memento.ModFileState;
 
 public class RepositoryManager {
 	public static final RepositoryManager INSTANCE = new RepositoryManager();
 
-	public final ExecutorService executor = Executors.newFixedThreadPool(2, r -> new Thread(r, "FactorioForge-communication-thread"));
+	public final ExecutorService executor = Executors.newFixedThreadPool(4, r -> new Thread(r, "FactorioForge-communication-thread"));
 	private IModList modList;
 	private final Deque<Consumer<Optional<IModList>>> thenAccepts = new ArrayDeque<>();
 	private final Map<String, IShortResult> results = new ConcurrentHashMap<>();
@@ -70,7 +69,7 @@ public class RepositoryManager {
 
 	public List<Memento> getMementoes() {
 		return getModList().getResults().stream()
-				.map(result -> new Memento(result.getShortResult().getTitle()).setInfo(result.getShortResult().getLatestRelease().getInfoJson()).setModFileState(ModFileState.REMOTE))
+				.map(result -> new Memento(result.getShortResult().getTitle()).setInfo(result.getShortResult().getLatestRelease().getInfoJson()))
 				.collect(Collectors.toList());
 	}
 
@@ -86,8 +85,8 @@ public class RepositoryManager {
 		return this.pageCount;
 	}
 
-	public Optional<IShortResult> getResultByName(final String name) {
-		return Optional.ofNullable(this.results.get(name));
+	public IShortResult getResultByName(final String name) {
+		return this.results.get(name);
 	}
 
 	public void thenAccept(final Consumer<Optional<IModList>> consumer) {

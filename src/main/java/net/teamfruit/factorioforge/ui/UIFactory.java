@@ -17,10 +17,6 @@ public class UIFactory {
 		return loader;
 	}
 
-	public static FXMLLoader getUI(final String name) throws IOException {
-		return getUI(name, ReflectionUtil.getCallerClass(UIFactory.class));
-	}
-
 	public static FXMLLoader loadUI(final String name, final Class<?> env) throws IOException {
 		final FXMLLoader loader = getUI(name, env);
 		loader.load();

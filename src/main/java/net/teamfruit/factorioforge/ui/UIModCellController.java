@@ -11,7 +11,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.OverrunStyle;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.BorderPane;
@@ -41,9 +40,6 @@ public class UIModCellController {
 
 	@FXML
 	private void initialize() {
-		this.updateButton.setMaxWidth(100);
-		this.label.setTextOverrun(OverrunStyle.ELLIPSIS);
-		this.label.setEllipsisString("...");
 	}
 
 	@FXML
@@ -55,7 +51,7 @@ public class UIModCellController {
 	}
 
 	public void setWidthProperty(final DoubleProperty property) {
-		this.label.maxWidthProperty().bind(property.subtract(152));
+		this.label.maxWidthProperty().bind(property.subtract(155));
 	}
 
 	public void setState(final boolean state, final boolean fast) {

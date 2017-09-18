@@ -54,7 +54,11 @@
          <right>
             <StackPane BorderPane.alignment="CENTER_RIGHT">
                <children>
-                  <Button fx:id="updateButton" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#onUpdateButtonClicked" styleClass="updatebutton" text="Update" visible="false" />
+                  <Button fx:id="updateButton" minWidth="80.0" mnemonicParsing="false" onAction="#onUpdateButtonClicked" styleClass="updatebutton" text="Update" visible="false">
+                     <StackPane.margin>
+                        <Insets right="1.0" />
+                     </StackPane.margin>
+                  </Button>
                   <ProgressIndicator fx:id="updateChecking" />
                </children>
             </StackPane>

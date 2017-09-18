@@ -449,6 +449,8 @@
 .updatebutton {
 	-fx-padding: 0.0 10.0px 0.0 10.0px;
 	-fx-text-fill: #fff;
+	-fx-min-width: 80px;
+	-fx-min-height: 28px;
 }
 
 .scrolltransparent .scroll-pane, .scrolltransparent > .scroll-pane > .viewport {

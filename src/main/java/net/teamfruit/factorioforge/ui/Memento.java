@@ -2,11 +2,13 @@ package net.teamfruit.factorioforge.ui;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.concurrent.Task;
 import net.teamfruit.factorioforge.FactorioForge;
 import net.teamfruit.factorioforge.factorioapi.data.modportal.IInfo;
 import net.teamfruit.factorioforge.factorioapi.data.modportal.IRelease;
@@ -132,7 +134,7 @@ public class Memento {
 		return this.downloadState;
 	}
 
-	public ModDownloader runModDownloader() {
+	public ModDownloader downloadMod() {
 		final IShortResult result = RepositoryManager.INSTANCE.getResultByName(getInfo().getName());
 		if (result==null)
 			throw new IllegalStateException();
@@ -172,6 +174,21 @@ public class Memento {
 		RepositoryManager.INSTANCE.executor.submit(task);
 		setCurrentTask(task);
 		setDownloadState(DownloadState.DOWNLOADING);
+		return task;
+	}
+
+	public Task<Void> deleteMod() {
+		if (!isLocalMod())
+			throw new IllegalStateException();
+		Task<Void> task = new Task<Void>() {
+			@Override
+			protected Void call() throws Exception {
+				File file = ModListConverter.discoverModsDir(FactorioForge.instance.modsDir).get(getLocalMod().name);
+				Files.delete(file.toPath());
+				return null;
+			}
+		};
+		RepositoryManager.INSTANCE.executor.submit(task);
 		return task;
 	}
 

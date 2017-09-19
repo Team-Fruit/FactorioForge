@@ -96,7 +96,7 @@ public class UIModCellController {
 
 	@FXML
 	private void onUpdateButtonClicked(final ActionEvent event) {
-		this.current.runModDownloader();
+		this.current.downloadMod();
 	}
 
 	public void update(final Memento item) {

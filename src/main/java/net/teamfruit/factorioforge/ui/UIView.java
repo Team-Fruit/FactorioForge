@@ -57,7 +57,6 @@ public class UIView {
 	private Label typeLabel;
 	@FXML
 	private ListView<Memento> listView;
-	private ContextMenu menu = new ContextMenu();
 	private final Label placeHolderLabel = new Label();
 	private final ProgressIndicator placeHolderIndicator = new ProgressIndicator();
 	private final ObservableList<Memento> listRecords = FXCollections.observableArrayList(memento -> new Observable[] {
@@ -90,8 +89,8 @@ public class UIView {
 
 			enableItem.setOnAction(ae -> this.listView.getSelectionModel().getSelectedItems().stream().forEach(memento -> memento.setEnabled(true)));
 			disableItem.setOnAction(ae -> this.listView.getSelectionModel().getSelectedItems().stream().forEach(memento -> memento.setEnabled(false)));
-			enableItem.setOnAction(ae -> this.listView.getSelectionModel().getSelectedItems().stream().forEach(memento -> memento.setEnabled(true)));
-			enableItem.setOnAction(ae -> this.listView.getSelectionModel().getSelectedItems().stream().forEach(memento -> memento.setEnabled(true)));
+			downloadItem.setOnAction(ae -> this.listView.getSelectionModel().getSelectedItems().stream().forEach(memento -> memento.downloadMod()));
+			deleteItem.setOnAction(ae -> this.listView.getSelectionModel().getSelectedItems().stream().forEach(memento -> memento.deleteMod()));
 
 			menu.getItems().addAll(enableItem, disableItem, downloadItem, deleteItem);
 			menu.setOnShowing(we -> {

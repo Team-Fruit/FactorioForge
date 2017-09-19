@@ -556,3 +556,11 @@
     -fx-background-color: -fx-background ;
     -fx-background-insets: 0 ;
 }
+
+.menu-button > .label {
+    -fx-padding: 0;
+}
+
+.menu-button > .arrow-button > .arrow {
+    -fx-background-color: white;
+}

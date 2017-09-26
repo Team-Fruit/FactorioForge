@@ -29,6 +29,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.ScrollPane;
@@ -164,19 +165,6 @@ public class UIView {
 	}
 
 	@FXML
-	private void onEnableClicked(final ActionEvent event) {
-		final boolean local = !this.filterPublic.isSelected();
-		this.menuEnable.setVisible(local);
-		this.menuDisable.setVisible(local);
-		this.menuDelete.setVisible(local);
-		if (local) {
-			if (this.listView.getSelectionModel().getSelectedItems().stream().anyMatch(Memento::isUpdateRequired))
-				this.menuUpdate.setVisible(true);
-		} else
-			this.menuUpdate.setVisible(false);
-	}
-
-	@FXML
 	private ScrollPane textScroll;
 	@FXML
 	private ScrollPane modpackScroll;
@@ -242,17 +230,6 @@ public class UIView {
 	}
 
 	@FXML
-	private MenuItem menuEnable;
-	@FXML
-	private MenuItem menuDisable;
-	@FXML
-	private MenuItem menuDownload;
-	@FXML
-	private MenuItem menuDelete;
-	@FXML
-	private MenuItem menuUpdate;
-
-	@FXML
 	private Button updateallbutton;
 
 	@FXML
@@ -266,4 +243,7 @@ public class UIView {
 			e1.printStackTrace();
 		}
 	}
+
+	@FXML
+	private MenuButton menuButton;
 }

@@ -154,8 +154,7 @@ public class UIView {
 		this.listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		this.listView.setPlaceholder(this.placeHolderIndicator);
 
-		SmoothScroll.apply(this.textScroll);
-		SmoothScroll.apply(this.modpackScroll);
+		//		SmoothScroll.apply(this.modpackScroll);
 
 		RepositoryManager.INSTANCE.thenAccept(modList -> {
 			this.filterPublic.setDisable(false);
@@ -164,8 +163,6 @@ public class UIView {
 		});
 	}
 
-	@FXML
-	private ScrollPane textScroll;
 	@FXML
 	private ScrollPane modpackScroll;
 

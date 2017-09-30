@@ -5,10 +5,13 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.text.Text;
 import net.teamfruit.factorioforge.factorioapi.data.modportal.IInfo;
 
 public class UIModDetailController {
+	@FXML
+	private ScrollPane textScroll;
 	@FXML
 	private Text name;
 	@FXML
@@ -28,6 +31,11 @@ public class UIModDetailController {
 	@FXML
 	private Text dependencies;
 
+	/*	@FXML
+		private void initialize() {
+			SmoothScroll.apply(this.textScroll);
+		}
+	*/
 	public void setName(final String text) {
 		this.name.setText(text);
 	}

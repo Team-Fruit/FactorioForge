@@ -143,34 +143,30 @@
                <right>
                   <VBox prefHeight="438.0" prefWidth="200.0" styleClass="details" BorderPane.alignment="CENTER">
                      <children>
-                        <ScrollPane fx:id="textScroll" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" prefHeight="438.0" prefWidth="223.0" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
-                           <content>
-                              <VBox maxHeight="1.7976931348623157E308">
+                        <VBox maxHeight="1.7976931348623157E308">
+                           <children>
+                              <TextFlow styleClass="titlewrap" VBox.vgrow="NEVER">
                                  <children>
-                                    <TextFlow styleClass="titlewrap" VBox.vgrow="NEVER">
-                                       <children>
-                                          <Text fx:id="uidetailtitle" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="EvoGUI - Evolution Factor Indicator and moreあ">
-                                             <font>
-                                                <Font name="Tahoma Bold" size="15.0" />
-                                             </font>
-                                          </Text>
-                                       </children>
-                                       <VBox.margin>
-                                          <Insets />
-                                       </VBox.margin>
-                                       <padding>
-                                          <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
-                                       </padding>
-                                    </TextFlow>
-                                    <VBox fx:id="uidetailwrap" maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS">
-                                       <padding>
-                                          <Insets left="10.0" right="3.0" />
-                                       </padding>
-                                    </VBox>
+                                    <Text fx:id="uidetailtitle" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title">
+                                       <font>
+                                          <Font name="Tahoma Bold" size="15.0" />
+                                       </font>
+                                    </Text>
                                  </children>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <padding>
+                                    <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                                 </padding>
+                              </TextFlow>
+                              <VBox fx:id="uidetailwrap" maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+                                 <padding>
+                                    <Insets left="10.0" right="3.0" />
+                                 </padding>
                               </VBox>
-                           </content>
-                        </ScrollPane>
+                           </children>
+                        </VBox>
                      </children>
                   </VBox>
                </right>

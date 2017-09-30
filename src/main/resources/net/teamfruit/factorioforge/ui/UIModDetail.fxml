@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
@@ -10,204 +11,212 @@
 
 <fx:root stylesheets="@styles.css" type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.teamfruit.factorioforge.ui.UIModDetailController">
    <children>
-      <VBox layoutX="10.0" layoutY="10.0" styleClass="contentcontainer" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox styleClass="details" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <VBox>
-               <children>
-                  <BorderPane>
-                     <left>
-                        <Label styleClass="subtitle" text="名前" BorderPane.alignment="CENTER">
-                           <BorderPane.margin>
-                              <Insets />
-                           </BorderPane.margin>
-                        </Label>
-                     </left>
-                  </BorderPane>
-                  <TextFlow prefHeight="9.0" prefWidth="221.0">
+            <ScrollPane fx:id="textScroll" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" prefHeight="438.0" prefWidth="223.0" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+               <content>
+                  <VBox prefWidth="223.0" styleClass="contentcontainer">
                      <children>
-                        <Text fx:id="name" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="modcontent" text="hogehoge" />
-                     </children>
-                     <VBox.margin>
-                        <Insets left="10.0" />
-                     </VBox.margin>
-                  </TextFlow>
-               </children>
-            </VBox>
-            <VBox>
-               <children>
-                  <BorderPane>
-                     <left>
-                        <Label styleClass="subtitle" text="説明" BorderPane.alignment="CENTER">
-                           <BorderPane.margin>
+                        <VBox prefWidth="142.0">
+                           <children>
+                              <BorderPane>
+                                 <left>
+                                    <Label styleClass="subtitle" text="名前" BorderPane.alignment="CENTER">
+                                       <BorderPane.margin>
+                                          <Insets />
+                                       </BorderPane.margin>
+                                    </Label>
+                                 </left>
+                              </BorderPane>
+                              <TextFlow prefHeight="9.0" prefWidth="221.0">
+                                 <children>
+                                    <Text fx:id="name" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="modcontent" text="hogehoge" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets left="10.0" />
+                                 </VBox.margin>
+                              </TextFlow>
+                           </children>
+                        </VBox>
+                        <VBox>
+                           <children>
+                              <BorderPane>
+                                 <left>
+                                    <Label styleClass="subtitle" text="説明" BorderPane.alignment="CENTER">
+                                       <BorderPane.margin>
+                                          <Insets />
+                                       </BorderPane.margin>
+                                    </Label>
+                                 </left>
+                              </BorderPane>
+                              <TextFlow prefHeight="9.0" prefWidth="221.0">
+                                 <children>
+                                    <Text fx:id="description" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="modcontent" text="Places some indications on your UI for various little statistics that are nice to have." />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets left="10.0" />
+                                 </VBox.margin>
+                              </TextFlow>
+                           </children>
+                           <VBox.margin>
                               <Insets />
-                           </BorderPane.margin>
-                        </Label>
-                     </left>
-                  </BorderPane>
-                  <TextFlow prefHeight="9.0" prefWidth="221.0">
-                     <children>
-                        <Text fx:id="description" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="modcontent" text="Places some indications on your UI for various little statistics that are nice to have." />
+                           </VBox.margin>
+                        </VBox>
+                        <VBox>
+                           <children>
+                              <BorderPane>
+                                 <left>
+                                    <Label styleClass="subtitle" text="ステータス" BorderPane.alignment="CENTER">
+                                       <BorderPane.margin>
+                                          <Insets />
+                                       </BorderPane.margin>
+                                    </Label>
+                                 </left>
+                              </BorderPane>
+                              <TextFlow prefHeight="9.0" prefWidth="221.0">
+                                 <children>
+                                    <Text fx:id="status" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="modcontent" text="無効" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets left="10.0" />
+                                 </VBox.margin>
+                              </TextFlow>
+                           </children>
+                        </VBox>
+                        <VBox>
+                           <children>
+                              <BorderPane>
+                                 <left>
+                                    <Label styleClass="subtitle" text="ヌベジョン" BorderPane.alignment="CENTER">
+                                       <BorderPane.margin>
+                                          <Insets />
+                                       </BorderPane.margin>
+                                    </Label>
+                                 </left>
+                              </BorderPane>
+                              <TextFlow prefHeight="9.0" prefWidth="221.0">
+                                 <children>
+                                    <Text fx:id="version" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="modcontent" text="0.4.207" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets left="10.0" />
+                                 </VBox.margin>
+                              </TextFlow>
+                           </children>
+                        </VBox>
+                        <VBox>
+                           <children>
+                              <BorderPane>
+                                 <left>
+                                    <Label styleClass="subtitle" text="作者" BorderPane.alignment="CENTER">
+                                       <BorderPane.margin>
+                                          <Insets />
+                                       </BorderPane.margin>
+                                    </Label>
+                                 </left>
+                              </BorderPane>
+                              <TextFlow prefHeight="9.0" prefWidth="221.0">
+                                 <children>
+                                    <Text fx:id="author" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="modcontent" text="Octav &quot;narc&quot; Sandulescu" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets left="10.0" />
+                                 </VBox.margin>
+                              </TextFlow>
+                           </children>
+                        </VBox>
+                        <VBox>
+                           <children>
+                              <BorderPane>
+                                 <left>
+                                    <Label styleClass="subtitle" text="問い合わせ" BorderPane.alignment="CENTER">
+                                       <BorderPane.margin>
+                                          <Insets />
+                                       </BorderPane.margin>
+                                    </Label>
+                                 </left>
+                              </BorderPane>
+                              <TextFlow prefHeight="9.0" prefWidth="221.0">
+                                 <children>
+                                    <Text fx:id="contact" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="modcontent" text="factorio-mods@narc.ro" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets left="10.0" />
+                                 </VBox.margin>
+                              </TextFlow>
+                           </children>
+                        </VBox>
+                        <VBox>
+                           <children>
+                              <BorderPane>
+                                 <left>
+                                    <Label styleClass="subtitle" text="ホームページ" BorderPane.alignment="CENTER">
+                                       <BorderPane.margin>
+                                          <Insets />
+                                       </BorderPane.margin>
+                                    </Label>
+                                 </left>
+                              </BorderPane>
+                              <TextFlow prefHeight="9.0" prefWidth="221.0">
+                                 <children>
+                                    <Text fx:id="homepage" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="modcontent" text="https://github.com/narc0tiq/evoGUI/" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets left="10.0" />
+                                 </VBox.margin>
+                              </TextFlow>
+                           </children>
+                        </VBox>
+                        <VBox>
+                           <children>
+                              <BorderPane>
+                                 <left>
+                                    <Label styleClass="subtitle" text="Factorioバージョン" BorderPane.alignment="CENTER">
+                                       <BorderPane.margin>
+                                          <Insets />
+                                       </BorderPane.margin>
+                                    </Label>
+                                 </left>
+                              </BorderPane>
+                              <TextFlow prefHeight="9.0" prefWidth="221.0">
+                                 <children>
+                                    <Text fx:id="factorio_version" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="modcontent" text="0.15" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets left="10.0" />
+                                 </VBox.margin>
+                              </TextFlow>
+                           </children>
+                        </VBox>
+                        <VBox>
+                           <children>
+                              <BorderPane>
+                                 <left>
+                                    <Label styleClass="subtitle" text="依存" BorderPane.alignment="CENTER">
+                                       <BorderPane.margin>
+                                          <Insets />
+                                       </BorderPane.margin>
+                                    </Label>
+                                 </left>
+                              </BorderPane>
+                              <TextFlow prefHeight="9.0" prefWidth="221.0">
+                                 <children>
+                                    <Text fx:id="dependencies" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="modcontent" text="base &gt;= 0.15.0" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets left="10.0" />
+                                 </VBox.margin>
+                              </TextFlow>
+                           </children>
+                        </VBox>
                      </children>
-                     <VBox.margin>
-                        <Insets left="10.0" />
-                     </VBox.margin>
-                  </TextFlow>
-               </children>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </VBox>
-            <VBox>
-               <children>
-                  <BorderPane>
-                     <left>
-                        <Label styleClass="subtitle" text="ステータス" BorderPane.alignment="CENTER">
-                           <BorderPane.margin>
-                              <Insets />
-                           </BorderPane.margin>
-                        </Label>
-                     </left>
-                  </BorderPane>
-                  <TextFlow prefHeight="9.0" prefWidth="221.0">
-                     <children>
-                        <Text fx:id="status" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="modcontent" text="無効" />
-                     </children>
-                     <VBox.margin>
-                        <Insets left="10.0" />
-                     </VBox.margin>
-                  </TextFlow>
-               </children>
-            </VBox>
-            <VBox>
-               <children>
-                  <BorderPane>
-                     <left>
-                        <Label styleClass="subtitle" text="ヌベジョン" BorderPane.alignment="CENTER">
-                           <BorderPane.margin>
-                              <Insets />
-                           </BorderPane.margin>
-                        </Label>
-                     </left>
-                  </BorderPane>
-                  <TextFlow prefHeight="9.0" prefWidth="221.0">
-                     <children>
-                        <Text fx:id="version" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="modcontent" text="0.4.207" />
-                     </children>
-                     <VBox.margin>
-                        <Insets left="10.0" />
-                     </VBox.margin>
-                  </TextFlow>
-               </children>
-            </VBox>
-            <VBox>
-               <children>
-                  <BorderPane>
-                     <left>
-                        <Label styleClass="subtitle" text="作者" BorderPane.alignment="CENTER">
-                           <BorderPane.margin>
-                              <Insets />
-                           </BorderPane.margin>
-                        </Label>
-                     </left>
-                  </BorderPane>
-                  <TextFlow prefHeight="9.0" prefWidth="221.0">
-                     <children>
-                        <Text fx:id="author" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="modcontent" text="Octav &quot;narc&quot; Sandulescu" />
-                     </children>
-                     <VBox.margin>
-                        <Insets left="10.0" />
-                     </VBox.margin>
-                  </TextFlow>
-               </children>
-            </VBox>
-            <VBox>
-               <children>
-                  <BorderPane>
-                     <left>
-                        <Label styleClass="subtitle" text="問い合わせ" BorderPane.alignment="CENTER">
-                           <BorderPane.margin>
-                              <Insets />
-                           </BorderPane.margin>
-                        </Label>
-                     </left>
-                  </BorderPane>
-                  <TextFlow prefHeight="9.0" prefWidth="221.0">
-                     <children>
-                        <Text fx:id="contact" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="modcontent" text="factorio-mods@narc.ro" />
-                     </children>
-                     <VBox.margin>
-                        <Insets left="10.0" />
-                     </VBox.margin>
-                  </TextFlow>
-               </children>
-            </VBox>
-            <VBox>
-               <children>
-                  <BorderPane>
-                     <left>
-                        <Label styleClass="subtitle" text="ホームページ" BorderPane.alignment="CENTER">
-                           <BorderPane.margin>
-                              <Insets />
-                           </BorderPane.margin>
-                        </Label>
-                     </left>
-                  </BorderPane>
-                  <TextFlow prefHeight="9.0" prefWidth="221.0">
-                     <children>
-                        <Text fx:id="homepage" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="modcontent" text="https://github.com/narc0tiq/evoGUI/" />
-                     </children>
-                     <VBox.margin>
-                        <Insets left="10.0" />
-                     </VBox.margin>
-                  </TextFlow>
-               </children>
-            </VBox>
-            <VBox>
-               <children>
-                  <BorderPane>
-                     <left>
-                        <Label styleClass="subtitle" text="Factorioバージョン" BorderPane.alignment="CENTER">
-                           <BorderPane.margin>
-                              <Insets />
-                           </BorderPane.margin>
-                        </Label>
-                     </left>
-                  </BorderPane>
-                  <TextFlow prefHeight="9.0" prefWidth="221.0">
-                     <children>
-                        <Text fx:id="factorio_version" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="modcontent" text="0.15" />
-                     </children>
-                     <VBox.margin>
-                        <Insets left="10.0" />
-                     </VBox.margin>
-                  </TextFlow>
-               </children>
-            </VBox>
-            <VBox>
-               <children>
-                  <BorderPane>
-                     <left>
-                        <Label styleClass="subtitle" text="依存" BorderPane.alignment="CENTER">
-                           <BorderPane.margin>
-                              <Insets />
-                           </BorderPane.margin>
-                        </Label>
-                     </left>
-                  </BorderPane>
-                  <TextFlow prefHeight="9.0" prefWidth="221.0">
-                     <children>
-                        <Text fx:id="dependencies" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="modcontent" text="base &gt;= 0.15.0" />
-                     </children>
-                     <VBox.margin>
-                        <Insets left="10.0" />
-                     </VBox.margin>
-                  </TextFlow>
-               </children>
-            </VBox>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </VBox>
+               </content>
+            </ScrollPane>
          </children>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
       </VBox>
    </children>
 </fx:root>

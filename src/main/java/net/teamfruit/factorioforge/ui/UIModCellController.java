@@ -102,6 +102,7 @@ public class UIModCellController {
 	public void update(final Memento item) {
 		this.current = item;
 		setState(item.isEnabled(), true);
+		this.slideButton.setDisable(!item.isLocalMod());
 		this.label.setText(item.getInfo().getTitle());
 		this.updateButton.setVisible(item.getDownloadState()==DownloadState.NONE&&(item.isUpdateRequired()||!item.isLocalMod()));
 		this.updateButton.setText(item.isLocalMod() ? "Update" : "Download");

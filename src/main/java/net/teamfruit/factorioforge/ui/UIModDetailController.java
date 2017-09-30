@@ -81,6 +81,7 @@ public class UIModDetailController {
 	}
 
 	public void setInfo(final IInfo info) {
+		this.textScroll.setVvalue(0);
 		setName(info.getName());
 		setDescription(info.getDescription());
 		setVersion(info.getVersion());

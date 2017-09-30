@@ -556,3 +556,8 @@
     -fx-background-color: -fx-background ;
     -fx-background-insets: 0 ;
 }
+
+.separator *.line {
+    -fx-border-style: solid;
+    -fx-border-color: #2f3136;
+}

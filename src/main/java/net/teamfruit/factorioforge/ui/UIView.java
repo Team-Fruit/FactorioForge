@@ -253,13 +253,13 @@ public class UIView {
 	private MenuItem menulogout;
 
 	@FXML
-	private void onLogin(final ActionEvent e) throws IOException {
+	private void onLogin(final ActionEvent event) throws IOException {
 		final AnchorPane login = UIFactory.loadUI("UILogin").getRoot();
 		UI.ROOT.get(this.uidetailwrap).getChildren().add(login);
 	}
 
 	@FXML
-	private void onLogout(final ActionEvent e) {
+	private void onLogout(final ActionEvent event) {
 		ModDownloader.setUser(null, null);
 		RepositoryManager.INSTANCE.executor.submit(() -> new File(FactorioForge.instance.workingDir, "userdata.json").delete());
 	}
@@ -268,6 +268,23 @@ public class UIView {
 	private void onExit(final ActionEvent e) {
 		Platform.exit();
 		System.exit(0);
+	}
+
+	@FXML
+	private VBox modpacks;
+
+	@FXML
+	private void onNewModPack(final ActionEvent event) {
+		final Button button = new Button();
+		button.getStyleClass().add("modpack");
+		button.setPrefWidth(54);
+		button.setPrefHeight(54);
+		AnchorPane.setBottomAnchor(button, 3d);
+		AnchorPane.setLeftAnchor(button, 3d);
+		AnchorPane.setRightAnchor(button, 3d);
+		AnchorPane.setTopAnchor(button, 3d);
+		final AnchorPane anchor = new AnchorPane(button);
+		this.modpacks.getChildren().add(anchor);
 	}
 
 }

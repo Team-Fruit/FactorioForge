@@ -1,19 +1,13 @@
 package net.teamfruit.factorioforge.ui;
 
-import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.io.UncheckedIOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.math.NumberUtils;
-import org.jutils.jprocesses.JProcesses;
-import org.jutils.jprocesses.model.ProcessInfo;
 
 import javafx.application.Platform;
 import javafx.beans.Observable;
@@ -89,10 +83,10 @@ public class UIView {
 			final MenuItem downloadItem = new MenuItem("ダウンロード");
 			final MenuItem deleteItem = new MenuItem("消去");
 
-			enableItem.setOnAction(ae -> this.listView.getSelectionModel().getSelectedItems().stream().forEach(memento -> memento.setEnabled(true)));
-			disableItem.setOnAction(ae -> this.listView.getSelectionModel().getSelectedItems().stream().forEach(memento -> memento.setEnabled(false)));
-			downloadItem.setOnAction(ae -> this.listView.getSelectionModel().getSelectedItems().stream().forEach(memento -> memento.downloadMod()));
-			deleteItem.setOnAction(ae -> this.listView.getSelectionModel().getSelectedItems().stream().forEach(memento -> memento.deleteMod()));
+			enableItem.setOnAction(ae -> this.listView.getSelectionModel().getSelectedItems().forEach(memento -> memento.setEnabled(true)));
+			disableItem.setOnAction(ae -> this.listView.getSelectionModel().getSelectedItems().forEach(memento -> memento.setEnabled(false)));
+			downloadItem.setOnAction(ae -> this.listView.getSelectionModel().getSelectedItems().forEach(memento -> memento.downloadMod()));
+			deleteItem.setOnAction(ae -> this.listView.getSelectionModel().getSelectedItems().forEach(memento -> memento.deleteMod()));
 
 			menu.getItems().addAll(enableItem, disableItem, downloadItem, deleteItem);
 			menu.setOnShowing(we -> {
@@ -229,6 +223,7 @@ public class UIView {
 		final boolean select = this.filterPublic.isSelected();
 		this.filterEnable.setDisable(select);
 		this.filterDisable.setDisable(select);
+		this.updateallbutton.setDisable(select);
 		this.listRecords.clear();
 		this.listView.getSelectionModel().clearSelection();
 		this.listRecords.addAll(select ? this.remoteMods : this.localMods);
@@ -239,14 +234,15 @@ public class UIView {
 
 	@FXML
 	private void onUpdateAll(final ActionEvent e) {
-		final List<ProcessInfo> list = JProcesses.get().fastMode().listProcesses("factorio");
-		for (final ProcessInfo info : list)
-			JProcesses.killProcessGracefully(NumberUtils.toInt(info.getPid()));
-		try {
-			Desktop.getDesktop().browse(new URI("steam://rungameid/427520"));
-		} catch (IOException|URISyntaxException e1) {
-			e1.printStackTrace();
-		}
+		this.listView.getItems().stream().filter(m -> m.isUpdateRequired()).forEach(m -> m.downloadMod());
+		//		final List<ProcessInfo> list = JProcesses.get().fastMode().listProcesses("factorio");
+		//		for (final ProcessInfo info : list)
+		//			JProcesses.killProcessGracefully(NumberUtils.toInt(info.getPid()));
+		//		try {
+		//			Desktop.getDesktop().browse(new URI("steam://rungameid/427520"));
+		//		} catch (IOException|URISyntaxException e1) {
+		//			e1.printStackTrace();
+		//		}
 	}
 
 	@FXML

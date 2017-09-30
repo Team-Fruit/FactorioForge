@@ -24,6 +24,7 @@ import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ContextMenu;
@@ -75,6 +76,13 @@ public class UIView {
 		final FXMLLoader moddetail = UIFactory.loadUI("UIModDetail");
 		this.uidetail = moddetail.getRoot();
 		this.uidetailcontroller = moddetail.getController();
+
+		this.mainmenu.setContextMenu(new ContextMenu(new MenuItem("└(┐┘)┌＜ゴミだーーーーーーーーーーーーーーーーーー！！！！！！！！！！！！！！（ﾃﾚﾚﾃﾚｰwwﾃﾃﾛﾃﾃｰwww")) {
+			@Override
+			public void show(final Node anchor, final double screenX, final double screenY) {
+				super.show(anchor, 0, 0);
+			}
+		});
 
 		this.listView.setCellFactory(param -> {
 			final ModListCell cell = new ModListCell();

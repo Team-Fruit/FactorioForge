@@ -63,13 +63,13 @@
                               <Insets left="10.0" right="5.0" />
                            </HBox.margin>
                            <items>
-                            <MenuItem mnemonicParsing="false" text="Settings">
+                            <MenuItem disable="true" mnemonicParsing="false" text="Settings">
                                  <graphic>
                                     <SVGPath content="M14.269,3.087L11.88,5.475L9.798,4.731L9.043,2.648l2.388-2.388C9.87-0.265,8.079,0.089,6.822,1.335C5.595,2.562,5.231,4.32,5.714,5.863C5.647,5.91,5.585,5.967,5.523,6.025l-4.895,4.905c-0.827,0.823-0.827,2.149,0,2.972c0.812,0.821,2.149,0.821,2.961,0L8.499,9c0.063-0.062,0.115-0.124,0.167-0.191c1.547,0.478,3.295,0.115,4.522-1.112C14.431,6.454,14.793,4.654,14.269,3.087z" fill="WHITE" translateX="10.0" />
                                  </graphic>
                               </MenuItem>
-                              <MenuItem mnemonicParsing="false" text="Logout" />
-                            <MenuItem mnemonicParsing="false" text="Exit" />
+                              <MenuItem disable="true" mnemonicParsing="false" text="Logout" />
+                            <MenuItem disable="true" mnemonicParsing="false" text="Exit" />
                            </items>
                         </MenuButton>
                      </children>

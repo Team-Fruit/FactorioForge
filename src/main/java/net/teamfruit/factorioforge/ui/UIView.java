@@ -41,6 +41,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import net.teamfruit.factorioforge.FactorioForge;
 import net.teamfruit.factorioforge.factorioapi.data.modportal.IInfo;
+import net.teamfruit.factorioforge.mod.ModDownloader;
 import net.teamfruit.factorioforge.mod.ModListConverter;
 import net.teamfruit.factorioforge.mod.ModListManager;
 import net.teamfruit.factorioforge.mod.RepositoryManager;
@@ -161,6 +162,13 @@ public class UIView {
 			this.updateallbutton.setDisable(false);
 			this.remoteMods.addAll(RepositoryManager.INSTANCE.getMementoes());
 		});
+
+		this.menulogin.setVisible(!ModDownloader.isUserDataProvided());
+		this.menulogout.setVisible(ModDownloader.isUserDataProvided());
+		ModDownloader.PROVIDED.addListener(v -> {
+			this.menulogin.setVisible(!ModDownloader.isUserDataProvided());
+			this.menulogout.setVisible(ModDownloader.isUserDataProvided());
+		});
 	}
 
 	@FXML
@@ -243,6 +251,22 @@ public class UIView {
 
 	@FXML
 	private MenuButton mainmenu;
+	@FXML
+	private MenuItem menulogin;
+	@FXML
+	private MenuItem menulogout;
+
+	@FXML
+	private void onLogin(final ActionEvent e) throws IOException {
+		final AnchorPane login = UIFactory.loadUI("UILogin").getRoot();
+		UI.ROOT.get(this.uidetailwrap).getChildren().add(login);
+	}
+
+	@FXML
+	private void onLogout(final ActionEvent e) {
+		ModDownloader.setUser(null, null);
+		RepositoryManager.INSTANCE.executor.submit(() -> new File(FactorioForge.instance.workingDir, "userdata.json").delete());
+	}
 
 	@FXML
 	private void onExit(final ActionEvent e) {

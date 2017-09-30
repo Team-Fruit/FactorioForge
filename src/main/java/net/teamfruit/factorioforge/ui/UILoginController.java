@@ -90,12 +90,11 @@ public class UILoginController {
 				if (token.isError())
 					showMessage(token.getErrorMessage());
 				else {
+					ModDownloader.setUser(this.username.getText(), token.getToken());
 					if (this.rememberMe.isSelected()) {
 						final File file = new File(FactorioForge.instance.workingDir, "userdata.json");
 						try (FileWriter w = new FileWriter(file)) {
 							FactorioAPI.gson.toJson(new UserData().setUsername(this.username.getText()).setToken(token.getToken()), UserData.class, w);
-							ModDownloader.setUsername(this.username.getText());
-							ModDownloader.setToken(token.getToken());
 						} catch (final IOException e) {
 							throw new UncheckedIOException(e);
 						}

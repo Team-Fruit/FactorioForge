@@ -9,11 +9,14 @@ import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpGet;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.concurrent.Task;
 import net.teamfruit.factorioforge.factorioapi.AbstractAPIRequest;
 
 public class ModDownloader extends Task<Void> {
 
+	public static final BooleanProperty PROVIDED = new SimpleBooleanProperty();
 	private static String username;
 	private static String token;
 
@@ -59,16 +62,14 @@ public class ModDownloader extends Task<Void> {
 		return null;
 	}
 
-	public static void setUsername(final String username) {
+	public static void setUser(final String username, final String token) {
 		ModDownloader.username = username;
-	}
-
-	public static void setToken(final String token) {
 		ModDownloader.token = token;
+		PROVIDED.set(ModDownloader.username!=null&&ModDownloader.token!=null);
 	}
 
 	public static boolean isUserDataProvided() {
-		return ModDownloader.username!=null&&ModDownloader.token!=null;
+		return PROVIDED.get();
 	}
 
 }

@@ -245,5 +245,6 @@ public class UIView {
 	}
 
 	@FXML
-	private MenuButton menuButton;
+	private MenuButton mainmenu;
+
 }

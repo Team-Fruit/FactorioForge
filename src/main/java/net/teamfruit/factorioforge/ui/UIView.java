@@ -247,4 +247,10 @@ public class UIView {
 	@FXML
 	private MenuButton mainmenu;
 
+	@FXML
+	private void onExit(final ActionEvent e) {
+		Platform.exit();
+		System.exit(0);
+	}
+
 }

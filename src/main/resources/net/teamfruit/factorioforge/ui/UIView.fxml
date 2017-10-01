@@ -178,7 +178,7 @@
                            <content>
                               <BorderPane>
                                  <bottom>
-                                    <AnchorPane BorderPane.alignment="CENTER">
+                                    <AnchorPane>
                                        <children>
                                           <Button mnemonicParsing="false" onAction="#onNewModPack" prefHeight="54.0" prefWidth="54.0" text="+" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="3.0">
                                              <styleClass>

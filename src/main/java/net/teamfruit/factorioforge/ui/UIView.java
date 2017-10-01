@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.beans.Observable;
 import javafx.collections.FXCollections;
@@ -33,6 +34,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 import net.teamfruit.factorioforge.FactorioForge;
 import net.teamfruit.factorioforge.factorioapi.data.modportal.IInfo;
 import net.teamfruit.factorioforge.mod.ModDownloader;
@@ -163,6 +165,7 @@ public class UIView {
 			this.menulogin.setVisible(!ModDownloader.isUserDataProvided());
 			this.menulogout.setVisible(ModDownloader.isUserDataProvided());
 		});
+
 	}
 
 	@FXML
@@ -285,6 +288,9 @@ public class UIView {
 		AnchorPane.setTopAnchor(button, 3d);
 		final AnchorPane anchor = new AnchorPane(button);
 		this.modpacks.getChildren().add(anchor);
+		final PauseTransition pause = new PauseTransition(Duration.millis(100));
+		pause.setOnFinished(e -> this.modpackScroll.setVvalue(1d));
+		pause.play();
 	}
 
 }

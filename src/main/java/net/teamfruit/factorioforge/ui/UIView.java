@@ -171,8 +171,7 @@ public class UIView {
 
 		this.modpacklist.setItems(ModPackManager.INSTANCE.getModpacks());
 		this.modpacklist.setCellFactory(param -> new ModPackCell());
-		//		this.modpacklist.setPrefHeight(ModPackManager.INSTANCE.getModpacks().size()*66+2);
-		this.modpacklist.prefHeightProperty().bind(Bindings.size(ModPackManager.INSTANCE.getModpacks()).multiply(54));
+		this.modpacklist.prefHeightProperty().bind(Bindings.size(ModPackManager.INSTANCE.getModpacks()).multiply(58));
 	}
 
 	@FXML

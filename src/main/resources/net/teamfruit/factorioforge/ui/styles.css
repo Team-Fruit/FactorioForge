@@ -565,6 +565,7 @@
 .modpack-list .scroll-bar {
 	-fx-background-color: -fx-background ;
     -fx-scale-x: 0;
+    -fx-padding: -9px;
 }
 
 

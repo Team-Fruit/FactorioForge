@@ -561,3 +561,10 @@
     -fx-border-style: solid;
     -fx-border-color: #2f3136;
 }
+
+.modpack-list .scroll-bar {
+	-fx-background-color: -fx-background ;
+    -fx-scale-x: 0;
+}
+
+

@@ -12,6 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.beans.Observable;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -40,6 +41,8 @@ import net.teamfruit.factorioforge.factorioapi.data.modportal.IInfo;
 import net.teamfruit.factorioforge.mod.ModDownloader;
 import net.teamfruit.factorioforge.mod.ModListConverter;
 import net.teamfruit.factorioforge.mod.ModListManager;
+import net.teamfruit.factorioforge.mod.ModPack;
+import net.teamfruit.factorioforge.mod.ModPackManager;
 import net.teamfruit.factorioforge.mod.RepositoryManager;
 
 public class UIView {
@@ -166,6 +169,10 @@ public class UIView {
 			this.menulogout.setVisible(ModDownloader.isUserDataProvided());
 		});
 
+		this.modpacklist.setItems(ModPackManager.INSTANCE.getModpacks());
+		this.modpacklist.setCellFactory(param -> new ModPackCell());
+		//		this.modpacklist.setPrefHeight(ModPackManager.INSTANCE.getModpacks().size()*66+2);
+		this.modpacklist.prefHeightProperty().bind(Bindings.size(ModPackManager.INSTANCE.getModpacks()).multiply(54));
 	}
 
 	@FXML
@@ -275,19 +282,12 @@ public class UIView {
 
 	@FXML
 	private VBox modpacks;
+	@FXML
+	private ListView<ModPack> modpacklist;
 
 	@FXML
 	private void onNewModPack(final ActionEvent event) {
-		final Button button = new Button();
-		button.getStyleClass().add("modpack");
-		button.setPrefWidth(54);
-		button.setPrefHeight(54);
-		AnchorPane.setBottomAnchor(button, 3d);
-		AnchorPane.setLeftAnchor(button, 3d);
-		AnchorPane.setRightAnchor(button, 3d);
-		AnchorPane.setTopAnchor(button, 3d);
-		final AnchorPane anchor = new AnchorPane(button);
-		this.modpacks.getChildren().add(anchor);
+		ModPackManager.INSTANCE.getModpacks().add(new ModPack());
 		final PauseTransition pause = new PauseTransition(Duration.millis(100));
 		pause.setOnFinished(e -> this.modpackScroll.setVvalue(1d));
 		pause.play();

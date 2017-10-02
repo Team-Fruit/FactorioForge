@@ -206,6 +206,7 @@
                                                 <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
                                              </padding>
                                           </Separator>
+                                          <ListView fx:id="modpacklist" focusTraversable="false" prefHeight="0.0" prefWidth="60.0" styleClass="modpack-list" />
                                        </children>
                                     </VBox>
                                  </center>

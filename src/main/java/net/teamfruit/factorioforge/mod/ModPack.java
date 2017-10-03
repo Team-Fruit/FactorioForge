@@ -1,6 +1,7 @@
 package net.teamfruit.factorioforge.mod;
 
 import java.io.ByteArrayInputStream;
+import java.util.Base64;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,14 +12,14 @@ public class ModPack {
 
 	private String name;
 	private String author;
-	private byte[] rawimage;
-	private Image image;
+	private String base64image;
+	private transient Image image;
 	private ObservableList<Info> mods = FXCollections.observableArrayList();
 
-	public ModPack(final String name, final String author, final byte[] image) {
+	public ModPack(final String name, final String author, final String base64image) {
 		this.name = name;
 		this.author = author;
-		this.rawimage = image;
+		this.base64image = base64image;
 	}
 
 	public ModPack(final String name, final String author) {
@@ -36,8 +37,8 @@ public class ModPack {
 	public Image getImage() {
 		if (this.image!=null)
 			return this.image;
-		if (this.rawimage!=null)
-			return this.image = new Image(new ByteArrayInputStream(this.rawimage));
+		if (this.base64image!=null)
+			return this.image = new Image(new ByteArrayInputStream(Base64.getDecoder().decode(this.base64image)));
 		return null;
 	}
 

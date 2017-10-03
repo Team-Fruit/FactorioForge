@@ -568,4 +568,20 @@
     -fx-padding: -9px;
 }
 
+.create-modpack,  .create-modpack:focused {
+    -fx-background-color: #7289da;
+}
+
+.create-modpack:hover {
+    -fx-background-color: #677bc4;
+}
+
+
+.import-modpack, .import-modpack:focused {
+    -fx-background-color: #3ca374;
+}
+
+.import-modpack:hover {
+    -fx-background-color: #369368;
+}
 

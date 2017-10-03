@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<fx:root fx:id="rootpane" prefHeight="480.0" prefWidth="854.0" style="-fx-background-color: rgba(10,10,10,0.95);" stylesheets="@styles.css" type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.teamfruit.factorioforge.ui.UINewModPackController">
+<fx:root fx:id="rootpane" onKeyTyped="#onKeyTyped" onMouseClicked="#onMouseClicked" prefHeight="480.0" prefWidth="854.0" style="-fx-background-color: rgba(10,10,10,0.95);" stylesheets="@styles.css" type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.teamfruit.factorioforge.ui.UINewModPackController">
    <children>
       <VBox fx:id="box" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -38,7 +38,7 @@
                                           <Label alignment="CENTER" prefHeight="50.0" prefWidth="170.0" style="-fx-text-fill: gray;" text="Create a new modpack and distribute to your friends" textAlignment="CENTER" wrapText="true" BorderPane.alignment="CENTER" />
                                        </top>
                                     </BorderPane>
-                                    <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="182.0" style="-fx-background-color: #7289da; -fx-font-weight: 900;" text="Create a Modpack" />
+                                    <Button fx:id="createmodpack" mnemonicParsing="false" prefHeight="39.0" prefWidth="182.0" style="-fx-font-weight: 900;" styleClass="create-modpack" text="Create a Modpack" />
                                  </children>
                               </VBox>
                               <Label style="-fx-font-size: 20; -fx-text-fill: gray;" text="or">
@@ -58,7 +58,7 @@
                                           <Label alignment="CENTER" prefHeight="50.0" prefWidth="170.0" style="-fx-text-fill: gray;" text="Import a Modpack file given to a friend." textAlignment="CENTER" wrapText="true" BorderPane.alignment="CENTER" />
                                        </top>
                                     </BorderPane>
-                                    <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="182.0" style="-fx-background-color: #3ca374; -fx-font-weight: 900;" text="Import a Modpack" />
+                                    <Button fx:id="importmodpack" mnemonicParsing="false" onAction="#onImport" prefHeight="39.0" prefWidth="182.0" style="-fx-font-weight: 900;" styleClass="import-modpack" text="Import a Modpack" />
                                  </children>
                               </VBox>
                            </children>

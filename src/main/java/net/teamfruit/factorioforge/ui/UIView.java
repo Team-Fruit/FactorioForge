@@ -9,7 +9,6 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
-import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
@@ -35,7 +34,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.util.Duration;
 import net.teamfruit.factorioforge.FactorioForge;
 import net.teamfruit.factorioforge.factorioapi.data.modportal.IInfo;
 import net.teamfruit.factorioforge.mod.ModDownloader;
@@ -285,11 +283,13 @@ public class UIView {
 	private ListView<ModPack> modpacklist;
 
 	@FXML
-	private void onNewModPack(final ActionEvent event) {
-		ModPackManager.INSTANCE.getModpacks().add(new ModPack());
-		final PauseTransition pause = new PauseTransition(Duration.millis(100));
-		pause.setOnFinished(e -> this.modpackScroll.setVvalue(1d));
-		pause.play();
+	private void onNewModPack(final ActionEvent event) throws IOException {
+		final AnchorPane newmodpack = UIFactory.loadUI("UINewModPack").getRoot();
+		UI.ROOT.get(this.uidetailwrap).getChildren().add(newmodpack);
+		//		ModPackManager.INSTANCE.getModpacks().add(new ModPack());
+		//		final PauseTransition pause = new PauseTransition(Duration.millis(100));
+		//		pause.setOnFinished(e -> this.modpackScroll.setVvalue(1d));
+		//		pause.play();
 	}
 
 }

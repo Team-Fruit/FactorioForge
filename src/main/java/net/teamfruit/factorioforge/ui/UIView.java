@@ -86,8 +86,22 @@ public class UIView {
 			final MenuItem downloadItem = new MenuItem("ダウンロード");
 			final MenuItem deleteItem = new MenuItem("消去");
 
-			enableItem.setOnAction(ae -> this.listView.getSelectionModel().getSelectedItems().forEach(memento -> memento.setEnabled(true)));
-			disableItem.setOnAction(ae -> this.listView.getSelectionModel().getSelectedItems().forEach(memento -> memento.setEnabled(false)));
+			enableItem.setOnAction(ae -> {
+				this.listView.getSelectionModel().getSelectedItems().forEach(memento -> memento.setEnabled(true));
+				try {
+					ModListManager.INSTANCE.save();
+				} catch (final IOException e) {
+					throw new UncheckedIOException(e);
+				}
+			});
+			disableItem.setOnAction(ae -> {
+				this.listView.getSelectionModel().getSelectedItems().forEach(memento -> memento.setEnabled(false));
+				try {
+					ModListManager.INSTANCE.save();
+				} catch (final IOException e) {
+					throw new UncheckedIOException(e);
+				}
+			});
 			downloadItem.setOnAction(ae -> this.listView.getSelectionModel().getSelectedItems().forEach(memento -> memento.downloadMod()));
 			deleteItem.setOnAction(ae -> this.listView.getSelectionModel().getSelectedItems().forEach(memento -> memento.deleteMod()));
 

@@ -3,6 +3,7 @@ package net.teamfruit.factorioforge.ui;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import net.teamfruit.factorioforge.mod.ModDownloader;
@@ -32,6 +33,10 @@ public class UI extends Application {
 		ROOT.set(scene, rootController);
 
 		final AnchorPane view = UIFactory.loadUI("UIView").getRoot();
+		scene.setOnKeyPressed(e -> {
+			if (e.getCode()==KeyCode.ESCAPE)
+				rootController.getChildren().removeIf(node -> node!=view);
+		});
 		rootController.getChildren().add(view);
 		if (!ModDownloader.isUserDataProvided()) {
 			final AnchorPane login = UIFactory.loadUI("UILogin").getRoot();

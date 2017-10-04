@@ -2,6 +2,7 @@ package net.teamfruit.factorioforge.ui;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.nio.file.Files;
 
 import javafx.beans.property.BooleanProperty;
@@ -68,17 +69,18 @@ public class Memento {
 
 	public Memento setEnabled(final boolean enabled) {
 		this.enabled.set(enabled);
+		if (this.localmod!=null)
+			this.localmod.enabled = enabled;
 		return this;
 	}
 
 	public Memento commitEnabled() {
-		if (this.localmod!=null) {
-			this.localmod.enabled = isEnabled();
+		if (this.localmod!=null)
 			try {
 				ModListManager.INSTANCE.save();
 			} catch (final IOException e) {
+				throw new UncheckedIOException(e);
 			}
-		}
 		return this;
 	}
 
@@ -180,10 +182,10 @@ public class Memento {
 	public Task<Void> deleteMod() {
 		if (!isLocalMod())
 			throw new IllegalStateException();
-		Task<Void> task = new Task<Void>() {
+		final Task<Void> task = new Task<Void>() {
 			@Override
 			protected Void call() throws Exception {
-				File file = ModListConverter.discoverModsDir(FactorioForge.instance.modsDir).get(getLocalMod().name);
+				final File file = ModListConverter.discoverModsDir(FactorioForge.instance.modsDir).get(getLocalMod().name);
 				Files.delete(file.toPath());
 				return null;
 			}

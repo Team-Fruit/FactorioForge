@@ -81,10 +81,10 @@ public class UIView {
 			cell.setMaxWidth(Region.USE_PREF_SIZE);
 
 			final ContextMenu menu = new ContextMenu();
-			final MenuItem enableItem = new MenuItem("有効");
-			final MenuItem disableItem = new MenuItem("無効");
-			final MenuItem downloadItem = new MenuItem("ダウンロード");
-			final MenuItem deleteItem = new MenuItem("消去");
+			final MenuItem enableItem = new MenuItem("Enable");
+			final MenuItem disableItem = new MenuItem("Disable");
+			final MenuItem downloadItem = new MenuItem("Download");
+			final MenuItem deleteItem = new MenuItem("Delete");
 
 			enableItem.setOnAction(ae -> {
 				this.listView.getSelectionModel().getSelectedItems().forEach(memento -> memento.setEnabled(true));

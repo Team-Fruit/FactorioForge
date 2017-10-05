@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 
 <fx:root fx:id="rootpane" onKeyTyped="#onKeyTyped" onMouseClicked="#onMouseClicked" prefHeight="480.0" prefWidth="854.0" style="-fx-background-color: rgba(10,10,10,0.95);" stylesheets="@styles.css" type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.teamfruit.factorioforge.ui.UICreateModPackController">
    <children>
@@ -40,7 +41,7 @@
                                           <Insets bottom="5.0" top="10.0" />
                                        </padding>
                                     </Label>
-                                    <TextField promptText="Enter a modpack name">
+                                    <TextField fx:id="name" promptText="Enter a modpack name">
                                        <VBox.margin>
                                           <Insets />
                                        </VBox.margin>
@@ -50,10 +51,18 @@
                                           <Insets bottom="5.0" top="10.0" />
                                        </padding>
                                     </Label>
-                                    <TextField />
+                                    <TextField fx:id="author" />
                                  </children>
                               </VBox>
-                              <VBox prefHeight="200.0" prefWidth="147.0" />
+                              <VBox prefHeight="200.0" prefWidth="147.0">
+                                 <children>
+                                    <Circle fx:id="circle" fill="#7289da" radius="59.0" stroke="LIGHTGRAY" strokeType="INSIDE" strokeWidth="4.0">
+                                       <VBox.margin>
+                                          <Insets left="20.0" top="10.0" />
+                                       </VBox.margin>
+                                    </Circle>
+                                 </children>
+                              </VBox>
                            </children>
                         </HBox>
                         <AnchorPane prefHeight="65.0" prefWidth="486.0" style="-fx-background-color: lightgray;">

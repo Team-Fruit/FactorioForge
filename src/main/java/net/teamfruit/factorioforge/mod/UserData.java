@@ -23,4 +23,7 @@ public class UserData {
 		return this;
 	}
 
+	public boolean isValid() {
+		return this.username!=null&&this.token!=null;
+	}
 }

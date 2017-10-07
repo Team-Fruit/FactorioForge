@@ -585,3 +585,14 @@
     -fx-background-color: #369368;
 }
 
+.modpack-text-field {
+	-fx-prompt-text-fill: lightgray;
+    -fx-background-color: lightgray , white , white;
+    -fx-background-insets: 0 0 -1 0, 0 0 1 0, 0 -1 3 -1;
+   /*  -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1;*/
+}
+
+.modpack-text-field:focused {
+    -fx-background-color: #7289da , white , white;
+    -fx-background-insets: 0 0 -1 0, 0 0 1 0, 0 -1 3 -1;
+}

@@ -281,7 +281,7 @@ public class UIView {
 
 	@FXML
 	private void onLogout(final ActionEvent event) {
-		ModDownloader.setUser(null, null);
+		ModDownloader.setUser(null);
 		RepositoryManager.INSTANCE.executor.submit(() -> new File(FactorioForge.instance.workingDir, "userdata.json").delete());
 	}
 

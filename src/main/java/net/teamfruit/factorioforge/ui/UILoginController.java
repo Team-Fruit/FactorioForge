@@ -90,7 +90,7 @@ public class UILoginController {
 				if (token.isError())
 					showMessage(token.getErrorMessage());
 				else {
-					ModDownloader.setUser(this.username.getText(), token.getToken());
+					ModDownloader.setUser(new UserData().setUsername(this.username.getText()).setToken(token.getToken()));
 					if (this.rememberMe.isSelected()) {
 						final File file = new File(FactorioForge.instance.workingDir, "userdata.json");
 						try (FileWriter w = new FileWriter(file)) {
@@ -104,15 +104,18 @@ public class UILoginController {
 						root.getChildren().remove(this.rootpane);
 					}
 				}
+				this.username.setDisable(false);
 			});
 			task.setOnFailed(wse -> {
 				showMessage(task.getException().getClass().getSimpleName());
 				this.indicator.setVisible(false);
 				this.login.setDisable(false);
+				this.username.setDisable(false);
 			});
 			this.indicator.progressProperty().bind(task.progressProperty());
 			this.indicator.setVisible(true);
 			this.login.setDisable(true);
+			this.username.setDisable(true);
 			RepositoryManager.INSTANCE.executor.submit(task);
 
 		} else

@@ -17,8 +17,7 @@ import net.teamfruit.factorioforge.factorioapi.AbstractAPIRequest;
 public class ModDownloader extends Task<Void> {
 
 	public static final BooleanProperty PROVIDED = new SimpleBooleanProperty();
-	private static String username;
-	private static String token;
+	private static UserData user;
 
 	protected final String url;
 	protected final File file;
@@ -32,7 +31,7 @@ public class ModDownloader extends Task<Void> {
 
 	@Override
 	protected Void call() throws Exception {
-		final HttpResponse res = AbstractAPIRequest.client.execute(new HttpGet(this.url+"?username="+username+"&token="+token));
+		final HttpResponse res = AbstractAPIRequest.client.execute(new HttpGet(this.url+"?username="+user.getUsername()+"&token="+user.getToken()));
 		if (res.getStatusLine().getStatusCode()!=HttpStatus.SC_OK) {
 			cancel();
 			return null;
@@ -62,10 +61,13 @@ public class ModDownloader extends Task<Void> {
 		return null;
 	}
 
-	public static void setUser(final String username, final String token) {
-		ModDownloader.username = username;
-		ModDownloader.token = token;
-		PROVIDED.set(ModDownloader.username!=null&&ModDownloader.token!=null);
+	public static void setUser(final UserData user) {
+		ModDownloader.user = user;
+		PROVIDED.set(ModDownloader.user!=null&&ModDownloader.user.isValid());
+	}
+
+	public static UserData getUser() {
+		return user;
 	}
 
 	public static boolean isUserDataProvided() {

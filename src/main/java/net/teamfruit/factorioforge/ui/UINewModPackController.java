@@ -8,8 +8,6 @@ import java.io.UncheckedIOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -45,15 +43,11 @@ public class UINewModPackController {
 			}
 	}
 
-	//TODO
 	@FXML
-	private void onMouseClicked(final MouseEvent event) {
-		//		UI.ROOT.get(event.getSource()).getChildren().remove(this.rootpane);
+	private void onCreate(final ActionEvent event) throws IOException {
+		final UIRootController root = UI.ROOT.get(event.getSource());
+		root.getChildren().remove(this.rootpane);
+		final AnchorPane create = UIFactory.loadUI("UICreateModPack").getRoot();
+		root.getChildren().add(create);
 	}
-
-	@FXML
-	private void onKeyTyped(final KeyEvent event) {
-		//		UI.ROOT.get(event.getSource()).getChildren().remove(this.rootpane);
-	}
-
 }

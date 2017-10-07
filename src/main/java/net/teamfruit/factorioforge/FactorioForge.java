@@ -33,8 +33,7 @@ public class FactorioForge {
 		if (file.exists())
 			try {
 				final UserData data = FactorioAPI.gson.fromJson(new FileReader(file), UserData.class);
-				if (data!=null)
-					ModDownloader.setUser(data.getUsername(), data.getToken());
+				ModDownloader.setUser(data);
 			} catch (final FileNotFoundException e) {
 				throw new UncheckedIOException(e);
 			}

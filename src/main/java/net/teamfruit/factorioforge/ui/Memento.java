@@ -11,7 +11,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.concurrent.Task;
 import net.teamfruit.factorioforge.FactorioForge;
-import net.teamfruit.factorioforge.factorioapi.data.modportal.IInfo;
+import net.teamfruit.factorioforge.factorioapi.data.impl.modportal.Info;
 import net.teamfruit.factorioforge.factorioapi.data.modportal.IRelease;
 import net.teamfruit.factorioforge.factorioapi.data.modportal.IShortResult;
 import net.teamfruit.factorioforge.mod.ModDownloader;
@@ -23,7 +23,7 @@ import net.teamfruit.factorioforge.mod.RepositoryManager;
 public class Memento {
 	private final String name;
 	private ModBean localmod;
-	private IInfo info;
+	private Info info;
 
 	private BooleanProperty enabled = new SimpleBooleanProperty(false);
 	private BooleanProperty updateChecked = new SimpleBooleanProperty(false);
@@ -39,7 +39,7 @@ public class Memento {
 		return this.name;
 	}
 
-	public Memento setInfo(final IInfo info) {
+	public Memento setInfo(final Info info) {
 		this.info = info;
 		RepositoryManager.INSTANCE.thenAccept(mods -> {
 			final IShortResult r = RepositoryManager.INSTANCE.getResultByName(info.getName());
@@ -50,7 +50,7 @@ public class Memento {
 		return this;
 	}
 
-	public IInfo getInfo() {
+	public Info getInfo() {
 		return this.info;
 	}
 

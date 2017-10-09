@@ -6,13 +6,16 @@ import java.io.UncheckedIOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.concurrent.Task;
@@ -34,8 +37,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 import net.teamfruit.factorioforge.FactorioForge;
-import net.teamfruit.factorioforge.factorioapi.data.modportal.IInfo;
+import net.teamfruit.factorioforge.factorioapi.data.impl.modportal.Info;
 import net.teamfruit.factorioforge.mod.ModDownloader;
 import net.teamfruit.factorioforge.mod.ModListConverter;
 import net.teamfruit.factorioforge.mod.ModListManager;
@@ -126,7 +130,7 @@ public class UIView {
 			if (newvalue!=null) {
 				this.uidetailwrap.getChildren().clear();
 				this.uidetailwrap.getChildren().add(this.uidetail);
-				final IInfo info = newvalue.getInfo();
+				final Info info = newvalue.getInfo();
 
 				this.uidetailtitle.setText(info.getTitle());
 				this.uidetailcontroller.setInfo(info);
@@ -145,7 +149,7 @@ public class UIView {
 					final File modFile = mods.get(mod.name);
 					if (modFile!=null)
 						try {
-							final IInfo info = ModListConverter.getModInfo(modFile);
+							final Info info = ModListConverter.getModInfo(modFile);
 							final Memento memento = new Memento(mod.name).setLocalMod(mod).setInfo(info).setEnabled(mod.enabled);
 							Platform.runLater(() -> {
 								UIView.this.listRecords.add(memento);
@@ -184,6 +188,12 @@ public class UIView {
 		this.modpacklist.setItems(ModPackManager.INSTANCE.getModpacks());
 		this.modpacklist.setCellFactory(param -> new ModPackCell());
 		this.modpacklist.prefHeightProperty().bind(Bindings.size(ModPackManager.INSTANCE.getModpacks()).multiply(58));
+
+		ModPackManager.INSTANCE.getModpacks().addListener((ListChangeListener<ModPack>) c -> {
+			final PauseTransition pause = new PauseTransition(Duration.millis(100));
+			pause.setOnFinished(e -> UIView.this.modpackScroll.setVvalue(1d));
+			pause.play();
+		});
 	}
 
 	@FXML
@@ -298,12 +308,10 @@ public class UIView {
 
 	@FXML
 	private void onNewModPack(final ActionEvent event) throws IOException {
-		final AnchorPane newmodpack = UIFactory.loadUI("UINewModPack").getRoot();
-		UI.ROOT.get(this.uidetailwrap).getChildren().add(newmodpack);
-		//		ModPackManager.INSTANCE.getModpacks().add(new ModPack());
-		//		final PauseTransition pause = new PauseTransition(Duration.millis(100));
-		//		pause.setOnFinished(e -> this.modpackScroll.setVvalue(1d));
-		//		pause.play();
+		final FXMLLoader loader = UIFactory.loadUI("UINewModPack");
+		final UINewModPackController controller = loader.getController();
+		controller.setInitialMods(this.localMods.stream().map(m -> m.getInfo()).collect(Collectors.toList()));
+		UI.ROOT.get(this.uidetailwrap).getChildren().add(loader.getRoot());
 	}
 
 }

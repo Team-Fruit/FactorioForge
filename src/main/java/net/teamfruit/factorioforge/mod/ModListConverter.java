@@ -20,7 +20,6 @@ import com.google.gson.stream.JsonReader;
 
 import net.teamfruit.factorioforge.factorioapi.FactorioAPI;
 import net.teamfruit.factorioforge.factorioapi.data.impl.modportal.Info;
-import net.teamfruit.factorioforge.factorioapi.data.modportal.IInfo;
 
 public class ModListConverter {
 
@@ -47,7 +46,7 @@ public class ModListConverter {
 				.collect(Collectors.toMap(f -> StringUtils.substringBeforeLast(f.getName(), "_"), f -> f));
 	}
 
-	public static IInfo getModInfo(final File mod) throws IOException {
+	public static Info getModInfo(final File mod) throws IOException {
 		try (final ZipFile zip = new ZipFile(mod)) {
 			final ZipEntry entry = zip.getEntry(zip.stream().filter((e) -> e.getName().endsWith("info.json"))
 					.findAny().orElseThrow(() -> new RuntimeException(mod.getName()+" does not include info.json")).getName());

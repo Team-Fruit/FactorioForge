@@ -1,5 +1,7 @@
 package net.teamfruit.factorioforge.factorioapi.data.modportal;
 
+import net.teamfruit.factorioforge.factorioapi.data.impl.modportal.Info;
+
 public interface IRelease {
 
 	/**
@@ -43,7 +45,7 @@ public interface IRelease {
 	 * A copy of the mod's info.json file.
 	 * @return String
 	 */
-	IInfo getInfoJson();
+	Info getInfoJson();
 
 	/**
 	 * @return String

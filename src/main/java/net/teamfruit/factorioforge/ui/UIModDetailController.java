@@ -7,7 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.text.Text;
-import net.teamfruit.factorioforge.factorioapi.data.modportal.IInfo;
+import net.teamfruit.factorioforge.factorioapi.data.impl.modportal.Info;
 
 public class UIModDetailController {
 	@FXML
@@ -80,7 +80,7 @@ public class UIModDetailController {
 		setDependencies(StringUtils.join(text, "\n"));
 	}
 
-	public void setInfo(final IInfo info) {
+	public void setInfo(final Info info) {
 		this.textScroll.setVvalue(0);
 		setName(info.getName());
 		setDescription(info.getDescription());

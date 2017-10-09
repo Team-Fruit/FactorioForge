@@ -4,14 +4,17 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.util.List;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import net.teamfruit.factorioforge.factorioapi.FactorioAPI;
+import net.teamfruit.factorioforge.factorioapi.data.impl.modportal.Info;
 import net.teamfruit.factorioforge.mod.ModPack;
 import net.teamfruit.factorioforge.mod.ModPackManager;
 
@@ -24,6 +27,8 @@ public class UINewModPackController {
 	private Button createmodpack;
 	@FXML
 	private Button importmodpack;
+
+	private List<Info> initialMods;
 
 	@FXML
 	private void initialize() {
@@ -47,7 +52,13 @@ public class UINewModPackController {
 	private void onCreate(final ActionEvent event) throws IOException {
 		final UIRootController root = UI.ROOT.get(event.getSource());
 		root.getChildren().remove(this.rootpane);
-		final AnchorPane create = UIFactory.loadUI("UICreateModPack").getRoot();
-		root.getChildren().add(create);
+		final FXMLLoader loader = UIFactory.loadUI("UICreateModPack");
+		final UICreateModPackController controller = loader.getController();
+		controller.setInitialMods(this.initialMods);
+		root.getChildren().add(loader.getRoot());
+	}
+
+	public void setInitialMods(final List<Info> list) {
+		this.initialMods = list;
 	}
 }

@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
@@ -56,18 +57,23 @@
                               </VBox>
                               <VBox prefHeight="200.0" prefWidth="147.0">
                                  <children>
-                                    <Circle fx:id="circle" fill="#7289da" radius="59.0" stroke="LIGHTGRAY" strokeType="INSIDE" strokeWidth="4.0">
+                                    <StackPane>
                                        <VBox.margin>
                                           <Insets left="20.0" top="10.0" />
                                        </VBox.margin>
-                                    </Circle>
+                                       <children>
+                                          <Circle fx:id="imageCircle" fill="#7289da" onMouseEntered="#onEnter" onMouseExited="#onExit" radius="59.0" stroke="LIGHTGRAY" strokeType="INSIDE" strokeWidth="4.0" />
+                                          <Circle fx:id="pileCircle" fill="TRANSPARENT" onMouseEntered="#onEnter" onMouseExited="#onExit" radius="55.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" visible="false" />
+                                          <Label fx:id="changeicon" onMouseEntered="#onEnter" prefHeight="65.0" prefWidth="49.0" style="-fx-font-weight: 700; -fx-font-size: 12px;" text="CHANGEICON" textAlignment="CENTER" visible="false" wrapText="true" />
+                                       </children>
+                                    </StackPane>
                                  </children>
                               </VBox>
                            </children>
                         </HBox>
                         <AnchorPane prefHeight="65.0" prefWidth="486.0" style="-fx-background-color: lightgray;">
                            <children>
-                              <Button layoutX="363.0" layoutY="12.0" maxHeight="35.0" minHeight="35.0" mnemonicParsing="false" prefWidth="88.0" style="-fx-font-weight: 700; -fx-font-size: 15px; -fx-padding: 0 0 0 0;" styleClass="create-modpack" text="Create" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="363.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="12.0" />
+                              <Button layoutX="363.0" layoutY="12.0" maxHeight="35.0" minHeight="35.0" mnemonicParsing="false" onAction="#onCreate" prefWidth="88.0" style="-fx-font-weight: 700; -fx-font-size: 15px; -fx-padding: 0 0 0 0;" styleClass="create-modpack" text="Create" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="363.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="12.0" />
                               <Button layoutX="27.0" layoutY="10.0" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: gray;" text="← BACK" />
                            </children>
                         </AnchorPane>

@@ -12,9 +12,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 
-import net.teamfruit.factorioforge.factorioapi.data.modportal.IInfo;
-
-public class Info implements IInfo {
+public class Info {
 
 	private List<String> authorS;
 	private String contact;
@@ -26,47 +24,38 @@ public class Info implements IInfo {
 	private String title;
 	private String version;
 
-	@Override
 	public List<String> getAuthor() {
 		return this.authorS;
 	}
 
-	@Override
 	public String getContact() {
 		return this.contact;
 	}
 
-	@Override
 	public List<String> getDependencies() {
 		return this.dependenciesS;
 	}
 
-	@Override
 	public String getDescription() {
 		return this.description;
 	}
 
-	@Override
 	public String getFactorioVersion() {
 		return this.factorio_version;
 	}
 
-	@Override
 	public String getHomePage() {
 		return this.homepage;
 	}
 
-	@Override
 	public String getName() {
 		return this.name;
 	}
 
-	@Override
 	public String getTitle() {
 		return this.title;
 	}
 
-	@Override
 	public String getVersion() {
 		return this.version;
 	}

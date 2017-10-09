@@ -12,14 +12,14 @@ public class ModPack {
 
 	private String name;
 	private String author;
-	private String base64image;
+	private String base64Image;
 	private transient Image image;
 	private ObservableList<Info> mods = FXCollections.observableArrayList();
 
 	public ModPack(final String name, final String author, final String base64image) {
 		this.name = name;
 		this.author = author;
-		this.base64image = base64image;
+		this.base64Image = base64image;
 	}
 
 	public ModPack(final String name, final String author) {
@@ -34,11 +34,15 @@ public class ModPack {
 		return this.author;
 	}
 
+	public void setImage(final String base64Image) {
+		this.base64Image = base64Image;
+	}
+
 	public Image getImage() {
 		if (this.image!=null)
 			return this.image;
-		if (this.base64image!=null)
-			return this.image = new Image(new ByteArrayInputStream(Base64.getDecoder().decode(this.base64image)));
+		if (this.base64Image!=null)
+			return this.image = new Image(new ByteArrayInputStream(Base64.getDecoder().decode(this.base64Image)));
 		return null;
 	}
 

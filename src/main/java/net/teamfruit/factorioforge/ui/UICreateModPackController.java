@@ -2,6 +2,7 @@ package net.teamfruit.factorioforge.ui;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.Base64;
 import java.util.List;
@@ -13,13 +14,17 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.RadialGradient;
 import javafx.scene.paint.Stop;
 import javafx.scene.shape.Circle;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import net.teamfruit.factorioforge.factorioapi.data.impl.modportal.Info;
 import net.teamfruit.factorioforge.mod.ModPack;
 import net.teamfruit.factorioforge.mod.RepositoryManager;
@@ -41,6 +46,7 @@ public class UICreateModPackController {
 
 	private File image;
 	private List<Info> initialMods;
+	private FileChooser chooser;
 
 	private final Stop[] stops = new Stop[] {
 			new Stop(0, Color.gray(1, .2)),
@@ -52,6 +58,10 @@ public class UICreateModPackController {
 		//		this.image = new File("C:\\Users\\bebe\\Pictures\\Fruit\\TeamFruitIcon2.png");
 		//		this.imageCircle.setFill(new ImagePattern(new Image(this.image.toURI().toURL().toString())));
 		this.pileCircle.setFill(new RadialGradient(0, 0, .5, .5, .5, true, CycleMethod.NO_CYCLE, this.stops));
+		this.chooser = new FileChooser();
+		//		this.chooser.setTitle("Open icon");
+		this.chooser.setInitialDirectory(new File(System.getProperty("user.dir")));
+		this.chooser.getExtensionFilters().add(new ExtensionFilter("Picture", "*.jpg", "*.jpeg", "*.png", "*.gif"));
 	}
 
 	@FXML
@@ -64,6 +74,15 @@ public class UICreateModPackController {
 	private void onExit(final MouseEvent event) {
 		this.pileCircle.setVisible(false);
 		this.changeicon.setVisible(false);
+	}
+
+	@FXML
+	private void onOpenIcon(final MouseEvent event) throws IOException {
+		this.image = this.chooser.showOpenDialog(this.changeicon.getScene().getWindow());
+		this.pileCircle.setVisible(false);
+		this.changeicon.setVisible(false);
+		if (this.image!=null)
+			this.imageCircle.setFill(new ImagePattern(new Image(this.image.toURI().toURL().toString())));
 	}
 
 	@FXML

@@ -3,7 +3,6 @@ package net.teamfruit.factorioforge.ui;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.UncheckedIOException;
 import java.util.List;
 
 import javafx.event.ActionEvent;
@@ -38,14 +37,10 @@ public class UINewModPackController {
 	}
 
 	@FXML
-	private void onImport(final ActionEvent event) {
+	private void onImport(final ActionEvent event) throws IOException {
 		final File file = this.chooser.showOpenDialog(this.importmodpack.getScene().getWindow());
 		if (file!=null)
-			try {
-				ModPackManager.INSTANCE.getModpacks().add(FactorioAPI.gson.fromJson(new FileReader(file), ModPack.class));
-			} catch (final IOException e) {
-				throw new UncheckedIOException(e);
-			}
+			ModPackManager.INSTANCE.getModpacks().add(FactorioAPI.gson.fromJson(new FileReader(file), ModPack.class));
 	}
 
 	@FXML

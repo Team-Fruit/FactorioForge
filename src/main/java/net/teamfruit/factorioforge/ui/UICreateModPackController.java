@@ -55,11 +55,8 @@ public class UICreateModPackController {
 
 	@FXML
 	private void initialize() throws MalformedURLException {
-		//		this.image = new File("C:\\Users\\bebe\\Pictures\\Fruit\\TeamFruitIcon2.png");
-		//		this.imageCircle.setFill(new ImagePattern(new Image(this.image.toURI().toURL().toString())));
 		this.pileCircle.setFill(new RadialGradient(0, 0, .5, .5, .5, true, CycleMethod.NO_CYCLE, this.stops));
 		this.chooser = new FileChooser();
-		//		this.chooser.setTitle("Open icon");
 		this.chooser.setInitialDirectory(new File(System.getProperty("user.dir")));
 		this.chooser.getExtensionFilters().add(new ExtensionFilter("Picture", "*.jpg", "*.jpeg", "*.png", "*.gif"));
 	}
@@ -82,7 +79,8 @@ public class UICreateModPackController {
 		this.pileCircle.setVisible(false);
 		this.changeicon.setVisible(false);
 		if (this.image!=null)
-			this.imageCircle.setFill(new ImagePattern(new Image(this.image.toURI().toURL().toString())));
+			this.imageCircle.setFill(new ImagePattern(new Image(this.image.toURI().toURL().toString(), 128, 128, true, false)));
+
 	}
 
 	@FXML

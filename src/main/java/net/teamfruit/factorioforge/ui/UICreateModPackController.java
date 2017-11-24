@@ -84,6 +84,12 @@ public class UICreateModPackController {
 	}
 
 	@FXML
+	private void onBack(final ActionEvent event) {
+		final UIRootController root = UI.ROOT.get(event.getSource());
+		root.getChildren().remove(this.rootpane);
+	}
+
+	@FXML
 	private void onCreate(final ActionEvent event) {
 		final UIRootController root = UI.ROOT.get(event.getSource());
 		root.getChildren().remove(this.rootpane);

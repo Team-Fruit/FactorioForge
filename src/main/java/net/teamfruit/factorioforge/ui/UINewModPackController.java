@@ -33,7 +33,7 @@ public class UINewModPackController {
 	private void initialize() {
 		this.chooser = new FileChooser();
 		this.chooser.setTitle("Open modpack");
-		this.chooser.getExtensionFilters().add(new ExtensionFilter("FactorioForgeModPack", "*.ffmp"));
+		this.chooser.getExtensionFilters().add(new ExtensionFilter("FactorioForgeModPack", "*.ffmp", "*.json"));
 	}
 
 	@FXML

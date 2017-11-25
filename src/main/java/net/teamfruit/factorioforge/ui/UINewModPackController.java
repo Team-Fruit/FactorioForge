@@ -46,10 +46,11 @@ public class UINewModPackController {
 	@FXML
 	private void onCreate(final ActionEvent event) throws IOException {
 		final UIRootController root = UI.ROOT.get(event.getSource());
-		//		root.getChildren().remove(this.rootpane);
+		root.getChildren().remove(this.rootpane);
 		final FXMLLoader loader = UIFactory.loadUI("UICreateModPack");
 		final UICreateModPackController controller = loader.getController();
 		controller.setInitialMods(this.initialMods);
+		controller.setPrevGui(this.rootpane);
 		root.getChildren().add(loader.getRoot());
 	}
 

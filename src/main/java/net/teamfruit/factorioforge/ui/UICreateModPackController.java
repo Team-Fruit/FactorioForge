@@ -12,6 +12,8 @@ import org.apache.commons.io.IOUtils;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -43,9 +45,12 @@ public class UICreateModPackController {
 	private Circle pileCircle;
 	@FXML
 	private Label changeicon;
+	@FXML
+	private Button delicon;
 
 	private File image;
 	private List<Info> initialMods;
+	private Node prev;
 	private FileChooser chooser;
 
 	private final Stop[] stops = new Stop[] {
@@ -78,15 +83,24 @@ public class UICreateModPackController {
 		this.image = this.chooser.showOpenDialog(this.changeicon.getScene().getWindow());
 		this.pileCircle.setVisible(false);
 		this.changeicon.setVisible(false);
-		if (this.image!=null)
+		if (this.image!=null) {
 			this.imageCircle.setFill(new ImagePattern(new Image(this.image.toURI().toURL().toString(), 128, 128, true, false)));
-
+			this.delicon.setVisible(true);
+		}
 	}
 
 	@FXML
 	private void onBack(final ActionEvent event) {
 		final UIRootController root = UI.ROOT.get(event.getSource());
+		root.getChildren().add(this.prev);
 		root.getChildren().remove(this.rootpane);
+	}
+
+	@FXML
+	private void onDelete(final ActionEvent event) {
+		this.image = null;
+		this.imageCircle.setFill(Color.web("#7289da"));
+		this.delicon.setVisible(false);
 	}
 
 	@FXML
@@ -108,5 +122,9 @@ public class UICreateModPackController {
 
 	public void setInitialMods(final List<Info> list) {
 		this.initialMods = list;
+	}
+
+	public void setPrevGui(final Node node) {
+		this.prev = node;
 	}
 }

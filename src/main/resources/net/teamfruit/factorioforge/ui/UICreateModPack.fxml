@@ -55,9 +55,9 @@
                                     <TextField fx:id="author" styleClass="modpack-text-field" />
                                  </children>
                               </VBox>
-                              <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="147.0">
+                               <VBox prefHeight="200.0" prefWidth="147.0">
                                  <children>
-                                    <StackPane alignment="TOP_LEFT">
+                                    <StackPane>
                                        <VBox.margin>
                                           <Insets left="20.0" top="10.0" />
                                        </VBox.margin>
@@ -67,7 +67,17 @@
                                           <Label fx:id="changeicon" onMouseClicked="#onOpenIcon" onMouseEntered="#onEnter" prefHeight="65.0" prefWidth="49.0" style="-fx-font-weight: 700; -fx-font-size: 12px;" text="CHANGEICON" textAlignment="CENTER" visible="false" wrapText="true" />
                                        </children>
                                     </StackPane>
-                                    <Button mnemonicParsing="false" prefHeight="18.0" prefWidth="62.0" style="-fx-background-color: transparent; -fx-text-fill: gray;" text="DELETE" />
+                                    <BorderPane>
+                                       <center>
+                                          <Button fx:id="delicon" mnemonicParsing="false" onAction="#onDelete" prefHeight="39.0" prefWidth="72.0" style="-fx-background-color: transparent; -fx-text-fill: gray;" text="DELETE" visible="false" />
+                                       </center>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                       <padding>
+                                          <Insets right="-20.0" />
+                                       </padding>
+                                    </BorderPane>
                                  </children>
                               </VBox>
                            </children>

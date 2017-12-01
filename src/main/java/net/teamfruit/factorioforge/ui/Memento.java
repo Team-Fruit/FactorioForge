@@ -5,12 +5,15 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.file.Files;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
+
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.concurrent.Task;
 import net.teamfruit.factorioforge.FactorioForge;
+import net.teamfruit.factorioforge.Log;
 import net.teamfruit.factorioforge.factorioapi.data.impl.modportal.Info;
 import net.teamfruit.factorioforge.factorioapi.data.modportal.IRelease;
 import net.teamfruit.factorioforge.factorioapi.data.modportal.IShortResult;
@@ -171,6 +174,7 @@ public class Memento {
 			@Override
 			protected void failed() {
 				setDownloadState(DownloadState.FAILED);
+				Log.log.error(ExceptionUtils.getStackTrace(getException()));
 			}
 		};
 		RepositoryManager.INSTANCE.executor.submit(task);

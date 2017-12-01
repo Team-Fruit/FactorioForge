@@ -12,6 +12,7 @@ import org.apache.http.client.methods.HttpGet;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.concurrent.Task;
+import net.teamfruit.factorioforge.Log;
 import net.teamfruit.factorioforge.factorioapi.AbstractAPIRequest;
 
 public class ModDownloader extends Task<Void> {
@@ -31,6 +32,7 @@ public class ModDownloader extends Task<Void> {
 
 	@Override
 	protected Void call() throws Exception {
+		Log.log.info("Download to: "+this.file);
 		final File parent = this.file.getParentFile();
 		if (!parent.exists())
 			parent.mkdirs();

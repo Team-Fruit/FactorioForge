@@ -144,8 +144,8 @@ public class Memento {
 		if (result==null)
 			throw new IllegalStateException();
 		final IRelease release = result.getLatestRelease();
-		final ModDownloader task = new ModDownloader("https://mods.factorio.com"+release.getDownloadURL(),
-				new File(FactorioForge.instance.modsDir, release.getFileName()),
+		final File file = new File(FactorioForge.instance.modsDir, release.getFileName());
+		final ModDownloader task = new ModDownloader("https://mods.factorio.com"+release.getDownloadURL(), file,
 				ModListConverter.discoverModsDir(FactorioForge.instance.modsDir).get(result.getName())) {
 
 			@Override

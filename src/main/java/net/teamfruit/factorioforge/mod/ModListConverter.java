@@ -16,6 +16,7 @@ import java.util.zip.ZipFile;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.google.common.collect.Maps;
 import com.google.gson.stream.JsonReader;
 
 import net.teamfruit.factorioforge.factorioapi.FactorioAPI;
@@ -42,7 +43,10 @@ public class ModListConverter {
 	}
 
 	public static Map<String, File> discoverModsDir(final File dir) {
-		return Stream.of(dir.listFiles((f, n) -> StringUtils.endsWithIgnoreCase(n, ".zip")))
+		final File[] files = dir.listFiles((f, n) -> StringUtils.endsWithIgnoreCase(n, ".zip"));
+		if (files==null)
+			return Maps.newHashMap();
+		return Stream.of(files)
 				.collect(Collectors.toMap(f -> StringUtils.substringBeforeLast(f.getName(), "_"), f -> f));
 	}
 

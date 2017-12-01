@@ -28,6 +28,7 @@ import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import net.teamfruit.factorioforge.factorioapi.data.impl.modportal.Info;
+import net.teamfruit.factorioforge.mod.ModDownloader;
 import net.teamfruit.factorioforge.mod.ModPack;
 import net.teamfruit.factorioforge.mod.RepositoryManager;
 
@@ -35,6 +36,8 @@ public class UICreateModPackController {
 
 	@FXML
 	private AnchorPane rootpane;
+	@FXML
+	private Label namelabel;
 	@FXML
 	private TextField name;
 	@FXML
@@ -62,8 +65,9 @@ public class UICreateModPackController {
 	private void initialize() throws MalformedURLException {
 		this.pileCircle.setFill(new RadialGradient(0, 0, .5, .5, .5, true, CycleMethod.NO_CYCLE, this.stops));
 		this.chooser = new FileChooser();
-		this.chooser.setInitialDirectory(new File(System.getProperty("user.dir")));
+		this.chooser.setInitialDirectory(new File(System.getProperty("user.home")));
 		this.chooser.getExtensionFilters().add(new ExtensionFilter("Picture", "*.jpg", "*.jpeg", "*.png", "*.gif"));
+		this.author.setText(ModDownloader.getUser().getUsername());
 	}
 
 	@FXML

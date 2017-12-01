@@ -24,10 +24,10 @@
                      <children>
                         <BorderPane prefHeight="92.0" prefWidth="466.0">
                            <center>
-                              <Label alignment="CENTER" prefHeight="3.0" prefWidth="214.0" style="-fx-text-fill: #788edb; -fx-font-weight: 700; -fx-font-size: 18;" text=" CREATE YOUR MODPACK" />
+                              <Label alignment="CENTER" prefHeight="3.0" prefWidth="214.0" style="-fx-text-fill: #788edb; -fx-font-weight: 800; -fx-font-size: 18;" text=" CREATE YOUR MODPACK" />
                            </center>
                            <bottom>
-                              <Label style="-fx-text-fill: gray; -fx-font-size: 16.5px;" text="By creating ModPack, you can share all public mod combinations with friends." textAlignment="CENTER" wrapText="true" BorderPane.alignment="CENTER" />
+                              <Label style="-fx-text-fill: #a8a8a8; -fx-font-size: 16.5px; -fx-font-weight: 500;" text="By creating ModPack, you can share all public mod combinations with friends." textAlignment="CENTER" wrapText="true" BorderPane.alignment="CENTER" />
                            </bottom>
                            <padding>
                               <Insets left="10.0" right="10.0" />
@@ -37,7 +37,7 @@
                            <children>
                               <VBox prefHeight="200.0" prefWidth="255.0">
                                  <children>
-                                    <Label style="-fx-text-fill: gray;" text="MODPACK NAME">
+                                    <Label fx:id="namelabel" style="-fx-text-fill: gray; -fx-font-weight: 800;" text="MODPACK NAME">
                                        <padding>
                                           <Insets bottom="5.0" top="10.0" />
                                        </padding>
@@ -47,7 +47,7 @@
                                           <Insets />
                                        </VBox.margin>
                                     </TextField>
-                                    <Label style="-fx-text-fill: gray;" text="AUTHOR">
+                                    <Label style="-fx-text-fill: gray; -fx-font-weight: 800;" text="AUTHOR">
                                        <padding>
                                           <Insets bottom="5.0" top="10.0" />
                                        </padding>
@@ -69,7 +69,7 @@
                                     </StackPane>
                                     <BorderPane>
                                        <center>
-                                          <Button fx:id="delicon" mnemonicParsing="false" onAction="#onDelete" prefHeight="39.0" prefWidth="72.0" style="-fx-background-color: transparent; -fx-text-fill: gray;" text="DELETE" visible="false" />
+                                          <Button fx:id="delicon" mnemonicParsing="false" onAction="#onDelete" prefHeight="39.0" prefWidth="72.0" style="-fx-background-color: transparent; -fx-text-fill: gray;" text="Remove" visible="false" />
                                        </center>
                                        <VBox.margin>
                                           <Insets />

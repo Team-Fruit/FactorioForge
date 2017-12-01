@@ -15,9 +15,9 @@ public class FactorioForge {
 
 	public static FactorioForge instance = new FactorioForge();
 
-	public final File workingDir = OperatingSystem.getCurrentPlatform().getWorkingDirectory(".factorioforge");
+	public final File workingDir = OperatingSystem.getCurrentPlatform().getWorkingDirectory(".factorioforge").getAbsoluteFile();
 	public final File modpackDir = new File(this.workingDir, "modpacks");
-	public final File factorioDir = OperatingSystem.getCurrentPlatform().getWorkingDirectory("Factorio");
+	public final File factorioDir = OperatingSystem.getCurrentPlatform().getWorkingDirectory("Factorio").getAbsoluteFile();
 	public final File modsDir = new File(this.factorioDir, "mods");
 
 	public static void main(final String[] args) {

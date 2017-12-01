@@ -31,6 +31,9 @@ public class ModDownloader extends Task<Void> {
 
 	@Override
 	protected Void call() throws Exception {
+		final File parent = this.file.getParentFile();
+		if (!parent.exists())
+			parent.mkdirs();
 		final HttpResponse res = AbstractAPIRequest.client.execute(new HttpGet(this.url+"?username="+user.getUsername()+"&token="+user.getToken()));
 		if (res.getStatusLine().getStatusCode()!=HttpStatus.SC_OK) {
 			cancel();

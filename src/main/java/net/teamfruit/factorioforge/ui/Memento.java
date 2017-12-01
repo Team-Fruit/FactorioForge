@@ -154,13 +154,14 @@ public class Memento {
 					final ModBean bean = new ModBean();
 					bean.name = getName();
 					bean.enabled = isEnabled();
-					try {
-						ModListManager.INSTANCE.add(bean).save();
-					} catch (final IOException e) {
-						setException(e);
-						failed();
-						return;
-					}
+					if (ModListManager.INSTANCE.exits())
+						try {
+							ModListManager.INSTANCE.add(bean).save();
+						} catch (final IOException e) {
+							setException(e);
+							failed();
+							return;
+						}
 					setLocalMod(bean);
 				}
 				setDownloadState(DownloadState.SUCCEEDED);

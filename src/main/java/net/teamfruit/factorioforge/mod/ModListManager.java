@@ -31,4 +31,8 @@ public class ModListManager {
 			ModListConverter.setModList(this.modListFile, this.modList);
 		return this;
 	}
+
+	public boolean exits() {
+		return this.modListFile.exists();
+	}
 }

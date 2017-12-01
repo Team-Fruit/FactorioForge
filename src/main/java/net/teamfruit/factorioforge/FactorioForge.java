@@ -28,6 +28,8 @@ public class FactorioForge {
 		if (!this.workingDir.exists())
 			this.workingDir.mkdirs();
 
+		Log.log.info("Factorio Dir: "+this.factorioDir);
+
 		RepositoryManager.INSTANCE.init();
 
 		final File file = new File(this.workingDir, "userdata.json");

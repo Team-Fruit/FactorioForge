@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -25,6 +26,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import net.teamfruit.factorioforge.FactorioForge;
+import net.teamfruit.factorioforge.Log;
 import net.teamfruit.factorioforge.factorioapi.FactorioAPI;
 import net.teamfruit.factorioforge.factorioapi.data.auth.IToken;
 import net.teamfruit.factorioforge.mod.ModDownloader;
@@ -108,6 +110,7 @@ public class UILoginController {
 			});
 			task.setOnFailed(wse -> {
 				showMessage(task.getException().getClass().getSimpleName());
+				Log.log.info(ExceptionUtils.getStackTrace(task.getException()));
 				this.indicator.setVisible(false);
 				this.login.setDisable(false);
 				this.username.setDisable(false);

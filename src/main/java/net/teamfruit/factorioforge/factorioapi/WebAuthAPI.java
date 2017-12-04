@@ -4,16 +4,20 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
+import org.apache.commons.codec.EncoderException;
+import org.apache.commons.codec.net.URLCodec;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 
 import com.google.gson.stream.JsonReader;
 
+import net.teamfruit.factorioforge.Log;
 import net.teamfruit.factorioforge.factorioapi.data.auth.IToken;
 import net.teamfruit.factorioforge.factorioapi.data.impl.auth.Token;
 import net.teamfruit.factorioforge.factorioapi.data.impl.modportal.Response;
 
 public class WebAuthAPI extends AbstractAPIRequest<IToken> {
+	private static final URLCodec CODEC = new URLCodec("UTF-8");
 
 	protected String username;
 	protected String password;
@@ -26,7 +30,12 @@ public class WebAuthAPI extends AbstractAPIRequest<IToken> {
 
 	@Override
 	public String getURL() {
-		return "https://auth.factorio.com/api-login?username="+this.username+"&password="+this.password;
+		try {
+			return "https://auth.factorio.com/api-login?username="+CODEC.encode(this.username)+"&password="+CODEC.encode(this.password);
+		} catch (final EncoderException e) {
+			Log.log.error(e);
+			return "https://auth.factorio.com/api-login?username="+this.username+"&password="+this.password;
+		}
 	}
 
 	@Override
